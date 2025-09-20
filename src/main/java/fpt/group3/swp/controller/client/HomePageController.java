@@ -1,61 +1,90 @@
 package fpt.group3.swp.controller.client;
 
 import fpt.group3.swp.domain.User;
-import fpt.group3.swp.domain.dto.RegisterDTO;
 import fpt.group3.swp.service.UserService;
-import jakarta.validation.Valid;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class HomePageController {
-    private final UserService userService;
-    private final PasswordEncoder passwordEncoder;
 
-    public HomePageController(UserService userService, PasswordEncoder passwordEncoder) {
-        this.userService = userService;
-        this.passwordEncoder = passwordEncoder;
-    }
+    @Autowired
+    private UserService userService;
+
     @GetMapping("/")
     public String getHomePage(Model model) {
-        return "admin/user/hello";
+        return "client/homepage/homepage";
     }
 
     @GetMapping("/register")
-    public String gerRegisterPageString(Model model) {
-        return "admin/user/hello";
+    public String getRegisterPage(Model model) {
+        model.addAttribute("newUser", new User());
+        return "client/auth/register";
+    }
+
+    @PostMapping("/register")
+    public String handleRegister(@ModelAttribute("newUser") User user,
+                               @RequestParam(value = "firstName", required = true) String firstName,
+                               @RequestParam(value = "lastName", required = true) String lastName,
+                               BindingResult bindingResult,
+                               Model model,
+                               RedirectAttributes redirectAttributes) {
+        
+        // Kiểm tra các field bắt buộc
+        if (user.getEmail() == null || user.getEmail().trim().isEmpty()) {
+            model.addAttribute("emailError", "Email không được để trống");
+            return "client/auth/register";
+        }
+        
+        if (user.getPassWord() == null || user.getPassWord().trim().isEmpty()) {
+            model.addAttribute("passwordError", "Mật khẩu không được để trống");
+            return "client/auth/register";
+        }
+        
+        if (firstName == null || firstName.trim().isEmpty()) {
+            model.addAttribute("firstNameError", "Họ không được để trống");
+            return "client/auth/register";
+        }
+        
+        if (lastName == null || lastName.trim().isEmpty()) {
+            model.addAttribute("lastNameError", "Tên không được để trống");
+            return "client/auth/register";
+        }
+        
+        // Kiểm tra email đã tồn tại
+        if (userService.checkEmailExist(user.getEmail())) {
+            model.addAttribute("emailError", "Email đã được sử dụng");
+            return "client/auth/register";
+        }
+        
+        try {
+            // Thiết lập firstName và lastName
+            user.setFirstName(firstName.trim());
+            user.setLastName(lastName.trim());
+            
+            // Tạo fullName từ firstName và lastName
+            user.setFullName(firstName.trim() + " " + lastName.trim());
+            
+            // Lưu user vào database
+            userService.handleSaveUser(user);
+            
+            redirectAttributes.addFlashAttribute("successMessage", 
+                "Đăng ký thành công! Vui lòng đăng nhập.");
+            return "redirect:/login";
+            
+        } catch (Exception e) {
+            model.addAttribute("errorMessage", 
+                "Đăng ký thất bại. Vui lòng thử lại: " + e.getMessage());
+            return "client/auth/register";
+        }
     }
 
     @GetMapping("/login")
     public String getLoginPage(Model model) {
         return "client/auth/login";
-    }
-
-    @PostMapping("/register")
-    public String handleRegister(
-            @ModelAttribute @Valid RegisterDTO registerDTO,
-            BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-//            return "client/auth/register";
-            return "admin/user/hello";
-        }
-        User user = this.userService.registerDTOtoUser(registerDTO);
-        String hashPassword = this.passwordEncoder.encode(user.getPassword());
-
-        user.setPassword(hashPassword);
-        user.setRole(this.userService.getRoleByName("USER"));
-
-        this.userService.handleSaveUser(user);
-//        return "redirect:/login";
-        return "admin/user/hello";
-
-    }
-
-    @RequestMapping(value = "/access-deny", method = {RequestMethod.GET, RequestMethod.POST})
-    public String denyPage(Model model) {
-        return "client/user/hello";
     }
 }

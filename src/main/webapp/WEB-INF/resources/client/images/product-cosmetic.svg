@@ -1,0 +1,50 @@
+<!-- 
+  Placeholder SVG cho Kem dưỡng da
+  Kích thước: 300x250px
+-->
+<svg width="300" height="250" viewBox="0 0 300 250" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="cosmeticGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#fff0f5;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#fce4ec;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="300" height="250" fill="url(#cosmeticGrad)"/>
+  
+  <!-- Cosmetic container -->
+  <g transform="translate(100, 40)">
+    <!-- Main jar -->
+    <ellipse cx="50" cy="140" rx="45" ry="15" fill="#e0e0e0"/>
+    <rect x="5" y="80" width="90" height="60" fill="#ff69b4"/>
+    <ellipse cx="50" cy="80" rx="45" ry="15" fill="#ff1493"/>
+    
+    <!-- Lid -->
+    <ellipse cx="50" cy="65" rx="40" ry="12" fill="#ff1493"/>
+    <ellipse cx="50" cy="60" rx="40" ry="12" fill="#ff69b4"/>
+    <ellipse cx="50" cy="55" rx="35" ry="10" fill="#ff1493"/>
+    
+    <!-- Label -->
+    <rect x="15" y="95" width="70" height="35" rx="5" fill="#fff" opacity="0.9"/>
+    <text x="50" y="110" font-family="Inter, sans-serif" font-size="8" font-weight="bold" text-anchor="middle" fill="#ff1493">PREMIUM</text>
+    <text x="50" y="120" font-family="Inter, sans-serif" font-size="6" text-anchor="middle" fill="#666">SKINCARE</text>
+    
+    <!-- Decorative elements -->
+    <circle cx="25" cy="75" r="3" fill="#fff" opacity="0.8"/>
+    <circle cx="75" cy="85" r="2" fill="#fff" opacity="0.8"/>
+    <circle cx="35" cy="125" r="2" fill="#fff" opacity="0.6"/>
+  </g>
+  
+  <!-- Sparkles -->
+  <g fill="#ff69b4" opacity="0.6">
+    <polygon points="80,60 82,56 84,60 88,60 85,63 86,67 82,65 78,67 79,63 76,60" />
+    <polygon points="200,80 201,78 202,80 204,80 203,81 203,83 201,82 199,83 199,81 198,80" />
+    <polygon points="220,140 221,138 222,140 224,140 223,141 223,143 221,142 219,143 219,141 218,140" />
+  </g>
+  
+  <!-- Text -->
+  <text x="150" y="235" font-family="Inter, sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#333">
+    Kem dưỡng da cao cấp
+  </text>
+</svg>

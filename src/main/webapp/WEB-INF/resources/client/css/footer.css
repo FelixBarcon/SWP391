@@ -1,0 +1,367 @@
+/* 
+ * CSS cho Footer - Marketplace
+ * Thiết kế footer hiện đại với thông tin đầy đủ
+ */
+
+/* ===== FOOTER MAIN STYLES ===== */
+.footer-section {
+  background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+  color: var(--text-white);
+  margin-top: auto;
+}
+
+.footer-main {
+  padding: 60px 0 40px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.footer-title {
+  color: var(--text-white);
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.footer-description {
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+.footer-widget-title {
+  color: var(--text-white);
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.footer-links {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-links li {
+  margin-bottom: 0.5rem;
+}
+
+.footer-links a {
+  color: rgba(255, 255, 255, 0.7);
+  text-decoration: none;
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+}
+
+.footer-links a:hover {
+  color: var(--primary-color);
+  padding-left: 5px;
+}
+
+/* ===== SOCIAL LINKS ===== */
+.social-links {
+  display: flex;
+  gap: 10px;
+  margin-top: 1rem;
+}
+
+.social-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--text-white);
+  border-radius: 50%;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.social-link:hover {
+  background: var(--primary-color);
+  color: var(--text-white);
+  transform: translateY(-2px);
+}
+
+.social-link i {
+  font-size: 1rem;
+}
+
+/* ===== CONTACT INFO ===== */
+.contact-info {
+  margin-bottom: 1rem;
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.8rem;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.9rem;
+}
+
+.contact-item i {
+  width: 20px;
+  color: var(--primary-color);
+  margin-right: 10px;
+  font-size: 0.9rem;
+}
+
+/* ===== APP DOWNLOAD ===== */
+.app-download h6 {
+  color: var(--text-white);
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.app-buttons {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.app-button {
+  display: block;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.app-button:hover {
+  transform: scale(1.05);
+}
+
+.app-button img {
+  height: 35px;
+  width: auto;
+}
+
+/* ===== PAYMENT METHODS ===== */
+.footer-payments {
+  padding: 30px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.payment-title,
+.shipping-title {
+  color: var(--text-white);
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.payment-methods {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.payment-method {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 35px;
+  background: var(--bg-white);
+  border-radius: 6px;
+  color: var(--text-dark);
+  font-size: 1.2rem;
+  transition: all 0.3s ease;
+}
+
+.payment-method:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.shipping-partners {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.shipping-partner {
+  background: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.8);
+  padding: 6px 12px;
+  border-radius: 15px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.shipping-partner:hover {
+  background: var(--primary-color);
+  color: var(--text-white);
+}
+
+/* ===== FOOTER BOTTOM ===== */
+.footer-bottom {
+  padding: 20px 0;
+}
+
+.copyright {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+.footer-bottom-links {
+  display: flex;
+  gap: 20px;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+}
+
+.footer-bottom-links a {
+  color: rgba(255, 255, 255, 0.6);
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+}
+
+.footer-bottom-links a:hover {
+  color: var(--primary-color);
+}
+
+/* ===== FOOTER RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .footer-main {
+    padding: 40px 0 30px;
+  }
+
+  .footer-payments {
+    padding: 20px 0;
+  }
+
+  .footer-bottom {
+    padding: 15px 0;
+  }
+
+  .footer-bottom-links {
+    justify-content: center;
+    margin-top: 10px;
+  }
+
+  .payment-methods,
+  .shipping-partners {
+    justify-content: center;
+  }
+
+  .social-links {
+    justify-content: center;
+  }
+
+  .app-buttons {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 576px) {
+  .footer-widget {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+
+  .contact-item {
+    justify-content: center;
+  }
+
+  .footer-bottom-links {
+    flex-direction: column;
+    gap: 10px;
+    text-align: center;
+  }
+
+  .footer-title {
+    font-size: 1.3rem;
+  }
+
+  .footer-widget-title {
+    font-size: 1rem;
+  }
+
+  .social-link {
+    width: 35px;
+    height: 35px;
+  }
+
+  .payment-method {
+    width: 45px;
+    height: 30px;
+    font-size: 1rem;
+  }
+
+  .shipping-partner {
+    font-size: 0.75rem;
+    padding: 4px 8px;
+  }
+}
+
+/* ===== FOOTER ANIMATIONS ===== */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.footer-widget {
+  animation: fadeInUp 0.6s ease forwards;
+}
+
+.footer-widget:nth-child(1) {
+  animation-delay: 0.1s;
+}
+.footer-widget:nth-child(2) {
+  animation-delay: 0.2s;
+}
+.footer-widget:nth-child(3) {
+  animation-delay: 0.3s;
+}
+.footer-widget:nth-child(4) {
+  animation-delay: 0.4s;
+}
+
+/* ===== FOOTER HOVER EFFECTS ===== */
+.footer-widget:hover {
+  transform: translateY(-2px);
+  transition: all 0.3s ease;
+}
+
+.payment-method:hover,
+.shipping-partner:hover {
+  cursor: pointer;
+}
+
+/* ===== FOOTER ACCESSIBILITY ===== */
+.footer-links a:focus,
+.social-link:focus,
+.app-button:focus,
+.footer-bottom-links a:focus {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+}
+
+/* ===== FOOTER PRINT STYLES ===== */
+@media print {
+  .footer-section {
+    background: none !important;
+    color: black !important;
+  }
+
+  .social-links,
+  .app-download,
+  .footer-payments {
+    display: none !important;
+  }
+}
