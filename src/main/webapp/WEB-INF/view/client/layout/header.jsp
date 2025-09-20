@@ -1,8 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-
-        <!--=====THÊM CÁC THƯ VIỆN CSS VÀ FONT=====-->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
@@ -51,8 +49,10 @@
                                         dụng</a></li>
                                 <li><a class="dropdown-item" href="#"><i class="fas fa-gamepad text-danger"></i>Thể
                                         thao</a></li>
-                                <li><a class="dropdown-item" href="#"><i class="fas fa-book text-info"></i>Sách</a></li>
-                                <li><a class="dropdown-item" href="#"><i class="fas fa-car text-dark"></i>Ô tô</a></li>
+                                <li><a class="dropdown-item" href="#"><i class="fas fa-book text-info"></i>Sách</a>
+                                </li>
+                                <li><a class="dropdown-item" href="#"><i class="fas fa-car text-dark"></i>Ô
+                                        tô</a></li>
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
@@ -86,7 +86,7 @@
 
                             <!-- ===== KIỂM TRA TRẠNG THÁI ĐĂNG NHẬP ===== -->
                             <c:choose>
-                                <c:when test="${not empty sessionScope.currentUser}">
+                                <c:when test="${not empty sessionScope.fullName}">
                                     <!-- ===== MENU CHO USER ĐÃ ĐĂNG NHẬP ===== -->
 
                                     <!-- Thông báo -->
@@ -117,17 +117,24 @@
                                             data-bs-toggle="dropdown">
                                             <div class="user-avatar">
                                                 <c:choose>
-                                                    <c:when test="${not empty sessionScope.currentUser.avatar}">
-                                                        <img src="${sessionScope.currentUser.avatar}" alt="Avatar"
+                                                    <c:when test="${not empty sessionScope.avatar}">
+                                                        <img src="${sessionScope.avatar}" alt="Avatar"
                                                             style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">
                                                     </c:when>
                                                     <c:otherwise>
-                                                        ${sessionScope.currentUser.fullName.substring(0,1).toUpperCase()}
+                                                        <c:choose>
+                                                            <c:when test="${not empty sessionScope.fullName}">
+                                                                ${sessionScope.fullName.substring(0,1).toUpperCase()}
+                                                            </c:when>
+                                                            <c:otherwise>
+                                                                U
+                                                            </c:otherwise>
+                                                        </c:choose>
                                                     </c:otherwise>
                                                 </c:choose>
                                             </div>
                                             <span class="d-none d-lg-inline fw-semibold">
-                                                ${sessionScope.currentUser.fullName}
+                                                ${sessionScope.fullName}
                                             </span>
                                         </a>
                                         <ul class="dropdown-menu dropdown-menu-end">
@@ -139,12 +146,13 @@
                                                     <i class="fas fa-map-marker-alt"></i>Địa chỉ</a></li>
 
                                             <!-- Menu dành cho người bán -->
-                                            <c:if test="${sessionScope.currentUser.role == 'SELLER'}">
+                                            <c:if test="${sessionScope.role == 'SELLER'}">
                                                 <li>
                                                     <hr class="dropdown-divider">
                                                 </li>
                                                 <li><a class="dropdown-item" href="<c:url value='/seller/dashboard' />">
-                                                        <i class="fas fa-tachometer-alt"></i>Bảng điều khiển</a></li>
+                                                        <i class="fas fa-tachometer-alt"></i>Bảng điều khiển</a>
+                                                </li>
                                                 <li><a class="dropdown-item" href="<c:url value='/seller/products' />">
                                                         <i class="fas fa-cube"></i>Sản phẩm của tôi</a></li>
                                             </c:if>
@@ -159,8 +167,17 @@
                                             <li>
                                                 <hr class="dropdown-divider">
                                             </li>
-                                            <li><a class="dropdown-item text-danger" href="<c:url value='/logout' />">
-                                                    <i class="fas fa-sign-out-alt"></i>Đăng xuất</a></li>
+                                            <li>
+                                                <form method="post" action="<c:url value='/logout' />"
+                                                    style="display: inline;">
+                                                    <input type="hidden" name="${_csrf.parameterName}"
+                                                        value="${_csrf.token}" />
+                                                    <button type="submit" class="dropdown-item text-danger"
+                                                        style="border: none; background: none; width: 100%; text-align: left;">
+                                                        <i class="fas fa-sign-out-alt"></i>Đăng xuất
+                                                    </button>
+                                                </form>
+                                            </li>
                                         </ul>
                                     </li>
                                 </c:when>
@@ -251,7 +268,8 @@
                     <i class="fas fa-th-large me-2"></i>Categories
                 </button>
                 <ul class="dropdown-menu slide-down">
-                    <li><a class="dropdown-item" href="#"><i class="fas fa-laptop text-primary"></i>Electronics &
+                    <li><a class="dropdown-item" href="#"><i class="fas fa-laptop text-primary"></i>Electronics
+                            &
                             Tech</a></li>
                     <li><a class="dropdown-item" href="#"><i class="fas fa-tshirt text-success"></i>Fashion
                             & Style</a></li>
@@ -270,7 +288,8 @@
                     <li>
                         <hr class="dropdown-divider">
                     </li>
-                    <li><a class="dropdown-item fw-bold" href="#"><i class="fas fa-eye text-primary"></i>View All
+                    <li><a class="dropdown-item fw-bold" href="#"><i class="fas fa-eye text-primary"></i>View
+                            All
                             Categories</a></li>
                 </ul>
             </div>
@@ -300,7 +319,7 @@
 
                 <!-- Check if user is logged in -->
                 <c:choose>
-                    <c:when test="${not empty sessionScope.currentUser}">
+                    <c:when test="${not empty sessionScope.fullName}">
                         <!-- Notifications -->
                         <li class="nav-item position-relative me-2">
                             <a class="nav-link" href="<c:url value='/notifications' />" title="Notifications">
@@ -333,16 +352,23 @@
                                 data-bs-toggle="dropdown" aria-expanded="false">
                                 <div class="user-avatar">
                                     <c:choose>
-                                        <c:when test="${not empty sessionScope.currentUser.avatar}">
-                                            <img src="${sessionScope.currentUser.avatar}" alt="Avatar"
+                                        <c:when test="${not empty sessionScope.avatar}">
+                                            <img src="${sessionScope.avatar}" alt="Avatar"
                                                 style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">
                                         </c:when>
                                         <c:otherwise>
-                                            ${sessionScope.currentUser.fullName.substring(0,1).toUpperCase()}
+                                            <c:choose>
+                                                <c:when test="${not empty sessionScope.fullName}">
+                                                    ${sessionScope.fullName.substring(0,1).toUpperCase()}
+                                                </c:when>
+                                                <c:otherwise>
+                                                    U
+                                                </c:otherwise>
+                                            </c:choose>
                                         </c:otherwise>
                                     </c:choose>
                                 </div>
-                                <span class="d-none d-lg-inline fw-semibold">${sessionScope.currentUser.fullName}</span>
+                                <span class="d-none d-lg-inline fw-semibold">${sessionScope.fullName}</span>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end slide-down">
                                 <li>
@@ -360,7 +386,7 @@
                                         <i class="fas fa-map-marker-alt"></i>My Addresses
                                     </a>
                                 </li>
-                                <c:if test="${sessionScope.currentUser.role == 'SELLER'}">
+                                <c:if test="${sessionScope.role == 'SELLER'}">
                                     <li>
                                         <hr class="dropdown-divider">
                                     </li>
@@ -392,9 +418,13 @@
                                     <hr class="dropdown-divider">
                                 </li>
                                 <li>
-                                    <a class="dropdown-item text-danger" href="<c:url value='/logout' />">
-                                        <i class="fas fa-sign-out-alt"></i>Logout
-                                    </a>
+                                    <form method="post" action="<c:url value='/logout' />" style="display: inline;">
+                                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                                        <button type="submit" class="dropdown-item text-danger"
+                                            style="border: none; background: none; width: 100%; text-align: left;">
+                                            <i class="fas fa-sign-out-alt"></i>Logout
+                                        </button>
+                                    </form>
                                 </li>
                             </ul>
                         </li>

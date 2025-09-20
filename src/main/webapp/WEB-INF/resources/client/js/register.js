@@ -105,79 +105,16 @@ document.addEventListener("DOMContentLoaded", function () {
       });
     }
 
-    // Form submission
+    // Form submission - chỉ validate, không ngăn submit
     if (form) {
       form.addEventListener("submit", function (e) {
-        e.preventDefault(); // Ngăn form submit mặc định
-
         if (!validateForm()) {
+          e.preventDefault(); // Chỉ ngăn submit khi validation fail
           return false;
         }
-
-        // Gửi dữ liệu qua AJAX
-        handleFormSubmit();
+        // Cho phép form submit bình thường đến controller
       });
     }
-  }
-
-  /**
-   * Xử lý gửi form đăng ký qua AJAX
-   */
-  function handleFormSubmit() {
-    // Show loading state
-    if (submitBtn) {
-      submitBtn.classList.add("loading");
-      submitBtn.disabled = true;
-    }
-
-    // Tạo FormData từ form
-    const formData = new FormData(form);
-
-    // Gửi request đến server
-    fetch(form.action || "/register", {
-      method: "POST",
-      body: formData,
-      headers: {
-        "X-Requested-With": "XMLHttpRequest",
-      },
-    })
-      .then((response) => {
-        if (response.ok) {
-          return response.text(); // Nhận response là text (có thể là redirect hoặc JSON)
-        }
-        throw new Error("Network response was not ok");
-      })
-      .then((data) => {
-        // Kiểm tra nếu response chứa error
-        if (data.includes("error") || data.includes("Error")) {
-          // Parse lỗi từ response (nếu server trả về HTML với error)
-          const parser = new DOMParser();
-          const doc = parser.parseFromString(data, "text/html");
-          const errorMsg =
-            doc.querySelector(".alert-danger")?.textContent?.trim() ||
-            "Đăng ký thất bại";
-          showError(errorMsg);
-        } else {
-          // Đăng ký thành công
-          showSuccess("Đăng ký thành công! Đang chuyển hướng...");
-
-          // Chuyển hướng sau 2 giây
-          setTimeout(() => {
-            window.location.href = "/login";
-          }, 2000);
-        }
-      })
-      .catch((error) => {
-        console.error("Register error:", error);
-        showError("Có lỗi xảy ra. Vui lòng thử lại sau.");
-      })
-      .finally(() => {
-        // Ẩn loading state
-        if (submitBtn) {
-          submitBtn.classList.remove("loading");
-          submitBtn.disabled = false;
-        }
-      });
   }
 
   /**

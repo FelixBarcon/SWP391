@@ -54,6 +54,22 @@
 
                                     <!-- Login Form -->
                                     <div class="login-form">
+                                        <!-- Hiển thị thông báo lỗi từ Spring Security -->
+                                        <c:if test="${param.error != null}">
+                                            <div class="alert alert-danger" role="alert">
+                                                <i class="fas fa-exclamation-triangle me-2"></i>
+                                                Email hoặc mật khẩu không đúng. Vui lòng thử lại.
+                                            </div>
+                                        </c:if>
+
+                                        <!-- Hiển thị thông báo logout -->
+                                        <c:if test="${param.logout != null}">
+                                            <div class="alert alert-success" role="alert">
+                                                <i class="fas fa-check-circle me-2"></i>
+                                                Bạn đã đăng xuất thành công.
+                                            </div>
+                                        </c:if>
+
                                         <!-- Hiển thị thông báo lỗi -->
                                         <c:if test="${not empty error}">
                                             <div class="alert alert-danger" role="alert">
@@ -72,14 +88,16 @@
 
                                         <form id="loginForm" action="${pageContext.request.contextPath}/login"
                                             method="post">
+                                            <!-- CSRF Token -->
+                                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 
                                             <!-- Email Field -->
                                             <div class="mb-3">
-                                                <label for="email" class="form-label">
+                                                <label for="username" class="form-label">
                                                     <i class="fas fa-envelope me-2"></i>Email *
                                                 </label>
-                                                <input type="email" class="form-control" id="email" name="email"
-                                                    placeholder="Nhập email của bạn" required value="${email}">
+                                                <input type="email" class="form-control" id="username" name="username"
+                                                    placeholder="Nhập email của bạn" required value="${username}">
                                                 <div class="invalid-feedback" id="emailError"></div>
                                             </div>
 

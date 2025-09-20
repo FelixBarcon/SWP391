@@ -48,14 +48,26 @@
                                     <!-- Registration Form -->
                                     <form:form method="post" action="${pageContext.request.contextPath}/register"
                                         modelAttribute="newUser" class="register-form" id="registerForm">
+                                        <!-- CSRF Token -->
+                                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+
+                                        <!-- Display validation errors -->
+                                        <c:if test="${not empty errors}">
+                                            <div class="alert alert-danger" role="alert">
+                                                <i class="fas fa-exclamation-triangle me-2"></i>
+                                                Vui lòng kiểm tra lại thông tin đã nhập
+                                            </div>
+                                        </c:if>
 
                                         <!-- First Name Field -->
                                         <div class="mb-3">
                                             <label for="firstName" class="form-label">
                                                 <i class="fas fa-user me-2"></i>Họ *
                                             </label>
-                                            <form:input path="firstName" type="text" class="form-control" id="firstName"
-                                                placeholder="Nhập họ của bạn" required="true" />
+                                            <form:input path="firstName" type="text"
+                                                class="form-control ${not empty errors.firstName ? 'is-invalid' : ''}"
+                                                id="firstName" placeholder="Nhập họ của bạn" required="true" />
+                                            <form:errors path="firstName" cssClass="invalid-feedback" />
                                             <div class="invalid-feedback" id="firstNameError"></div>
                                         </div>
 
@@ -64,8 +76,10 @@
                                             <label for="lastName" class="form-label">
                                                 <i class="fas fa-user me-2"></i>Tên *
                                             </label>
-                                            <form:input path="lastName" type="text" class="form-control" id="lastName"
-                                                placeholder="Nhập tên của bạn" required="true" />
+                                            <form:input path="lastName" type="text"
+                                                class="form-control ${not empty errors.lastName ? 'is-invalid' : ''}"
+                                                id="lastName" placeholder="Nhập tên của bạn" required="true" />
+                                            <form:errors path="lastName" cssClass="invalid-feedback" />
                                             <div class="invalid-feedback" id="lastNameError"></div>
                                         </div>
 
@@ -74,8 +88,10 @@
                                             <label for="email" class="form-label">
                                                 <i class="fas fa-envelope me-2"></i>Email *
                                             </label>
-                                            <form:input path="email" type="email" class="form-control" id="email"
-                                                placeholder="Nhập địa chỉ email của bạn" required="true" />
+                                            <form:input path="email" type="email"
+                                                class="form-control ${not empty errors.email ? 'is-invalid' : ''}"
+                                                id="email" placeholder="Nhập địa chỉ email của bạn" required="true" />
+                                            <form:errors path="email" cssClass="invalid-feedback" />
                                             <div class="invalid-feedback" id="emailError"></div>
                                         </div>
 
@@ -85,13 +101,15 @@
                                                 <i class="fas fa-lock me-2"></i>Mật khẩu *
                                             </label>
                                             <div class="password-input-wrapper">
-                                                <form:input path="password" type="password" class="form-control"
+                                                <form:input path="password" type="password"
+                                                    class="form-control ${not empty errors.password ? 'is-invalid' : ''}"
                                                     id="password" placeholder="Nhập mật khẩu" required="true" />
                                                 <button type="button" class="password-toggle-btn" id="togglePassword">
                                                     <i class="fas fa-eye"></i>
                                                 </button>
                                             </div>
                                             <div class="password-strength" id="passwordStrength"></div>
+                                            <form:errors path="password" cssClass="invalid-feedback" />
                                             <div class="invalid-feedback" id="passwordError"></div>
                                         </div>
 
@@ -101,13 +119,16 @@
                                                 <i class="fas fa-lock me-2"></i>Xác nhận mật khẩu *
                                             </label>
                                             <div class="password-input-wrapper">
-                                                <form:input path="confirmPassword" type="password" class="form-control"
-                                                    id="confirmPassword" placeholder="Nhập lại mật khẩu" required="true" />
+                                                <form:input path="confirmPassword" type="password"
+                                                    class="form-control ${not empty errors.confirmPassword ? 'is-invalid' : ''}"
+                                                    id="confirmPassword" placeholder="Nhập lại mật khẩu"
+                                                    required="true" />
                                                 <button type="button" class="password-toggle-btn"
                                                     id="toggleConfirmPassword">
                                                     <i class="fas fa-eye"></i>
                                                 </button>
                                             </div>
+                                            <form:errors path="confirmPassword" cssClass="invalid-feedback" />
                                             <div class="invalid-feedback" id="confirmPasswordError"></div>
                                         </div>
 
@@ -118,7 +139,7 @@
                                                 Tôi đồng ý với
                                                 <a href="#" class="terms-link">Điều khoản sử dụng</a>
                                                 và
-                                                <a href="#" class="terms-link">Chính s��ch bảo mật</a>
+                                                <a href="#" class="terms-link">Chính sách bảo mật</a>
                                             </label>
                                             <div class="invalid-feedback" id="termsError"></div>
                                         </div>

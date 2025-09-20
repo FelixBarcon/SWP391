@@ -108,6 +108,8 @@
                                 <!-- Forgot Password Form -->
                                 <form id="forgotPasswordForm" action="<c:url value='/forgot-password'/>" method="post"
                                     class="forgot-form">
+                                    <!-- CSRF Token -->
+                                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
                                     <div class="form-step active" id="step1">
                                         <div class="mb-4">
                                             <label for="email" class="form-label">

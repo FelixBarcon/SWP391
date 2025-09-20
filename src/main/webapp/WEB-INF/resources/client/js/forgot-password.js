@@ -18,15 +18,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (form) {
       form.addEventListener("submit", function (e) {
-        e.preventDefault();
-
         const email = emailInput.value.trim();
 
-        if (validateEmail(email)) {
-          submitForgotPasswordForm(email);
-        } else {
+        if (!validateEmail(email)) {
+          e.preventDefault(); // Chỉ ngăn submit khi validation fail
           showEmailError("Vui lòng nhập email hợp lệ");
+          return false;
         }
+        // Cho phép form submit bình thường khi validation pass
       });
     }
 
@@ -47,48 +46,7 @@ document.addEventListener("DOMContentLoaded", function () {
     return email && emailRegex.test(email);
   }
 
-  // Submit form
-  function submitForgotPasswordForm(email) {
-    const submitBtn = document.getElementById("submitBtn");
-    const btnText = submitBtn.querySelector(".btn-text");
-    const btnLoading = submitBtn.querySelector(".btn-loading");
-
-    // Show loading state
-    submitBtn.disabled = true;
-    submitBtn.classList.add("loading");
-    btnText.classList.add("d-none");
-    btnLoading.classList.remove("d-none");
-
-    // Simulate API call với form submission thực tế
-    const form = document.getElementById("forgotPasswordForm");
-    const formData = new FormData(form);
-
-    fetch(form.action, {
-      method: "POST",
-      body: formData,
-    })
-      .then((response) => {
-        if (response.ok) {
-          // Nếu thành công, chuyển sang step 2
-          showSuccessStep(email);
-        } else {
-          throw new Error("Server error");
-        }
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-        showEmailError("Có lỗi xảy ra khi gửi email. Vui lòng thử lại.");
-      })
-      .finally(() => {
-        // Reset button state
-        submitBtn.disabled = false;
-        submitBtn.classList.remove("loading");
-        btnText.classList.remove("d-none");
-        btnLoading.classList.add("d-none");
-      });
-  }
-
-  // Hiển thị step thành công
+  // Hiển thị step thành công (không dùng nữa vì form submit redirect)
   function showSuccessStep(email) {
     const step1 = document.getElementById("step1");
     const step2 = document.getElementById("step2");

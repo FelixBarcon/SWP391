@@ -6,7 +6,7 @@
 document.addEventListener("DOMContentLoaded", function () {
   // Khởi tạo các elements
   const loginForm = document.getElementById("loginForm");
-  const emailInput = document.getElementById("email");
+  const emailInput = document.getElementById("username"); // Changed from email to username
   const passwordInput = document.getElementById("password");
   const rememberMeCheckbox = document.getElementById("rememberMe");
   const loginButton = document.getElementById("submitBtn");
@@ -135,63 +135,15 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   /**
-   * Xử lý submit form
+   * Xử lý submit form - chỉ validate, không ngăn submit
    */
   function handleFormSubmit(event) {
-    event.preventDefault();
-
     // Validate form trước khi submit
     if (!validateForm()) {
+      event.preventDefault(); // Chỉ ngăn submit khi validation fail
       return false;
     }
-
-    // Hiển thị loading state
-    loginButton.classList.add("loading");
-    loginButton.disabled = true;
-
-    // Tạo FormData để submit
-    const formData = new FormData(loginForm);
-    console.log("🚀 ~ handleFormSubmit ~ formData:", formData);
-
-    // Gửi request đến server
-    fetch("/login", {
-      method: "POST",
-      body: formData,
-      headers: {
-        "X-Requested-With": "XMLHttpRequest",
-      },
-    })
-      .then((response) => {
-        if (response.ok) {
-          return response.json();
-        }
-        throw new Error("Network response was not ok");
-      })
-      .then((data) => {
-        if (data.success) {
-          // Đăng nhập thành công
-          showLoginSuccess("Đăng nhập thành công!");
-
-          // Chuyển hướng sau 1 giây
-          setTimeout(() => {
-            window.location.href = data.redirectUrl || "/";
-          }, 1000);
-        } else {
-          // Đăng nhập thất bại
-          showLoginError(data.message || "Email hoặc mật khẩu không đúng");
-        }
-      })
-      .catch((error) => {
-        console.error("Login error:", error);
-        showLoginError("Có lỗi xảy ra. Vui lòng thử lại sau.");
-      })
-      .finally(() => {
-        // Ẩn loading state
-        loginButton.classList.remove("loading");
-        loginButton.disabled = false;
-      });
-
-    return false;
+    // Cho phép form submit bình thường đến Spring Security
   }
 
   /**

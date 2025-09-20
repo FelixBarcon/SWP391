@@ -25,10 +25,21 @@ public class CustomUserDetailsService implements UserDetailsService {
             throw new UsernameNotFoundException("user not found");
         }
 
+        // Handle null role case - assign default role if role is null
+        String roleName = "USER"; // default role
+        if (user.getRole() != null) {
+            roleName = user.getRole().getName();
+        } else {
+            // Fix user with missing role
+            user.setRole(this.userService.getRoleByName("USER"));
+            this.userService.handleSaveUser(user);
+            System.out.println("Fixed user " + username + " with missing role");
+        }
+
         return new User(
                 user.getEmail(),
                 user.getPassword(),
-                Collections.singletonList(new SimpleGrantedAuthority("ROLE_" + user.getRole().getName())));
+                Collections.singletonList(new SimpleGrantedAuthority("ROLE_" + roleName)));
 
     }
 

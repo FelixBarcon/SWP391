@@ -54,7 +54,16 @@ public class UserService {
     }
 
     public Role getRoleByName(String name) {
-        return this.roleRepository.findByName(name);
+        Role role = this.roleRepository.findByName(name);
+        if (role == null) {
+            // Create default role if it doesn't exist
+            role = new Role();
+            role.setName(name);
+            role.setDescription("Default " + name + " role");
+            role = this.roleRepository.save(role);
+            System.out.println("Created missing role: " + name);
+        }
+        return role;
     }
 
     public String createPasswordResetToken(User user) {
