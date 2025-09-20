@@ -6,8 +6,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class ProductController {
-    @GetMapping("/admin/product")
-    public String getHomePage(Model model) {
-        return "admin/user/hello";
+    
+    @GetMapping("/admin/products")
+    public String getProductPage(Model model) {
+        model.addAttribute("pageTitle", "Quản lý sản phẩm");
+        model.addAttribute("pageDescription", "Danh sách sản phẩm trong hệ thống");
+        return "admin/product/product";
     }
 }
