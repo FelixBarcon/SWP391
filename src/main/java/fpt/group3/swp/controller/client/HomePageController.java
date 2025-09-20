@@ -87,4 +87,25 @@ public class HomePageController {
     public String getLoginPage(Model model) {
         return "client/auth/login";
     }
+
+    @GetMapping("/forgot-password")
+    public String getForgotPasswordPage(Model model) {
+        return "client/auth/forgot-password";
+    }
+
+    @PostMapping("/forgot-password")
+    public String handleForgotPassword(@RequestParam("email") String email, 
+                                     Model model,
+                                     RedirectAttributes redirectAttributes) {
+        try {
+            // TODO: Implement email sending logic
+            redirectAttributes.addFlashAttribute("successMessage", 
+                "Link reset mật khẩu đã được gửi tới email của bạn.");
+            return "redirect:/forgot-password";
+        } catch (Exception e) {
+            model.addAttribute("errorMessage", 
+                "Có lỗi xảy ra khi gửi email. Vui lòng thử lại.");
+            return "client/auth/forgot-password";
+        }
+    }
 }
