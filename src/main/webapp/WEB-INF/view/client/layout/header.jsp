@@ -12,8 +12,6 @@
         <link rel="stylesheet" href="<c:url value='/resources/client/css/global.css' />">
         <!-- CSS riêng cho header -->
         <link rel="stylesheet" href="<c:url value='/resources/client/css/header.css' />">
-        <!-- CSS riêng cho footer -->
-        <link rel="stylesheet" href="<c:url value='/resources/client/css/footer.css' />">
 
         <!-- ===== BẮT ĐẦU HEADER HTML ===== -->
         <header class="main-header fade-in">
