@@ -14,9 +14,7 @@ public class UserController {
     }
 
     @GetMapping("/admin/user")
-    public String getUserPage(Model model) {
-        model.addAttribute("pageTitle", "Quản lý người dùng");
-        model.addAttribute("pageDescription", "Danh sách người dùng trong hệ thống");
-        return "admin/user/hello";
+    public String getHomePage(Model model) {
+        return "admin/product/user";
     }
 }

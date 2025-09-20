@@ -21,7 +21,7 @@
                 <!-- Header CSS -->
                 <link rel="stylesheet" href="<c:url value='/resources/client/css/header.css' />">
                 <!-- CSS riêng cho trang đăng ký -->
-                <link rel="stylesheet" href="<c:url value='/resources/client/css/register.css'/>">
+                <link rel="stylesheet" href="<c:url value='/resources/client/css/register.css' />">
             </head>
 
             <body>
@@ -54,8 +54,8 @@
                                             <label for="firstName" class="form-label">
                                                 <i class="fas fa-user me-2"></i>Họ *
                                             </label>
-                                            <input type="text" class="form-control" id="firstName" name="firstName"
-                                                placeholder="Nhập họ của bạn" required />
+                                            <form:input path="firstName" type="text" class="form-control" id="firstName"
+                                                placeholder="Nhập họ của bạn" required="true" />
                                             <div class="invalid-feedback" id="firstNameError"></div>
                                         </div>
 
@@ -64,8 +64,8 @@
                                             <label for="lastName" class="form-label">
                                                 <i class="fas fa-user me-2"></i>Tên *
                                             </label>
-                                            <input type="text" class="form-control" id="lastName" name="lastName"
-                                                placeholder="Nhập tên của bạn" required />
+                                            <form:input path="lastName" type="text" class="form-control" id="lastName"
+                                                placeholder="Nhập tên của bạn" required="true" />
                                             <div class="invalid-feedback" id="lastNameError"></div>
                                         </div>
 
@@ -85,7 +85,7 @@
                                                 <i class="fas fa-lock me-2"></i>Mật khẩu *
                                             </label>
                                             <div class="password-input-wrapper">
-                                                <form:input path="passWord" type="password" class="form-control"
+                                                <form:input path="password" type="password" class="form-control"
                                                     id="password" placeholder="Nhập mật khẩu" required="true" />
                                                 <button type="button" class="password-toggle-btn" id="togglePassword">
                                                     <i class="fas fa-eye"></i>
@@ -101,8 +101,8 @@
                                                 <i class="fas fa-lock me-2"></i>Xác nhận mật khẩu *
                                             </label>
                                             <div class="password-input-wrapper">
-                                                <input type="password" class="form-control" id="confirmPassword"
-                                                    placeholder="Nhập lại mật khẩu" required>
+                                                <form:input path="confirmPassword" type="password" class="form-control"
+                                                    id="confirmPassword" placeholder="Nhập lại mật khẩu" required="true" />
                                                 <button type="button" class="password-toggle-btn"
                                                     id="toggleConfirmPassword">
                                                     <i class="fas fa-eye"></i>
@@ -118,7 +118,7 @@
                                                 Tôi đồng ý với
                                                 <a href="#" class="terms-link">Điều khoản sử dụng</a>
                                                 và
-                                                <a href="#" class="terms-link">Chính sách bảo mật</a>
+                                                <a href="#" class="terms-link">Chính s��ch bảo mật</a>
                                             </label>
                                             <div class="invalid-feedback" id="termsError"></div>
                                         </div>
