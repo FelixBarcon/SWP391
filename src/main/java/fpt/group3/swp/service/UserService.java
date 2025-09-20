@@ -7,7 +7,9 @@ import fpt.group3.swp.reposirory.RoleRepository;
 import fpt.group3.swp.reposirory.UserRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class UserService {
@@ -53,5 +55,36 @@ public class UserService {
 
     public Role getRoleByName(String name) {
         return this.roleRepository.findByName(name);
+    }
+
+    public String createPasswordResetToken(User user) {
+        String token = UUID.randomUUID().toString();
+        user.setResetToken(token);
+        user.setResetTokenExpiry(LocalDateTime.now().plusMinutes(30));
+        userRepository.save(user);
+        return token;
+    }
+
+    public boolean isValidPasswordResetToken(String token) {
+        User user = userRepository.findByResetToken(token);
+        return user != null && user.getResetTokenExpiry().isAfter(LocalDateTime.now());
+    }
+
+    public User getUserByPasswordResetToken(String token) {
+        User user = userRepository.findByResetToken(token);
+        if (user == null || user.getResetTokenExpiry().isBefore(LocalDateTime.now())) {
+            return null;
+        }
+        return user;
+    }
+
+    public void clearResetToken(User user) {
+        user.setResetToken(null);
+        user.setResetTokenExpiry(null);
+        userRepository.save(user);
+    }
+
+    public void updateUser(User user) {
+        userRepository.save(user);
     }
 }

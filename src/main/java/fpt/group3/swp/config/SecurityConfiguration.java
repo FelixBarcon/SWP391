@@ -80,6 +80,7 @@ public class SecurityConfiguration {
                         .anyRequest().permitAll())
 
 
+
                 .sessionManagement((sessionManagement) -> sessionManagement
                         .sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
                         .invalidSessionUrl("/logout?expired")
@@ -87,7 +88,7 @@ public class SecurityConfiguration {
                         .maxSessionsPreventsLogin(false))
 
                 .logout(logout -> logout.deleteCookies("JSESSIONID").invalidateHttpSession(true))
-
+//                .csrf(csrf -> csrf.disable())
                 .rememberMe(r -> r.rememberMeServices(rememberMeServices()))
                 .formLogin(formLogin -> formLogin
                         .loginPage("/login")

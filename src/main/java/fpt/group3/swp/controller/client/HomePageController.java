@@ -8,9 +8,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class HomePageController {
@@ -28,7 +26,7 @@ public class HomePageController {
 
     @GetMapping("/register")
     public String gerRegisterPageString(Model model) {
-        return "client/auth/register";
+        return "admin/user/hello";
     }
 
     @GetMapping("/login")
@@ -38,11 +36,11 @@ public class HomePageController {
 
     @PostMapping("/register")
     public String handleRegister(
-            @ModelAttribute("registerUser") @Valid RegisterDTO registerDTO,
+            @ModelAttribute @Valid RegisterDTO registerDTO,
             BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            return "client/auth/register";
-//            return "fail";
+//            return "client/auth/register";
+            return "admin/user/hello";
         }
         User user = this.userService.registerDTOtoUser(registerDTO);
         String hashPassword = this.passwordEncoder.encode(user.getPassword());
@@ -52,6 +50,12 @@ public class HomePageController {
 
         this.userService.handleSaveUser(user);
 //        return "redirect:/login";
-        return "success";
+        return "admin/user/hello";
+
+    }
+
+    @RequestMapping(value = "/access-deny", method = {RequestMethod.GET, RequestMethod.POST})
+    public String denyPage(Model model) {
+        return "client/user/hello";
     }
 }
