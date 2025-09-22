@@ -13,6 +13,7 @@ import lombok.*;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Set;
 
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @AllArgsConstructor
@@ -20,7 +21,7 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @Entity
-@Table(name = "orders")
+@Table(name = "order_items")
 public class Order implements Serializable {
 
     @Id
@@ -47,4 +48,7 @@ public class Order implements Serializable {
     private int totalAmount;
 
     private LocalDate createdAt = LocalDate.now();
+
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<OrderItem> orderItems;
 }

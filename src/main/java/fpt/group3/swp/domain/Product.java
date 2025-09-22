@@ -74,4 +74,7 @@ public class Product implements Serializable {
     )
     @ToString.Exclude
     private Set<Shop> shops = new HashSet<>();
+
+    @OneToMany(mappedBy = "product")
+    private Set<OrderItem> orderItems;
 }
