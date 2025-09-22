@@ -3,11 +3,15 @@ package fpt.group3.swp.domain.dto;
 import fpt.group3.swp.service.validator.RegisterChecked;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @RegisterChecked
 public class RegisterDTO {
     @Size(min = 3, message = "FirstName phải có tối thiểu 3 ký tự")
