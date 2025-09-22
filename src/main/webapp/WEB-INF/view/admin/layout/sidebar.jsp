@@ -30,12 +30,7 @@
                 <div class="nav-section">
                     <div class="nav-section-title">Quản lý</div>
                     <ul class="nav-menu">
-                        <li class="nav-item">
-                            <a href="<c:url value='/admin/products'/>" class="nav-link">
-                                <i class="fas fa-box"></i>
-                                <span class="nav-link-text">Sản phẩm</span>
-                            </a>
-                        </li>
+
                         <li class="nav-item">
                             <a href="<c:url value='/admin/user'/>" class="nav-link">
                                 <i class="fas fa-users"></i>

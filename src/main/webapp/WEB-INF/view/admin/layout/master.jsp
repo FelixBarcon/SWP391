@@ -24,7 +24,6 @@
             <!-- Admin CSS Files -->
             <link rel="stylesheet" href="<c:url value='/resources/admin/css/admin-global.css'/>">
             <link rel="stylesheet" href="<c:url value='/resources/admin/css/admin-sidebar.css'/>">
-            <link rel="stylesheet" href="<c:url value='/resources/admin/css/admin-header.css'/>">
 
             <!-- Page Specific CSS -->
             <c:if test="${not empty additionalCSS}">
@@ -133,8 +132,7 @@
                         </div>
                     </div>
 
-                    <!-- Include Footer -->
-                    <jsp:include page="footer.jsp" />
+
                 </main>
             </div>
 
@@ -210,6 +208,16 @@
                     // Could send error reports to server
                 });
             </script>
+
+            <!-- Chart.js for Dashboard -->
+            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+            <!-- Page Specific JavaScript -->
+            <c:if test="${not empty additionalJS}">
+                <c:forEach var="js" items="${additionalJS}">
+                    <script src="<c:url value='${js}'/>"></script>
+                </c:forEach>
+            </c:if>
         </body>
 
         </html>

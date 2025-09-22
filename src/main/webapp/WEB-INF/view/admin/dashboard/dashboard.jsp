@@ -6,5 +6,17 @@
         <c:set var="pageDescription" value="Tổng quan hệ thống quản lý ShopMart" scope="request" />
         <c:set var="contentPage" value="../dashboard/dashboard-content.jsp" scope="request" />
 
+        <!-- Add dashboard specific CSS -->
+        <c:set var="additionalCSS">
+            <c:url value='/resources/admin/css/admin-dashboard.css' />
+        </c:set>
+        <c:set var="additionalCSS" value="${additionalCSS}" scope="request" />
+
+        <!-- Add dashboard specific JavaScript -->
+        <c:set var="additionalJS">
+            <c:url value='/resources/admin/js/admin-dashboard-charts.js' />
+        </c:set>
+        <c:set var="additionalJS" value="${additionalJS}" scope="request" />
+
         <!-- Include master layout -->
         <jsp:include page="../layout/master.jsp" />

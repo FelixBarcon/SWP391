@@ -1,0 +1,412 @@
+/* Admin Dashboard Styles */
+
+/* Main Dashboard Container */
+.admin-dashboard {
+  padding: 1.5rem;
+  background-color: #f8f9fc;
+}
+
+/* Statistics Cards */
+.stats-card {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s, box-shadow 0.2s;
+  height: 100%;
+}
+
+.stats-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
+}
+
+.stats-card-body {
+  padding: 1.25rem;
+  display: flex;
+  align-items: center;
+}
+
+.stats-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 1rem;
+}
+
+.stats-icon i {
+  font-size: 1.5rem;
+  color: #fff;
+}
+
+/* Icon Colors */
+.stats-icon.users {
+  background-color: #4e73df;
+}
+
+.stats-icon.performance {
+  background-color: #1cc88a;
+}
+
+.stats-icon.reports {
+  background-color: #f6c23e;
+}
+
+.stats-icon.active {
+  background-color: #36b9cc;
+}
+
+.stats-info {
+  flex-grow: 1;
+}
+
+.stats-number {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 0;
+  color: #2e384d;
+}
+
+.stats-label {
+  color: #858796;
+  margin: 0;
+  font-size: 0.875rem;
+}
+
+.stats-change {
+  font-size: 0.75rem;
+  padding: 0.25rem 0;
+  display: inline-block;
+}
+
+.stats-change.positive {
+  color: #1cc88a;
+}
+
+.stats-change.warning {
+  color: #f6c23e;
+}
+
+.stats-change.negative {
+  color: #e74a3b;
+}
+
+/* Dashboard Cards */
+.dashboard-card {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  /* height: 100%; */
+}
+
+.dashboard-card .card-header {
+  background-color: transparent;
+  border-bottom: 1px solid #e3e6f0;
+  padding: 1rem 1.25rem;
+}
+
+.dashboard-card .card-title {
+  color: #2e384d;
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.dashboard-card .card-tools {
+  display: flex;
+  gap: 0.5rem;
+}
+
+/* System Metrics */
+.system-metrics {
+  padding: 1.25rem;
+}
+
+.metric-card {
+  background: #f8f9fc;
+  border-radius: 6px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.metric-card:last-child {
+  margin-bottom: 0;
+}
+
+.metric-header {
+  margin-bottom: 0.5rem;
+  color: #2e384d;
+  font-weight: 500;
+}
+
+.metric-header i {
+  width: 20px;
+  text-align: center;
+  color: #4e73df;
+}
+
+.metric-value {
+  font-weight: 600;
+  color: #2e384d;
+}
+
+.progress {
+  height: 8px;
+  background-color: #eaecf4;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.progress-bar {
+  transition: width 0.6s ease;
+}
+
+/* Network Stats */
+.network-stats {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.875rem;
+}
+
+.network-stats i {
+  margin-right: 0.25rem;
+}
+
+/* System Logs Table */
+.table {
+  margin-bottom: 0;
+}
+
+.table th {
+  font-weight: 600;
+  color: #2e384d;
+  border-top: none;
+}
+
+.table td {
+  vertical-align: middle;
+  color: #6e7687;
+}
+
+.badge {
+  padding: 0.4em 0.6em;
+  font-size: 0.75rem;
+}
+
+/* Quick Actions */
+.quick-actions {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.quick-action-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+  background: #f8f9fc;
+  border-radius: 8px;
+  text-decoration: none;
+  color: #2e384d;
+  transition: all 0.2s;
+}
+
+.quick-action-btn:hover {
+  background: #eaecf4;
+  color: #4e73df;
+  text-decoration: none;
+  transform: translateY(-2px);
+}
+
+.quick-action-btn i {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.quick-action-btn span {
+  font-size: 0.875rem;
+  text-align: center;
+}
+
+/* Report List */
+.report-list {
+  padding: 1rem;
+}
+
+.report-item {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  border-bottom: 1px solid #e3e6f0;
+}
+
+.report-item:last-child {
+  border-bottom: none;
+}
+
+.report-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 1rem;
+}
+
+.report-icon i {
+  color: #fff;
+  font-size: 1.25rem;
+}
+
+.report-content {
+  flex-grow: 1;
+}
+
+.report-content h6 {
+  margin: 0;
+  font-weight: 600;
+  color: #2e384d;
+}
+
+.report-content p {
+  margin: 0.25rem 0 0;
+  font-size: 0.875rem;
+  color: #6e7687;
+}
+
+.report-content small {
+  color: #858796;
+  font-size: 0.75rem;
+}
+
+/* Activity List */
+.activity-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.activity-item {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  border-bottom: 1px solid #e3e6f0;
+}
+
+.activity-item:last-child {
+  border-bottom: none;
+}
+
+.activity-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 1rem;
+}
+
+.activity-icon i {
+  color: #fff;
+  font-size: 1rem;
+}
+
+.activity-info p {
+  margin: 0;
+  color: #2e384d;
+}
+
+.activity-info small {
+  color: #858796;
+  font-size: 0.75rem;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .admin-dashboard {
+    padding: 1rem;
+  }
+
+  .quick-actions {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .stats-card-body {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .stats-icon {
+    margin: 0 0 1rem 0;
+  }
+}
+
+/* Chart Container */
+.chart-container {
+  position: relative;
+  height: 300px;
+  width: 100%;
+}
+
+/* Loading States */
+.loading {
+  position: relative;
+  opacity: 0.6;
+}
+
+.loading::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 2rem;
+  height: 2rem;
+  border: 3px solid #f3f3f3;
+  border-top: 3px solid #4e73df;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  transform: translate(-50%, -50%);
+}
+
+@keyframes spin {
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+/* Background Colors */
+.bg-gradient-primary {
+  background: linear-gradient(to right, #4e73df, #224abe);
+}
+.bg-gradient-success {
+  background: linear-gradient(to right, #1cc88a, #13855c);
+}
+.bg-gradient-warning {
+  background: linear-gradient(to right, #f6c23e, #dda20a);
+}
+.bg-gradient-danger {
+  background: linear-gradient(to right, #e74a3b, #be2617);
+}
+.bg-gradient-info {
+  background: linear-gradient(to right, #36b9cc, #258391);
+}
+
+/* Shadow Effects */
+.shadow-sm {
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+}
+.shadow {
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+}
+.shadow-lg {
+  box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.175) !important;
+}
