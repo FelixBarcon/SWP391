@@ -1,0 +1,191 @@
+/* Global styles for seller dashboard */
+:root {
+  /* Color Scheme - Shopee Orange Theme */
+  --seller-primary: #ee4d2d; /* Shopee Orange */
+  --seller-secondary: #d73211; /* Darker Orange */
+  --seller-accent: #ff6b4d; /* Lighter Orange */
+  --seller-bg: #f6f6f6;
+  --seller-sidebar-bg: #ffffff;
+  --seller-text: #222222;
+  --seller-text-light: #757575;
+  --seller-border: #ececec;
+  --seller-hover: #fff2ef; /* Light Orange Background */
+  --seller-active: #ffd6cc; /* Pale Orange Active State */
+
+  /* Spacing */
+  --seller-spacing-xs: 0.25rem;
+  --seller-spacing-sm: 0.5rem;
+  --seller-spacing-md: 1rem;
+  --seller-spacing-lg: 1.5rem;
+  --seller-spacing-xl: 2rem;
+
+  /* Font sizes */
+  --seller-font-xs: 0.75rem;
+  --seller-font-sm: 0.875rem;
+  --seller-font-base: 1rem;
+  --seller-font-lg: 1.125rem;
+  --seller-font-xl: 1.25rem;
+
+  /* Other Variables */
+  --seller-border-radius: 0.5rem;
+  --seller-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  --seller-transition: all 0.3s ease;
+}
+
+/* Base Styles */
+.seller-body {
+  background-color: var(--seller-bg);
+  color: var(--seller-text);
+  font-family: "Inter", sans-serif;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+
+/* Layout Structure */
+.seller-layout {
+  display: flex;
+  min-height: 100vh;
+  position: relative;
+}
+
+.seller-main {
+  flex-grow: 1;
+  padding: var(--seller-spacing-lg);
+  margin-left: 250px !important; /* Width of sidebar */
+  width: calc(100% - 250px); /* Đảm bảo chiều rộng chính xác */
+  transition: var(--seller-transition);
+  min-height: 100vh;
+  background-color: var(--seller-bg);
+}
+
+.seller-content {
+  background: #ffffff;
+  border-radius: var(--seller-border-radius);
+  padding: var(--seller-spacing-lg);
+  box-shadow: var(--seller-shadow);
+  position: relative;
+  z-index: 1; /* Đảm bảo content nằm trên cùng */
+}
+
+/* Page Header Styles */
+.seller-page-header {
+  background: #ffffff;
+  padding: var(--seller-spacing-lg);
+  border-radius: var(--seller-border-radius);
+  box-shadow: var(--seller-shadow);
+  margin-bottom: var(--seller-spacing-lg);
+  border-left: 4px solid var(--seller-primary);
+}
+
+.seller-page-header-content {
+  flex: 1;
+}
+
+.seller-page-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--seller-text);
+  margin: 0;
+  line-height: 1.2;
+}
+
+.seller-page-description {
+  color: var(--seller-text-light);
+  margin: var(--seller-spacing-xs) 0 0;
+  font-size: var(--seller-font-sm);
+}
+
+.seller-page-actions {
+  display: flex;
+  gap: var(--seller-spacing-sm);
+  align-items: center;
+}
+
+.seller-page-actions .seller-btn-primary {
+  background: var(--seller-primary);
+  color: #ffffff;
+  padding: var(--seller-spacing-sm) var(--seller-spacing-lg);
+  border-radius: var(--seller-border-radius);
+  border: none;
+  font-weight: 500;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--seller-spacing-sm);
+  transition: all 0.2s ease;
+}
+
+.seller-page-actions .seller-btn-primary:hover {
+  background: var(--seller-secondary);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 6px rgba(238, 77, 45, 0.1);
+}
+
+.seller-page-actions .seller-btn-secondary {
+  background: #ffffff;
+  color: var(--seller-primary);
+  border: 1px solid var(--seller-primary);
+  padding: var(--seller-spacing-sm) var(--seller-spacing-lg);
+  border-radius: var(--seller-border-radius);
+  font-weight: 500;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--seller-spacing-sm);
+  transition: all 0.2s ease;
+}
+
+.seller-page-actions .seller-btn-secondary:hover {
+  background: var(--seller-hover);
+  transform: translateY(-1px);
+}
+
+/* Typography */
+.seller-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--seller-text);
+  margin-bottom: var(--seller-spacing-md);
+}
+
+.seller-subtitle {
+  color: var(--seller-text-light);
+  font-size: var(--seller-font-base);
+  margin-bottom: var(--seller-spacing-lg);
+}
+
+/* Utility Classes */
+.seller-card {
+  background: #ffffff;
+  border-radius: var(--seller-border-radius);
+  padding: var(--seller-spacing-lg);
+  margin-bottom: var(--seller-spacing-lg);
+  box-shadow: var(--seller-shadow);
+}
+
+.seller-btn {
+  background: var(--seller-primary);
+  color: #ffffff;
+  border: none;
+  padding: var(--seller-spacing-sm) var(--seller-spacing-lg);
+  border-radius: var(--seller-border-radius);
+  cursor: pointer;
+  transition: var(--seller-transition);
+}
+
+.seller-btn:hover {
+  background: var(--seller-secondary);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .seller-main {
+    margin-left: 0;
+    padding: var(--seller-spacing-md);
+  }
+
+  .seller-content {
+    padding: var(--seller-spacing-md);
+  }
+}

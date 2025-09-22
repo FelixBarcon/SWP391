@@ -1,0 +1,133 @@
+.seller-welcome-icon {
+  width: 48px;
+  height: 48px;
+  background-color: var(--seller-hover);
+  color: var(--seller-primary);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+}
+
+/* Enhanced Stats Cards */
+.seller-stats-card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+  transition: all 0.3s ease;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.seller-stats-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
+}
+
+.stats-value {
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: #2d3748;
+  margin-bottom: 0.25rem !important;
+}
+
+.stats-label {
+  font-size: 0.875rem;
+  color: #718096;
+  font-weight: 500;
+}
+
+.stats-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  transition: all 0.3s ease;
+}
+
+.stats-icon.warning {
+  background-color: #fff3cd;
+  color: #b45309;
+  box-shadow: 0 4px 12px rgba(180, 83, 9, 0.1);
+}
+
+.stats-icon.primary {
+  background-color: var(--seller-hover);
+  color: var(--seller-primary);
+  box-shadow: 0 4px 12px rgba(var(--seller-primary-rgb), 0.1);
+}
+
+.stats-icon.danger {
+  background-color: #fee2e2;
+  color: #dc2626;
+  box-shadow: 0 4px 12px rgba(220, 38, 38, 0.1);
+}
+
+.stats-icon.success {
+  background-color: #d1fae5;
+  color: #059669;
+  box-shadow: 0 4px 12px rgba(5, 150, 105, 0.1);
+}
+
+.seller-stats-card:hover .stats-icon {
+  transform: scale(1.1);
+}
+
+.quick-action-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  background-color: #fff;
+  border: 1px solid var(--seller-border);
+  border-radius: var(--seller-border-radius);
+  text-decoration: none;
+  color: var(--seller-text);
+  transition: all 0.2s ease;
+}
+
+.quick-action-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--seller-primary);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  color: var(--seller-primary);
+}
+
+.quick-action-card i {
+  font-size: 24px;
+  margin-bottom: 0.5rem;
+  color: var(--seller-primary);
+}
+
+.quick-action-card span {
+  font-size: 14px;
+  text-align: center;
+}
+
+.seller-btn-text {
+  color: var(--seller-primary);
+  text-decoration: none;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+}
+
+.seller-btn-text:hover {
+  color: var(--seller-secondary);
+}
+
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+}
+
+.table > :not(caption) > * > * {
+  padding: 1rem;
+}
