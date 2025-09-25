@@ -23,6 +23,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class User implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
@@ -36,18 +37,18 @@ public class User implements Serializable {
     @Size(min = 2, message = "Password phải có tối thiểu 2 ký tự")
     private String password;
 
-    @Column(columnDefinition = "VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci")
+    @Column(length = 255)
     private String firstName;
 
-    @Column(columnDefinition = "VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci")
+    @Column(length = 255)
     private String lastName;
 
     @NotNull
     @Size(min = 3, message = "Fullname phải có tối thiểu 3 ký tự")
-    @Column(columnDefinition = "VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci")
+    @Column(length = 255)
     private String fullName;
 
-    @Column(columnDefinition = "VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci")
+    @Column(length = 255)
     private String address;
 
     private String phone;
@@ -55,12 +56,13 @@ public class User implements Serializable {
     private String avatar;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "role_id")
+    @JoinColumn(name = "role_id", nullable = false)  // thêm nullable=false để chắc chắn ràng buộc
     private Role role;
 
     private String resetToken;
     private LocalDateTime resetTokenExpiry;
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+
+    @OneToOne(mappedBy = "user")
     @ToString.Exclude
     private Shop shop;
 

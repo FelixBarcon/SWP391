@@ -1,0 +1,370 @@
+/* Seller Register Page */
+
+.register-container {
+  background: linear-gradient(135deg, var(--seller-hover) 0%, #fff 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.register-wrapper {
+  width: 100%;
+  max-width: 1200px;
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.1);
+  display: flex;
+  overflow: hidden;
+}
+
+/* Left Section - Banner */
+.register-banner {
+  flex: 0 0 50%;
+  background: linear-gradient(
+    135deg,
+    var(--seller-primary) 0%,
+    var(--seller-accent) 100%
+  );
+  padding: 3rem;
+  color: #fff;
+  position: relative;
+}
+
+.register-banner::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: url("/resources/seller/images/pattern-light.svg");
+  opacity: 0.1;
+}
+
+.banner-content {
+  position: relative;
+  z-index: 1;
+}
+
+.banner-logo {
+  width: 120px;
+  height: auto;
+  margin-bottom: 2rem;
+}
+
+.banner-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  line-height: 1.2;
+}
+
+.banner-description {
+  font-size: 1.1rem;
+  opacity: 0.9;
+  margin-bottom: 2rem;
+  line-height: 1.6;
+}
+
+.benefits-list {
+  list-style: none;
+  padding: 0;
+  margin: 2rem 0;
+}
+
+.benefit-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1.2rem;
+  font-size: 1.1rem;
+}
+
+.benefit-item i {
+  width: 32px;
+  height: 32px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 1rem;
+}
+
+/* Right Section - Form */
+.register-form-section {
+  flex: 1;
+  padding: 3rem;
+  overflow-y: auto;
+  max-height: 800px;
+}
+
+/* Status Message Card */
+.status-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  border-left: 4px solid var(--seller-primary);
+  display: flex;
+  align-items: flex-start;
+  transition: transform 0.3s ease;
+}
+
+.status-card:hover {
+  transform: translateY(-2px);
+}
+
+.status-icon {
+  width: 48px;
+  height: 48px;
+  background: var(--seller-primary);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 1rem;
+}
+
+.status-icon i {
+  color: #fff;
+  font-size: 1.5rem;
+}
+
+.status-content {
+  flex: 1;
+}
+
+.status-title {
+  color: var(--seller-primary);
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 0 0 0.5rem 0;
+}
+
+.status-text {
+  color: #4a5568;
+  font-size: 1rem;
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* Progress Steps */
+.progress-steps {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2.5rem;
+  position: relative;
+}
+
+.progress-steps::before {
+  content: "";
+  position: absolute;
+  top: 15px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--seller-border);
+  z-index: 1;
+}
+
+.step {
+  position: relative;
+  z-index: 2;
+  background: #fff;
+}
+
+.step-circle {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #fff;
+  border: 2px solid var(--seller-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 0.5rem;
+  font-weight: 600;
+  color: var(--seller-text-light);
+  transition: all 0.3s ease;
+}
+
+.step.active .step-circle {
+  background: var(--seller-primary);
+  border-color: var(--seller-primary);
+  color: #fff;
+}
+
+.step-label {
+  font-size: 0.9rem;
+  color: var(--seller-text-light);
+  text-align: center;
+}
+
+.step.active .step-label {
+  color: var(--seller-primary);
+  font-weight: 500;
+}
+
+/* Form Sections */
+.form-section {
+  background: var(--seller-bg);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid var(--seller-border);
+}
+
+.section-icon {
+  width: 40px;
+  height: 40px;
+  background: var(--seller-hover);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 1rem;
+  color: var(--seller-primary);
+}
+
+.section-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--seller-text);
+  margin: 0;
+}
+
+/* Form Controls */
+.form-group {
+  margin-bottom: 1.2rem;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: var(--seller-text);
+  font-weight: 500;
+}
+
+.form-control {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  border: 2px solid var(--seller-border);
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.form-control:focus {
+  border-color: var(--seller-primary);
+  box-shadow: 0 0 0 3px var(--seller-hover);
+  outline: none;
+}
+
+.form-control.error {
+  border-color: #dc2626;
+}
+
+.error-message {
+  color: #dc2626;
+  font-size: 0.875rem;
+  margin-top: 0.3rem;
+  display: flex;
+  align-items: center;
+}
+
+.error-message i {
+  margin-right: 0.4rem;
+}
+
+/* Submit Button */
+.submit-button {
+  width: 100%;
+  padding: 1rem;
+  background: var(--seller-primary);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.submit-button:hover {
+  background: var(--seller-secondary);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(238, 77, 45, 0.2);
+}
+
+.submit-button i {
+  margin-right: 0.8rem;
+}
+
+/* Toast Messages */
+.toast-message {
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  font-weight: 500;
+}
+
+.toast-message i {
+  margin-right: 0.8rem;
+  font-size: 1.2rem;
+}
+
+.toast-message.success {
+  background: #ecfdf5;
+  color: #059669;
+  border: 1px solid #a7f3d0;
+}
+
+.toast-message.error {
+  background: #fef2f2;
+  color: #dc2626;
+  border: 1px solid #fecaca;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .register-wrapper {
+    flex-direction: column;
+    max-width: 600px;
+  }
+
+  .register-banner {
+    padding: 2rem;
+  }
+
+  .banner-title {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .register-container {
+    padding: 1rem;
+  }
+
+  .register-banner {
+    display: none;
+  }
+
+  .register-form-section {
+    padding: 2rem;
+  }
+}

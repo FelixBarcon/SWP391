@@ -18,7 +18,8 @@
                     <div class="nav-section-title">Tổng quan</div>
                     <ul class="nav-menu">
                         <li class="nav-item">
-                            <a href="<c:url value='/admin'/>" class="nav-link active">
+                            <a href="<c:url value='/admin'/>"
+                                class="nav-link ${requestScope['javax.servlet.forward.servlet_path'] == '/admin' ? 'active' : ''}">
                                 <i class="fas fa-tachometer-alt"></i>
                                 <span class="nav-link-text">Dashboard</span>
                             </a>
@@ -26,15 +27,54 @@
                     </ul>
                 </div>
 
-                <!-- Management Section -->
+                <!-- User Management Section -->
                 <div class="nav-section">
-                    <div class="nav-section-title">Quản lý</div>
+                    <div class="nav-section-title">Quản lý người dùng</div>
                     <ul class="nav-menu">
-
                         <li class="nav-item">
-                            <a href="<c:url value='/admin/user'/>" class="nav-link">
+                            <a href="<c:url value='/admin/user'/>"
+                                class="nav-link ${requestScope['javax.servlet.forward.servlet_path'] == '/admin/user' ? 'active' : ''}">
                                 <i class="fas fa-users"></i>
                                 <span class="nav-link-text">Người dùng</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Seller Management Section -->
+                <div class="nav-section">
+                    <div class="nav-section-title">Quản lý người bán</div>
+                    <ul class="nav-menu">
+                        <li class="nav-item">
+                            <a href="<c:url value='/admin/seller/requests'/>"
+                                class="nav-link ${requestScope['javax.servlet.forward.servlet_path'] == '/admin/seller/requests' ? 'active' : ''}">
+                                <i class="fas fa-user-plus"></i>
+                                <span class="nav-link-text">Yêu cầu đăng ký</span>
+                                <c:if test="${not empty pending}">
+                                    <span class="badge bg-danger rounded-pill ms-2">${pending.size()}</span>
+                                </c:if>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<c:url value='/admin/seller/list'/>"
+                                class="nav-link ${requestScope['javax.servlet.forward.servlet_path'] == '/admin/seller/list' ? 'active' : ''}">
+                                <i class="fas fa-store"></i>
+                                <span class="nav-link-text">Danh sách Shop</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<c:url value='/admin/seller/reports'/>"
+                                class="nav-link ${requestScope['javax.servlet.forward.servlet_path'] == '/admin/seller/reports' ? 'active' : ''}">
+                                <i class="fas fa-flag"></i>
+                                <span class="nav-link-text">Báo cáo vi phạm</span>
+                                <span class="badge bg-warning rounded-pill ms-2">3</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<c:url value='/admin/seller/ratings'/>"
+                                class="nav-link ${requestScope['javax.servlet.forward.servlet_path'] == '/admin/seller/ratings' ? 'active' : ''}">
+                                <i class="fas fa-star"></i>
+                                <span class="nav-link-text">Đánh giá Shop</span>
                             </a>
                         </li>
                     </ul>

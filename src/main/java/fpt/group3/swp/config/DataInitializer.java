@@ -23,7 +23,7 @@ public class DataInitializer implements CommandLineRunner {
     }
     
     private void createRoleIfNotExists(String roleName) {
-        Role existingRole = roleRepository.findByName(roleName);
+        Role existingRole = roleRepository.findByName(roleName).orElse(null);
         if (existingRole == null) {
             Role role = new Role();
             role.setName(roleName);

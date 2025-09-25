@@ -1,0 +1,73 @@
+/* ... existing styles ... */
+
+/* Status Message Styling */
+.status-message {
+  background: linear-gradient(
+    135deg,
+    rgba(var(--seller-primary-rgb), 0.1) 0%,
+    rgba(var(--seller-accent-rgb), 0.1) 100%
+  );
+  border-left: 4px solid var(--seller-primary);
+  border-radius: 8px;
+  padding: 1rem 1.5rem;
+  margin: 2rem 0;
+  display: flex;
+  align-items: center;
+  font-size: 1.1rem;
+  color: var(--seller-text);
+  animation: slideIn 0.3s ease-out;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  position: relative;
+  overflow: hidden;
+}
+
+.status-message::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    135deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.1) 100%
+  );
+  pointer-events: none;
+}
+
+.status-message i {
+  margin-right: 1rem;
+  font-size: 1.4rem;
+  color: var(--seller-primary);
+  animation: pulseIcon 2s infinite;
+}
+
+.status-message strong {
+  color: var(--seller-primary);
+  margin-left: 0.5rem;
+  font-weight: 600;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(-10px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes pulseIcon {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}

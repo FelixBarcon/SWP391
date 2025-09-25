@@ -61,7 +61,7 @@ public class UserService {
     }
 
     public Role getRoleByName(String name) {
-        Role role = this.roleRepository.findByName(name);
+        Role role = this.roleRepository.findByName(name).orElse(null);
         if (role == null) {
             // Create default role if it doesn't exist
             role = new Role();

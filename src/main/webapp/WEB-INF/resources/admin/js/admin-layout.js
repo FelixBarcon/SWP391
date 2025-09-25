@@ -190,31 +190,57 @@ document.addEventListener("DOMContentLoaded", function () {
     const currentPath = window.location.pathname;
     const navLinks = document.querySelectorAll(".nav-link");
 
+    // Xóa active class từ tất cả các links trước
+    navLinks.forEach((link) => link.classList.remove("active"));
+
+    // Tìm link phù hợp nhất với current path
+    let bestMatch = null;
+    let bestMatchLength = 0;
+
     navLinks.forEach(function (link) {
-      link.classList.remove("active");
-
       const href = link.getAttribute("href");
-      if (href && currentPath.includes(href) && href !== "#") {
-        link.classList.add("active");
+      if (!href || href === "#") return;
 
-        // Open parent submenu if this is a submenu item
-        const submenuItem = link.closest(".nav-submenu");
-        if (submenuItem) {
-          const parentSubmenu = submenuItem.previousElementSibling;
-          if (parentSubmenu && parentSubmenu.hasAttribute("data-submenu")) {
-            const submenuId =
-              "submenu-" + parentSubmenu.getAttribute("data-submenu");
-            const submenu = document.getElementById(submenuId);
-            const toggle = parentSubmenu.querySelector(".nav-submenu-toggle");
+      // Chuẩn hóa href (bỏ contextPath nếu có)
+      let cleanHref = href;
+      if (cleanHref.startsWith("/")) {
+        cleanHref = cleanHref.substring(1);
+      }
+      if (cleanHref.includes(";")) {
+        cleanHref = cleanHref.split(";")[0];
+      }
 
-            if (submenu && toggle) {
-              submenu.classList.add("show");
-              toggle.classList.add("rotated");
-            }
+      // So sánh với current path
+      if (
+        currentPath.includes(cleanHref) &&
+        cleanHref.length > bestMatchLength
+      ) {
+        bestMatch = link;
+        bestMatchLength = cleanHref.length;
+      }
+    });
+
+    // Đánh dấu link phù hợp nhất là active
+    if (bestMatch) {
+      bestMatch.classList.add("active");
+
+      // Nếu link nằm trong submenu, mở submenu đó
+      const submenuItem = bestMatch.closest(".nav-submenu");
+      if (submenuItem) {
+        const parentSubmenu = submenuItem.previousElementSibling;
+        if (parentSubmenu && parentSubmenu.hasAttribute("data-submenu")) {
+          const submenuId =
+            "submenu-" + parentSubmenu.getAttribute("data-submenu");
+          const submenu = document.getElementById(submenuId);
+          const toggle = parentSubmenu.querySelector(".nav-submenu-toggle");
+
+          if (submenu && toggle) {
+            submenu.classList.add("show");
+            toggle.classList.add("rotated");
           }
         }
       }
-    });
+    }
   }
 
   // ===== UTILITY FUNCTIONS =====

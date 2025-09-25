@@ -1,0 +1,81 @@
+/* Status Card Styles */
+.status-card {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  margin-bottom: 2rem;
+  border-radius: 8px;
+  background: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-left: 4px solid #6c757d;
+  animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Status variants */
+.status-card.rejected {
+  border-left-color: #dc3545;
+  background-color: rgba(220, 53, 69, 0.05);
+}
+
+.status-card.pending {
+  border-left-color: #ffc107;
+  background-color: rgba(255, 193, 7, 0.05);
+}
+
+.status-card.approved {
+  border-left-color: #28a745;
+  background-color: rgba(40, 167, 69, 0.05);
+}
+
+/* Icon styles */
+.status-card .status-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  margin-right: 1rem;
+  font-size: 1.5rem;
+}
+
+.status-card.rejected .status-icon {
+  color: #dc3545;
+}
+
+.status-card.pending .status-icon {
+  color: #ffc107;
+}
+
+.status-card.approved .status-icon {
+  color: #28a745;
+}
+
+/* Content styles */
+.status-card .status-content {
+  flex: 1;
+}
+
+.status-card .status-title {
+  margin: 0 0 0.25rem 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #495057;
+}
+
+.status-card .status-text {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #6c757d;
+}

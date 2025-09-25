@@ -8,5 +8,5 @@ package fpt.group3.swp.common;/* AnVo
 */
 
 public enum VerifyStatus {
-    PENDING, VERIFIED, REJECTED
+    DRAFT, PENDING, NEEDS_REVISION, APPROVED, REJECTED
 }

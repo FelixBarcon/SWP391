@@ -13,38 +13,39 @@ import lombok.*;
 import java.io.Serializable;
 import java.time.LocalDate;
 
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
-@AllArgsConstructor
-@NoArgsConstructor
+@Entity
+@Table(name = "reviews")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @Getter
 @Setter
-@Entity
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@Table(name = "reviews")
+@NoArgsConstructor
+@AllArgsConstructor
 public abstract class Review implements Serializable {
 
     @Id
-    @EqualsAndHashCode.Include
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "review_id")
-    protected long id;
+    private long id;
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
-    protected User user;
+    private User user;
 
-    @Column(
-            nullable = false,
-            columnDefinition = "INT CHECK (rating BETWEEN 1 AND 5)"
-    )
-    protected int rating;
+    // 🔥 Thêm quan hệ với Shop
+    @ManyToOne
+    @JoinColumn(name = "shop_id", nullable = false)
+    private Shop shop;
 
-    protected String comment;
+    @Column(nullable = false)
+    private int rating; // Hibernate sẽ tự validate nếu bạn dùng @Min/@Max
 
-    @Column(name = "is_visible", columnDefinition = "BOOLEAN DEFAULT TRUE")
-    protected boolean isVisible = true;
+    private String comment;
 
-    @Column(name = "is_deleted", columnDefinition = "BOOLEAN DEFAULT FALSE")
+    @Column(name = "is_visible")
+    private boolean isVisible = true;
+
+    @Column(name = "is_deleted")
     private boolean isDeleted = false;
 
-    protected LocalDate createdAt;
+    private LocalDate createdAt;
 }

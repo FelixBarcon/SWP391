@@ -15,6 +15,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -118,7 +119,7 @@ class UserServiceTest {
     void getRoleByName_shouldReturnRole_whenRoleExists() {
         Role role = new Role();
         role.setName("USER");
-        when(roleRepository.findByName("USER")).thenReturn(role);
+        when(roleRepository.findByName("USER")).thenReturn(Optional.of(role));
 
         Role found = userService.getRoleByName("USER");
 

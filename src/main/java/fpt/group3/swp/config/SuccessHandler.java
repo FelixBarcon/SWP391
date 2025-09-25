@@ -70,11 +70,13 @@ public class SuccessHandler implements AuthenticationSuccessHandler {
 
         String targetUrl = determineTargetUrl(authentication);
 
+        // set session attributes trước
+        clearAuthenticationAttributes(request, authentication);
+
         if (response.isCommitted()) {
             return;
         }
         redirectStrategy.sendRedirect(request, response, targetUrl);
-        clearAuthenticationAttributes(request, authentication);
     }
 
     @Bean
