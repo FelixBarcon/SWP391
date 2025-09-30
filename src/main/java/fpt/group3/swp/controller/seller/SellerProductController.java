@@ -68,6 +68,43 @@ public class SellerProductController {
         return "redirect:/seller/products/create?createdId=" + productId;
     }
 
+    // ===== LIST =====
+    @GetMapping
+    public String list(@RequestParam(name = "showDeleted", defaultValue = "false") boolean showDeleted,
+            Model model,
+            HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        long shopId = shopIdFromSession(session);
+
+        Shop shop = productService.findShopById(shopId);
+        List<Product> products = productService.fetchProducts(shopId, showDeleted);
+
+        model.addAttribute("shop", shop);
+        model.addAttribute("products", products);
+        model.addAttribute("showDeleted", showDeleted);
+        return "seller/product/list/product-list";
+    }
+
+    @PostMapping("/{id}/toggle-delete")
+    public String toggleDelete(@PathVariable Long id,
+            @RequestParam(name = "showDeleted", defaultValue = "false") boolean showDeleted,
+            HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        long shopId = shopIdFromSession(session);
+        productService.toggleDelete(id, shopId);
+        return "redirect:/seller/products?showDeleted=" + showDeleted;
+    }
+
+    @PostMapping("/{id}/toggle-status")
+    public String toggleStatus(@PathVariable Long id,
+            @RequestParam(name = "showDeleted", defaultValue = "false") boolean showDeleted,
+            HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        long shopId = shopIdFromSession(session);
+        productService.toggleStatus(id, shopId);
+        return "redirect:/seller/products?showDeleted=" + showDeleted;
+    }
+
     // ===== EDIT (GET) =====
     @GetMapping("/{id}/edit")
     public String editPage(@PathVariable Long id, Model model, HttpServletRequest request) {
@@ -120,5 +157,16 @@ public class SellerProductController {
                 variantImages, variantImageFromGallery, deleteVariantIds);
 
         return "redirect:/seller/products/" + id + "/edit?updated=variants";
+    }
+
+    @PostMapping("/{id}/variants/{variantId}/delete")
+    public String deleteVariant(@PathVariable Long id,
+            @PathVariable Long variantId,
+            HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        long shopId = shopIdFromSession(session);
+
+        productService.deleteVariantOwned(id, shopId, variantId);
+        return "redirect:/seller/products/" + id + "/edit?deleted=variant";
     }
 }

@@ -132,6 +132,34 @@ public class SellerProductService {
         return p.getId();
     }
 
+    // ===== LIST =====
+    @Transactional(readOnly = true)
+    public List<Product> fetchProducts(Long shopId, boolean showDeleted) {
+        return showDeleted
+                ? productRepo.findAllByShop_IdOrderByUpdatedAtDesc(shopId)
+                : productRepo.findAllByShop_IdAndDeletedFalseOrderByUpdatedAtDesc(shopId);
+    }
+
+    // ===== TOGGLE =====
+    @Transactional
+    public void toggleDelete(Long id, Long shopId) {
+        Product p = productRepo.findById(id).orElseThrow(() -> new IllegalArgumentException("Product not found"));
+        assertOwner(p, shopId);
+        p.setDeleted(!p.isDeleted());
+        productRepo.save(p);
+    }
+
+    @Transactional
+    public void toggleStatus(Long id, Long shopId) {
+        Product p = productRepo.findById(id).orElseThrow(() -> new IllegalArgumentException("Product not found"));
+        assertOwner(p, shopId);
+        if (p.isDeleted())
+            p.setStatus(Status.INACTIVE);
+        else
+            p.setStatus(p.getStatus() == Status.ACTIVE ? Status.INACTIVE : Status.ACTIVE);
+        productRepo.save(p);
+    }
+
     // ===== EDIT PAGE DATA =====
     @Transactional(readOnly = true)
     public EditPageData getEditPageData(Long productId, Long shopId) {
@@ -281,6 +309,16 @@ public class SellerProductService {
         if ((p.getImageUrl() == null || p.getImageUrl().isBlank()) && !p.getImageUrls().isEmpty()) {
             p.setImageUrl(p.getImageUrls().get(0));
         }
+        productRepo.save(p);
+    }
+
+    // ===== DELETE VARIANT =====
+    @Transactional
+    public void deleteVariantOwned(Long productId, Long shopId, Long variantId) {
+        Product p = productRepo.findById(productId).orElseThrow();
+        assertOwner(p, shopId);
+        variantRepo.deleteById(variantId);
+        recalcPriceRange(p);
         productRepo.save(p);
     }
 

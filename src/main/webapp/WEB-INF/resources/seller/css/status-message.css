@@ -7,7 +7,7 @@
     rgba(var(--seller-primary-rgb), 0.1) 0%,
     rgba(var(--seller-accent-rgb), 0.1) 100%
   );
-  border-left: 4px solid var(--seller-primary);
+  border-left: 4px solid black;
   border-radius: 8px;
   padding: 1rem 1.5rem;
   margin: 2rem 0;
@@ -39,12 +39,12 @@
 .status-message i {
   margin-right: 1rem;
   font-size: 1.4rem;
-  color: var(--seller-primary);
+  color: black;
   animation: pulseIcon 2s infinite;
 }
 
 .status-message strong {
-  color: var(--seller-primary);
+  color: black;
   margin-left: 0.5rem;
   font-weight: 600;
 }

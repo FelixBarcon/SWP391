@@ -1,0 +1,825 @@
+/* Product List Styles - Shopee Inspired Design */
+
+:root {
+  --shopee-primary: #ee4d2d;
+  --shopee-primary-dark: #d73211;
+  --shopee-secondary: #ff6b35;
+  --shopee-accent: #ff9800;
+  --shopee-success: #00bfa5;
+  --shopee-warning: #ffab00;
+  --shopee-danger: #f44336;
+  --shopee-info: #2196f3;
+
+  --shopee-bg-light: #f5f5f5;
+  --shopee-bg-white: #ffffff;
+  --shopee-bg-card: #ffffff;
+
+  --shopee-text-primary: #222222;
+  --shopee-text-secondary: #757575;
+  --shopee-text-light: #999999;
+  --shopee-text-white: #ffffff;
+
+  --shopee-border: #e5e5e5;
+  --shopee-border-light: #f0f0f0;
+
+  --shopee-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shopee-shadow-md: 0 4px 6px rgba(0, 0, 0, 0.07);
+  --shopee-shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+  --shopee-shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.1);
+
+  --shopee-radius-sm: 4px;
+  --shopee-radius-md: 8px;
+  --shopee-radius-lg: 12px;
+  --shopee-radius-xl: 16px;
+}
+
+/* Global Layout */
+.seller-product-list {
+  min-height: 100vh;
+  background: var(--shopee-bg-light);
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+}
+
+/* Modern Header with Gradient */
+.seller-page-header {
+  background: linear-gradient(
+    135deg,
+    var(--shopee-primary) 0%,
+    var(--shopee-secondary) 100%
+  );
+  color: var(--shopee-text-white);
+  padding: 2rem 0;
+  margin-bottom: 1.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.seller-page-header::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+}
+
+.seller-page-header .container-fluid {
+  position: relative;
+  z-index: 1;
+}
+
+.page-title {
+  font-size: 2.25rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.page-subtitle {
+  font-size: 1.1rem;
+  opacity: 0.9;
+  margin-bottom: 0;
+  font-weight: 400;
+}
+
+/* Premium Action Button */
+.btn-add-product {
+  background: var(--shopee-bg-white);
+  color: var(--shopee-primary);
+  border: none;
+  padding: 0.875rem 1.75rem;
+  border-radius: var(--shopee-radius-lg);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.95rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: var(--shopee-shadow-md);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-add-product::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+  transition: left 0.5s ease;
+}
+
+.btn-add-product:hover {
+  color: var(--shopee-primary);
+  transform: translateY(-2px);
+  box-shadow: var(--shopee-shadow-lg);
+}
+
+.btn-add-product:hover::before {
+  left: 100%;
+}
+
+/* Enhanced Actions Bar */
+.product-actions-bar {
+  background: var(--shopee-bg-white);
+  border-radius: var(--shopee-radius-lg);
+  padding: 1.5rem;
+  box-shadow: var(--shopee-shadow-sm);
+  margin-bottom: 1.5rem;
+  border: 1px solid var(--shopee-border-light);
+}
+
+.action-filters {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.filter-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  color: var(--shopee-text-primary);
+  cursor: pointer;
+  user-select: none;
+}
+
+.filter-checkbox input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--shopee-primary);
+  cursor: pointer;
+}
+
+.btn-apply {
+  background: var(--shopee-primary);
+  color: var(--shopee-text-white);
+  border: none;
+  padding: 0.5rem 1.25rem;
+  border-radius: var(--shopee-radius-md);
+  font-weight: 500;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+}
+
+.btn-apply:hover {
+  background: var(--shopee-primary-dark);
+  transform: translateY(-1px);
+  box-shadow: var(--shopee-shadow-md);
+}
+
+/* Premium View Toggle */
+.view-toggle {
+  display: flex;
+  gap: 0;
+  background: var(--shopee-bg-light);
+  border-radius: var(--shopee-radius-md);
+  padding: 4px;
+  border: 1px solid var(--shopee-border);
+}
+
+.toggle-btn {
+  padding: 0.5rem 1rem;
+  border: none;
+  background: transparent;
+  color: var(--shopee-text-secondary);
+  border-radius: var(--shopee-radius-sm);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-weight: 500;
+  font-size: 0.85rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+}
+
+.toggle-btn.active {
+  background: var(--shopee-bg-white);
+  color: var(--shopee-primary);
+  box-shadow: var(--shopee-shadow-sm);
+}
+
+.toggle-btn:hover:not(.active) {
+  color: var(--shopee-text-primary);
+  background: rgba(238, 77, 45, 0.05);
+}
+
+/* Premium Product Grid */
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.25rem;
+  margin-bottom: 2rem;
+}
+
+.product-card {
+  background: var(--shopee-bg-white);
+  border-radius: var(--shopee-radius-lg);
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid var(--shopee-border-light);
+  position: relative;
+}
+
+.product-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    135deg,
+    var(--shopee-primary),
+    var(--shopee-secondary)
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: -1;
+}
+
+.product-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shopee-shadow-xl);
+  border-color: var(--shopee-primary);
+}
+
+.product-card:hover::before {
+  opacity: 0.02;
+}
+
+/* Premium Product Image */
+.product-image {
+  width: 100%;
+  height: 200px;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+}
+
+.product-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.product-card:hover .product-image img {
+  transform: scale(1.05);
+}
+
+.product-image i {
+  font-size: 3rem;
+  color: var(--shopee-text-light);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* Enhanced Product Info */
+.product-info {
+  padding: 1.25rem;
+}
+
+.product-name {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--shopee-text-primary);
+  margin-bottom: 0.75rem;
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.product-price {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--shopee-primary);
+  margin-bottom: 0.875rem;
+}
+
+.product-meta {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  font-size: 0.8rem;
+}
+
+.meta-item {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  color: var(--shopee-text-secondary);
+  background: var(--shopee-bg-light);
+  padding: 0.25rem 0.5rem;
+  border-radius: var(--shopee-radius-sm);
+}
+
+.meta-item i {
+  font-size: 0.75rem;
+}
+
+/* Premium Status Badges */
+.product-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.375rem 0.75rem;
+  border-radius: var(--shopee-radius-lg);
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.status-active {
+  background: linear-gradient(
+    135deg,
+    var(--shopee-primary),
+    var(--shopee-secondary)
+  );
+  color: white;
+  border: none;
+}
+
+.status-inactive {
+  background: linear-gradient(135deg, #fff8e1, #ffecb3);
+  color: #f57c00;
+  border: 1px solid #ffd54f;
+}
+
+.status-deleted {
+  background: linear-gradient(135deg, #ffebee, #ffcdd2);
+  color: #d32f2f;
+  border: 1px solid #ef9a9a;
+}
+
+/* Enhanced Action Buttons */
+.product-actions {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.btn-action {
+  padding: 0.5rem 1rem;
+  border-radius: var(--shopee-radius-md);
+  text-decoration: none;
+  font-size: 0.8rem;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-action::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+  transition: left 0.3s ease;
+}
+
+.btn-action:hover::before {
+  left: 100%;
+}
+
+.btn-edit {
+  background: linear-gradient(
+    135deg,
+    var(--shopee-primary),
+    var(--shopee-secondary)
+  );
+  color: var(--shopee-text-white);
+  border: none;
+}
+
+.btn-edit:hover {
+  background: linear-gradient(
+    135deg,
+    var(--shopee-primary-dark),
+    var(--shopee-primary)
+  );
+  color: var(--shopee-text-white);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(238, 77, 45, 0.3);
+}
+
+.btn-toggle {
+  background: linear-gradient(135deg, #fff8e1, #ffecb3);
+  color: #f57c00;
+  border: 1px solid #ffd54f;
+}
+
+.btn-toggle:hover {
+  background: linear-gradient(135deg, #f57c00, #ff8f00);
+  color: white;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(245, 124, 0, 0.3);
+}
+
+.btn-delete {
+  background: linear-gradient(135deg, #ffebee, #ffcdd2);
+  color: #d32f2f;
+  border: 1px solid #ef9a9a;
+}
+
+.btn-delete:hover {
+  background: linear-gradient(135deg, #d32f2f, #f44336);
+  color: white;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(211, 47, 47, 0.3);
+}
+
+.btn-restore {
+  background: linear-gradient(
+    135deg,
+    var(--shopee-primary),
+    var(--shopee-secondary)
+  );
+  color: var(--shopee-text-white);
+  border: none;
+}
+
+.btn-restore:hover {
+  background: linear-gradient(
+    135deg,
+    var(--shopee-primary-dark),
+    var(--shopee-primary)
+  );
+  color: var(--shopee-text-white);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(238, 77, 45, 0.3);
+}
+
+/* Ripple Effect */
+.btn-action {
+  position: relative;
+  overflow: hidden;
+}
+
+.ripple {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.6);
+  transform: scale(0);
+  animation: ripple-animation 0.6s linear;
+  pointer-events: none;
+}
+
+@keyframes ripple-animation {
+  to {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+
+/* Loading States */
+.btn-action.loading {
+  pointer-events: none;
+  opacity: 0.7;
+}
+
+.btn-action.loading i {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Notifications */
+.notification {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: var(--shopee-bg-white);
+  border-radius: var(--shopee-radius-lg);
+  padding: 1rem 1.25rem;
+  box-shadow: var(--shopee-shadow-xl);
+  border-left: 4px solid var(--shopee-success);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  z-index: 1000;
+  max-width: 400px;
+  animation: slideInRight 0.3s ease;
+}
+
+.notification-error {
+  border-left-color: var(--shopee-danger);
+}
+
+.notification-close {
+  background: none;
+  border: none;
+  color: var(--shopee-text-secondary);
+  cursor: pointer;
+  margin-left: auto;
+  padding: 0.25rem;
+  border-radius: var(--shopee-radius-sm);
+}
+
+.notification-close:hover {
+  background: var(--shopee-bg-light);
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* Premium Empty State */
+.empty-state {
+  text-align: center;
+  padding: 4rem 2rem;
+  background: var(--shopee-bg-white);
+  border-radius: var(--shopee-radius-xl);
+  border: 2px dashed var(--shopee-border);
+  position: relative;
+  overflow: hidden;
+}
+
+.empty-state::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(238, 77, 45, 0.05),
+    transparent
+  );
+  animation: shimmer 3s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
+.empty-icon {
+  font-size: 4rem;
+  color: var(--shopee-primary);
+  margin-bottom: 1.5rem;
+  opacity: 0.7;
+}
+
+.empty-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--shopee-text-primary);
+  margin-bottom: 0.75rem;
+}
+
+.empty-description {
+  color: var(--shopee-text-secondary);
+  margin-bottom: 2rem;
+  font-size: 1rem;
+}
+
+/* Premium Table View */
+.product-table {
+  background: var(--shopee-bg-white);
+  border-radius: var(--shopee-radius-lg);
+  box-shadow: var(--shopee-shadow-sm);
+  border: 1px solid var(--shopee-border-light);
+  overflow: hidden;
+}
+
+.product-table table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.product-table th {
+  background: linear-gradient(
+    135deg,
+    var(--shopee-primary),
+    var(--shopee-secondary)
+  );
+  padding: 1rem;
+  text-align: left;
+  font-weight: 600;
+  color: white;
+  border-bottom: 2px solid var(--shopee-primary-dark);
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.product-table td {
+  padding: 1rem;
+  border-bottom: 1px solid var(--shopee-border-light);
+  vertical-align: middle;
+}
+
+.product-table tr:hover {
+  background: linear-gradient(
+    135deg,
+    rgba(238, 77, 45, 0.05),
+    rgba(255, 255, 255, 0.95)
+  );
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(238, 77, 45, 0.1);
+}
+
+.table-product-image {
+  width: 60px;
+  height: 60px;
+  border-radius: var(--shopee-radius-md);
+  object-fit: cover;
+  border: 2px solid var(--shopee-border-light);
+}
+
+/* Custom Badge Styles with Shopee Orange/White Theme */
+.badge {
+  padding: 0.5rem 0.75rem;
+  border-radius: var(--shopee-radius-sm);
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+/* Primary Badge - Orange theme for active status */
+.badge.bg-success {
+  background: linear-gradient(
+    135deg,
+    var(--shopee-primary),
+    var(--shopee-secondary)
+  ) !important;
+  color: white !important;
+  border: none;
+}
+
+/* Secondary Badge - Light orange for variants */
+.badge.bg-info {
+  background: linear-gradient(135deg, #fff5f0, #ffe8d6) !important;
+  color: var(--shopee-primary) !important;
+  border: 1px solid #ffcab0;
+}
+
+/* Neutral Badge - White with orange border */
+.badge.bg-secondary {
+  background: white !important;
+  color: var(--shopee-text-secondary) !important;
+  border: 1px solid var(--shopee-border);
+}
+
+/* Warning Badge - Light orange for paused status */
+.badge.bg-warning {
+  background: linear-gradient(135deg, #fff8e1, #ffecb3) !important;
+  color: #f57c00 !important;
+  border: 1px solid #ffd54f;
+}
+
+/* Danger Badge - Red for deleted items only */
+.badge.bg-dark {
+  background: linear-gradient(135deg, #ffebee, #ffcdd2) !important;
+  color: #d32f2f !important;
+  border: 1px solid #ef9a9a;
+}
+
+/* Table Button Styles */
+.btn.btn-sm {
+  padding: 0.375rem 0.75rem;
+  border-radius: var(--shopee-radius-sm);
+  font-size: 0.875rem;
+  font-weight: 500;
+  border: 1px solid;
+  transition: all 0.2s ease;
+}
+
+/* Edit Button - Orange theme */
+.btn.btn-outline-primary {
+  color: var(--shopee-primary) !important;
+  border-color: var(--shopee-primary) !important;
+  background: white;
+}
+
+.btn.btn-outline-primary:hover {
+  background: var(--shopee-primary) !important;
+  color: white !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(238, 77, 45, 0.3);
+}
+
+/* Toggle Button - Warning orange */
+.btn.btn-outline-warning {
+  color: #f57c00 !important;
+  border-color: #f57c00 !important;
+  background: white;
+}
+
+.btn.btn-outline-warning:hover {
+  background: #f57c00 !important;
+  color: white !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(245, 124, 0, 0.3);
+}
+
+/* Price Text - Orange theme */
+.text-primary {
+  color: var(--shopee-primary) !important;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .products-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .action-filters {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .product-actions {
+    flex-direction: column;
+  }
+
+  .btn-action {
+    justify-content: center;
+  }
+
+  .seller-page-header {
+    padding: 1.5rem 0;
+  }
+
+  .page-title {
+    font-size: 1.75rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .page-title {
+    font-size: 1.5rem;
+  }
+
+  .product-actions-bar {
+    padding: 1rem;
+  }
+
+  .btn-add-product {
+    padding: 0.75rem 1.25rem;
+    font-size: 0.9rem;
+  }
+}

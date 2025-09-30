@@ -40,10 +40,15 @@
         </head>
 
         <body class="seller-body">
+            <!-- Mobile Menu Toggle -->
+            <button class="mobile-menu-toggle d-lg-none" id="mobileMenuToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+
             <!-- Seller Layout Container -->
             <div class="seller-layout">
                 <!-- Include Sidebar -->
-                <jsp:include page="sidebar.jsp" />
+                <jsp:include page="/WEB-INF/view/seller/layout/sidebar.jsp" />
 
                 <!-- Main Content Area -->
                 <main class="seller-main" id="sellerMain">
@@ -75,7 +80,7 @@
                         </c:if>
 
                         <!-- Page Header -->
-                        <c:if test="${not empty pageTitle}">
+                        <c:if test="${not empty pageTitle and empty contentPage}">
                             <div class="seller-page-header mb-4">
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div class="seller-page-header-content">
@@ -128,7 +133,17 @@
 
                         <!-- Main Content Area -->
                         <div class="content-wrapper">
-                            <jsp:include page="${contentPage}" />
+                            <c:choose>
+                                <c:when test="${not empty contentPage}">
+                                    <jsp:include page="${contentPage}" />
+                                </c:when>
+                                <c:otherwise>
+                                    <!-- Default content if no contentPage specified -->
+                                    <div class="text-center py-5">
+                                        <h3>Nội dung sẽ được hiển thị ở đây</h3>
+                                    </div>
+                                </c:otherwise>
+                            </c:choose>
                         </div>
                     </div>
 
@@ -211,6 +226,9 @@
 
             <!-- Chart.js for Dashboard -->
             <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+            <!-- Seller Sidebar JavaScript -->
+            <script src="<c:url value='/resources/seller/js/seller-sidebar.js'/>"></script>
 
             <!-- Page Specific JavaScript -->
             <c:if test="${not empty additionalJS}">

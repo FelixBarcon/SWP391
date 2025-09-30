@@ -19,7 +19,7 @@
                     <ul class="nav-menu">
                         <li class="nav-item">
                             <a href="<c:url value='/seller'/>"
-                                class="nav-link ${pageContext.request.servletPath.contains('/dashboard/') ? 'active' : ''}">
+                                class="nav-link ${(pageContext.request.servletPath.equals('/seller') || pageContext.request.servletPath.contains('/dashboard/')) && !pageContext.request.servletPath.contains('/products') ? 'active' : ''}">
                                 <i class="fas fa-chart-line"></i>
                                 <span class="nav-link-text">Dashboard</span>
                             </a>
@@ -31,48 +31,31 @@
                 <div class="nav-section">
                     <div class="nav-section-title">Quản lý cửa hàng</div>
                     <ul class="nav-menu">
-                        <li class="nav-item">
-                            <a href="<c:url value='/seller/products'/>"
-                                class="nav-link ${pageContext.request.servletPath.contains('/products/') ? 'active' : ''}">
+                        <li class="nav-item has-submenu">
+                            <a href="#"
+                                class="nav-link submenu-toggle ${pageContext.request.servletPath.contains('/products') ? 'active' : ''}">
                                 <i class="fas fa-box"></i>
                                 <span class="nav-link-text">Sản phẩm</span>
+                                <i class="fas fa-chevron-down submenu-arrow"></i>
                             </a>
+                            <ul class="submenu">
+                                <li class="submenu-item">
+                                    <a href="<c:url value='/seller/products/create'/>"
+                                        class="submenu-link ${pageContext.request.servletPath.contains('/products/create') ? 'active' : ''}">
+                                        <i class="fas fa-plus"></i>
+                                        <span>Thêm sản phẩm</span>
+                                    </a>
+                                </li>
+                                <li class="submenu-item">
+                                    <a href="<c:url value='/seller/products'/>"
+                                        class="submenu-link ${pageContext.request.servletPath.equals('/seller/products') || pageContext.request.servletPath.contains('/products/list') ? 'active' : ''}">
+                                        <i class="fas fa-list"></i>
+                                        <span>Danh sách sản phẩm</span>
+                                    </a>
+                                </li>
+                            </ul>
                         </li>
-                        <li class="nav-item">
-                            <a href="<c:url value='/seller/orders'/>"
-                                class="nav-link ${pageContext.request.servletPath.contains('/orders/') ? 'active' : ''}">
-                                <i class="fas fa-shopping-cart"></i>
-                                <span class="nav-link-text">Đơn hàng</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="<c:url value='/seller/inventory'/>"
-                                class="nav-link ${pageContext.request.servletPath.contains('/inventory/') ? 'active' : ''}">
-                                <i class="fas fa-warehouse"></i>
-                                <span class="nav-link-text">Kho hàng</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="<c:url value='/seller/reviews'/>"
-                                class="nav-link ${pageContext.request.servletPath.contains('/reviews/') ? 'active' : ''}">
-                                <i class="fas fa-star"></i>
-                                <span class="nav-link-text">Đánh giá</span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
 
-                <!-- Analytics Section -->
-                <div class="nav-section">
-                    <div class="nav-section-title">Phân tích</div>
-                    <ul class="nav-menu">
-                        <li class="nav-item">
-                            <a href="<c:url value='/seller/analytics'/>"
-                                class="nav-link ${pageContext.request.servletPath.contains('/analytics/') ? 'active' : ''}">
-                                <i class="fas fa-chart-bar"></i>
-                                <span class="nav-link-text">Thống kê</span>
-                            </a>
-                        </li>
                     </ul>
                 </div>
             </nav>
