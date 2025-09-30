@@ -71,7 +71,7 @@
                 <h5 class="card-title mb-3">Thao tác nhanh</h5>
                 <div class="row g-3">
                     <div class="col-6 col-md-3">
-                        <a href="<c:url value='/seller/products/new'/>" class="quick-action-card">
+                        <a href="<c:url value='/seller/products/create'/>" class="quick-action-card">
                             <i class="fas fa-plus-circle"></i>
                             <span>Thêm sản phẩm</span>
                         </a>

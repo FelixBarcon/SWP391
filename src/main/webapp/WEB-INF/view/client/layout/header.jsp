@@ -11,7 +11,7 @@
         <!-- CSS riêng cho header -->
         <link rel="stylesheet" href="<c:url value='/resources/client/css/header.css' />">
 
-         <!-- CSS riêng cho footer -->
+        <!-- CSS riêng cho footer -->
         <link rel="stylesheet" href="<c:url value='/resources/client/css/footer.css' />">
 
         <!-- ===== BẮT ĐẦU HEADER HTML ===== -->
@@ -139,7 +139,7 @@
                                             </span>
                                         </a>
                                         <ul class="dropdown-menu dropdown-menu-end">
-                                            <li><a class="dropdown-item" href="<c:url value='/profile' />">
+                                            <li><a class="dropdown-item" href="<c:url value='/account/profile' />">
                                                     <i class="fas fa-user"></i>Hồ sơ cá nhân</a></li>
                                             <li><a class="dropdown-item" href="<c:url value='/orders' />">
                                                     <i class="fas fa-box"></i>Đơn hàng của tôi</a></li>
