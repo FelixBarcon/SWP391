@@ -1,0 +1,820 @@
+/* Shopee Orange & White Theme - Product Edit Page */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: white !important;
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
+    "Helvetica Neue", Arial, sans-serif;
+  line-height: 1.6;
+  color: #333333;
+}
+
+.product-edit-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px;
+  background-color: white;
+  min-height: 100vh;
+}
+
+/* Header Styles - Shopee Orange Gradient */
+.page-header {
+  background: linear-gradient(135deg, #ee4d2d 0%, #ff6633 100%);
+  color: white;
+  padding: 40px;
+  border-radius: 12px;
+  margin-bottom: 24px;
+  box-shadow: 0 8px 32px rgba(238, 77, 45, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.page-header::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 200px;
+  height: 200px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  transform: translate(50px, -50px);
+}
+
+.page-header::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 150px;
+  height: 150px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 50%;
+  transform: translate(-50px, 50px);
+}
+
+.page-title {
+  margin: 0;
+  font-size: 32px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  position: relative;
+  z-index: 1;
+}
+
+.page-subtitle {
+  margin: 12px 0 0 0;
+  opacity: 0.9;
+  font-size: 18px;
+  font-weight: 400;
+  position: relative;
+  z-index: 1;
+}
+
+/* Alert Styles */
+.alert {
+  padding: 16px 24px;
+  border-radius: 8px;
+  margin: 20px 0;
+  font-size: 14px;
+  font-weight: 500;
+  border: none;
+  position: relative;
+}
+
+.alert-success {
+  background: linear-gradient(135deg, #fff2e8 0%, #ffe8d6 100%);
+  color: #d73502;
+  border-left: 4px solid #ee4d2d;
+  box-shadow: 0 4px 12px rgba(238, 77, 45, 0.1);
+}
+
+/* Form Section Styles */
+.form-section {
+  background: white;
+  border-radius: 12px;
+  padding: 32px;
+  margin-bottom: 24px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  border: 1px solid #f5f5f5;
+  transition: box-shadow 0.3s ease;
+}
+
+.form-section:hover {
+  box-shadow: 0 4px 20px rgba(238, 77, 45, 0.08);
+}
+
+.section-title {
+  font-size: 24px;
+  color: #333333;
+  margin: 0 0 24px 0;
+  padding-bottom: 16px;
+  border-bottom: 3px solid #ee4d2d;
+  font-weight: 700;
+  position: relative;
+}
+
+.section-title::before {
+  content: "";
+  position: absolute;
+  bottom: -3px;
+  left: 0;
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(135deg, #ee4d2d, #ff6633);
+  border-radius: 2px;
+}
+
+/* Form Elements */
+.form-group {
+  margin-bottom: 24px;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #333333;
+  font-size: 14px;
+  letter-spacing: 0.3px;
+}
+
+.form-label.required::after {
+  content: " *";
+  color: #ee4d2d;
+  font-weight: 700;
+}
+
+.form-control {
+  width: 100%;
+  padding: 14px 16px;
+  border: 2px solid #f0f0f0;
+  border-radius: 8px;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  background-color: white;
+  font-family: inherit;
+  color: #333333;
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: #ee4d2d;
+  box-shadow: 0 0 0 4px rgba(238, 77, 45, 0.1);
+  background-color: #fffaf9;
+}
+
+.form-control:hover {
+  border-color: #ff6633;
+}
+
+.form-control.textarea {
+  resize: vertical;
+  min-height: 120px;
+  line-height: 1.6;
+}
+
+/* Checkbox Group */
+.checkbox-group {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.checkbox-item {
+  display: flex;
+  align-items: center;
+  background: white;
+  padding: 12px 16px;
+  border-radius: 8px;
+  border: 2px solid #f5f5f5;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.checkbox-item:hover {
+  background: #fff7f0;
+  border-color: #ee4d2d;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(238, 77, 45, 0.1);
+}
+
+.checkbox-item input[type="checkbox"] {
+  margin-right: 8px;
+  accent-color: #ee4d2d;
+  width: 18px;
+  height: 18px;
+}
+
+.checkbox-item input[type="checkbox"]:checked + span {
+  color: #ee4d2d;
+  font-weight: 600;
+}
+
+/* Button Styles */
+.btn {
+  padding: 14px 28px;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  min-width: 120px;
+  letter-spacing: 0.5px;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+  transition: left 0.5s;
+}
+
+.btn:hover::before {
+  left: 100%;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #ee4d2d, #ff6633);
+  color: white;
+  border: 2px solid transparent;
+  box-shadow: 0 4px 15px rgba(238, 77, 45, 0.3);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(238, 77, 45, 0.4);
+  background: linear-gradient(135deg, #d73502, #ee4d2d);
+}
+
+.btn-success {
+  background: linear-gradient(135deg, #00b894, #00cec9);
+  color: white;
+  border: 2px solid transparent;
+  box-shadow: 0 4px 15px rgba(0, 184, 148, 0.3);
+}
+
+.btn-success:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 184, 148, 0.4);
+}
+
+.btn-secondary {
+  background: white;
+  color: #666666;
+  border: 2px solid #e0e0e0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.btn-secondary:hover {
+  background: #f8f8f8;
+  border-color: #ee4d2d;
+  color: #ee4d2d;
+  transform: translateY(-2px);
+}
+
+.btn-danger {
+  background: linear-gradient(135deg, #ff3838, #ff6b6b);
+  color: white;
+  border: 2px solid transparent;
+  padding: 8px 16px;
+  font-size: 12px;
+  min-width: auto;
+  box-shadow: 0 2px 8px rgba(255, 56, 56, 0.3);
+}
+
+.btn-danger:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(255, 56, 56, 0.4);
+}
+
+.btn-add {
+  background: white;
+  color: #ee4d2d;
+  border: 2px dashed #ee4d2d;
+  box-shadow: 0 2px 8px rgba(238, 77, 45, 0.1);
+}
+
+.btn-add:hover {
+  background: #fff7f0;
+  border-style: solid;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(238, 77, 45, 0.2);
+}
+
+/* File Input */
+.file-input-group {
+  background: linear-gradient(135deg, #fff7f0 0%, #ffede6 100%);
+  padding: 24px;
+  border-radius: 12px;
+  border: 2px dashed #ee4d2d;
+  text-align: center;
+  margin: 16px 0;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.file-input-group:hover {
+  border-color: #d73502;
+  background: linear-gradient(135deg, #ffede6 0%, #ffe0d6 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(238, 77, 45, 0.15);
+}
+
+.file-input-group h4 {
+  margin: 0 0 12px 0;
+  color: #ee4d2d;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.file-input-group input[type="file"] {
+  margin: 12px 0;
+  padding: 8px 12px;
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  background: white;
+  color: #333333;
+}
+
+/* Hidden file input for upload area */
+.file-input {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  position: absolute !important;
+  left: -9999px !important;
+  width: 0 !important;
+  height: 0 !important;
+  pointer-events: none !important;
+}
+
+/* Image Gallery */
+.image-gallery {
+  margin: 20px 0;
+}
+
+.gallery-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid #f0f0f0;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+}
+
+.gallery-table th {
+  background: linear-gradient(135deg, #ee4d2d, #ff6633);
+  color: white;
+  padding: 16px 12px;
+  font-weight: 600;
+  text-align: center;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+}
+
+.gallery-table td {
+  padding: 16px 12px;
+  text-align: center;
+  border-bottom: 1px solid #f8f8f8;
+  vertical-align: middle;
+}
+
+.gallery-table tr:last-child td {
+  border-bottom: none;
+}
+
+.gallery-table tr:hover {
+  background-color: #fff7f0;
+  transition: background-color 0.3s ease;
+}
+
+.gallery-table img {
+  border-radius: 8px;
+  border: 2px solid #f0f0f0;
+  transition: all 0.3s ease;
+}
+
+.gallery-table img:hover {
+  transform: scale(1.05);
+  border-color: #ee4d2d;
+  box-shadow: 0 4px 15px rgba(238, 77, 45, 0.2);
+}
+
+/* Variant Section */
+.variant-section {
+  background: linear-gradient(135deg, #fff7f0 0%, #ffede6 100%);
+  border-radius: 16px;
+  padding: 32px;
+  margin-top: 24px;
+  border: 2px solid #ee4d2d;
+  box-shadow: 0 8px 30px rgba(238, 77, 45, 0.1);
+}
+
+.variant-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid #f0f0f0;
+  margin: 20px 0;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+}
+
+.variant-table th {
+  background: linear-gradient(135deg, #333333, #555555);
+  color: white;
+  padding: 16px 8px;
+  font-weight: 600;
+  font-size: 13px;
+  text-align: center;
+  letter-spacing: 0.5px;
+}
+
+.variant-table td {
+  padding: 12px 8px;
+  border-bottom: 1px solid #f8f8f8;
+  vertical-align: middle;
+  font-size: 13px;
+}
+
+.variant-table tr:last-child td {
+  border-bottom: none;
+}
+
+.variant-table tr:hover {
+  background-color: #fff7f0;
+  transition: background-color 0.3s ease;
+}
+
+.variant-table input,
+.variant-table select {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  font-size: 12px;
+  transition: all 0.3s ease;
+  background-color: white;
+}
+
+.variant-table input:focus,
+.variant-table select:focus {
+  outline: none;
+  border-color: #ee4d2d;
+  box-shadow: 0 0 0 2px rgba(238, 77, 45, 0.1);
+}
+
+/* Price Range */
+.price-range {
+  background: linear-gradient(135deg, #e8f7e8, #d4edda);
+  padding: 16px 24px;
+  border-radius: 12px;
+  margin: 16px 0;
+  text-align: center;
+  font-weight: 600;
+  color: #00b894;
+  border: 2px solid #00cec9;
+  font-size: 16px;
+  box-shadow: 0 4px 15px rgba(0, 184, 148, 0.1);
+}
+
+/* Help Text */
+.help-text {
+  font-size: 12px;
+  color: #888888;
+  margin-top: 6px;
+  line-height: 1.4;
+  font-style: italic;
+}
+
+/* Toggle Section - Shopee Orange Consistent */
+.toggle-section {
+  background: linear-gradient(135deg, #fff2e8, #ffe8d6);
+  padding: 16px 20px;
+  border-radius: 8px;
+  margin: 16px 0;
+  border: 2px solid #ee4d2d;
+  box-shadow: 0 2px 8px rgba(238, 77, 45, 0.1);
+}
+
+.toggle-section .checkbox-item {
+  background: transparent;
+  border: none;
+  padding: 0;
+  font-weight: 600;
+  color: #ee4d2d;
+}
+
+/* Current Image Info */
+.current-image-info {
+  background: linear-gradient(135deg, #f5f5f5, #fafafa);
+  padding: 16px 20px;
+  border-radius: 8px;
+  margin: 12px 0;
+  font-size: 14px;
+  color: #666666;
+  border-left: 4px solid #ee4d2d;
+}
+
+.current-image-info strong {
+  color: #333333;
+  font-weight: 600;
+}
+
+/* Layout */
+.row {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+  margin: 0 -12px;
+}
+
+.col-md-6 {
+  flex: 1;
+  min-width: 300px;
+  padding: 0 12px;
+}
+
+/* Radio button styling */
+input[type="radio"] {
+  accent-color: #ee4d2d;
+  transform: scale(1.3);
+  margin: 4px;
+}
+
+/* Checkbox styling */
+input[type="checkbox"] {
+  accent-color: #ee4d2d;
+}
+
+/* Loading state */
+.loading {
+  opacity: 0.6;
+  pointer-events: none;
+  position: relative;
+}
+
+.loading::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  margin: -10px 0 0 -10px;
+  border: 2px solid #f3f3f3;
+  border-top: 2px solid #ee4d2d;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Success animation */
+@keyframes successPulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.02);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.alert-success {
+  animation: successPulse 0.6s ease-in-out;
+}
+
+/* Form validation styles */
+.form-control.error {
+  border-color: #ff3838;
+  box-shadow: 0 0 0 4px rgba(255, 56, 56, 0.1);
+  background-color: #fff5f5;
+}
+
+.error-message {
+  color: #ff3838;
+  font-size: 12px;
+  margin-top: 6px;
+  font-weight: 500;
+}
+
+/* Custom scrollbar for webkit browsers */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #ee4d2d;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #d73502;
+}
+
+/* Focus styles for accessibility */
+.btn:focus,
+.form-control:focus,
+input[type="checkbox"]:focus,
+input[type="radio"]:focus {
+  outline: 2px solid #ee4d2d;
+  outline-offset: 2px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .product-edit-container {
+    padding: 16px;
+  }
+
+  .form-section {
+    padding: 20px;
+  }
+
+  .page-header {
+    padding: 24px;
+  }
+
+  .page-title {
+    font-size: 24px;
+  }
+
+  .checkbox-group {
+    grid-template-columns: 1fr;
+  }
+
+  .row {
+    flex-direction: column;
+  }
+
+  .variant-table {
+    font-size: 11px;
+  }
+
+  .variant-table th,
+  .variant-table td {
+    padding: 8px 4px;
+  }
+
+  .btn {
+    padding: 12px 20px;
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 480px) {
+  .page-header {
+    padding: 20px;
+  }
+
+  .page-title {
+    font-size: 20px;
+  }
+
+  .form-section {
+    padding: 16px;
+  }
+
+  .section-title {
+    font-size: 18px;
+  }
+
+  .file-input-group {
+    padding: 16px;
+  }
+}
+
+/* Variant Section - Consistent Shopee Orange & White */
+.variant-section {
+  background: white;
+  border-radius: 12px;
+  padding: 32px;
+  margin-top: 24px;
+  border: 2px solid #ee4d2d;
+  box-shadow: 0 4px 20px rgba(238, 77, 45, 0.08);
+}
+
+.variant-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid #f0f0f0;
+  margin: 20px 0;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+}
+
+.variant-table th {
+  background: linear-gradient(135deg, #ee4d2d, #ff6633);
+  color: white;
+  padding: 16px 8px;
+  font-weight: 600;
+  font-size: 13px;
+  text-align: center;
+  letter-spacing: 0.5px;
+}
+
+.variant-table td {
+  padding: 12px 8px;
+  border-bottom: 1px solid #f8f8f8;
+  vertical-align: middle;
+  font-size: 13px;
+}
+
+.variant-table tr:last-child td {
+  border-bottom: none;
+}
+
+.variant-table tr:hover {
+  background-color: #fff7f0;
+  transition: background-color 0.3s ease;
+}
+
+.variant-table input,
+.variant-table select {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  font-size: 12px;
+  transition: all 0.3s ease;
+  background-color: white;
+}
+
+.variant-table input:focus,
+.variant-table select:focus {
+  outline: none;
+  border-color: #ee4d2d;
+  box-shadow: 0 0 0 2px rgba(238, 77, 45, 0.1);
+}
+
+/* Price Range - Consistent with Shopee Orange */
+.price-range {
+  background: linear-gradient(135deg, #fff2e8, #ffe8d6);
+  padding: 16px 24px;
+  border-radius: 8px;
+  margin: 16px 0;
+  text-align: center;
+  font-weight: 600;
+  color: #ee4d2d;
+  border: 2px solid #ee4d2d;
+  font-size: 16px;
+  box-shadow: 0 2px 8px rgba(238, 77, 45, 0.1);
+}
+
+/* Print styles */
+@media print {
+  .btn,
+  .file-input-group {
+    display: none;
+  }
+
+  .page-header {
+    background: #ee4d2d !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+}

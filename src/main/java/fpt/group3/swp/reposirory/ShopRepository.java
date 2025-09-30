@@ -12,4 +12,5 @@ public interface ShopRepository extends JpaRepository<Shop, Long> {
     boolean existsByUser_Id(Long userId);
     boolean existsByDisplayNameIgnoreCase(String displayName);
     List<Shop> findAllByVerifyStatus(VerifyStatus status);
+    Optional<Shop> findByUser_EmailIgnoreCase(String email);
 }

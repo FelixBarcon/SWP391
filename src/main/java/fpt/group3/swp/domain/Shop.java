@@ -73,7 +73,7 @@ public class Shop implements Serializable {
         if (verifyStatus == null) verifyStatus = VerifyStatus.DRAFT;
     }
 
-    @ManyToMany(mappedBy = "shops")
+    @OneToMany(mappedBy = "shop", cascade = CascadeType.ALL, orphanRemoval = true)
     @ToString.Exclude
     private Set<Product> products = new HashSet<>();
 

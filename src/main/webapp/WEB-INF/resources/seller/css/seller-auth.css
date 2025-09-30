@@ -5,7 +5,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100vh;
 }
 
 .register-wrapper {
@@ -16,6 +15,7 @@
   box-shadow: 0 0 40px rgba(0, 0, 0, 0.1);
   display: flex;
   overflow: hidden;
+  margin: 20px 0;
 }
 
 /* Left Section - Banner */
@@ -45,6 +45,7 @@
 .banner-content {
   position: relative;
   z-index: 1;
+  margin-top: 50px;
 }
 
 .banner-logo {

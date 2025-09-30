@@ -1,0 +1,498 @@
+/* Shopee-inspired Product Edit Page Styles */
+body {
+  background-color: white !important;
+  margin: 0;
+  padding: 0;
+}
+
+.product-edit-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  background-color: white;
+  min-height: 100vh;
+}
+
+.page-header {
+  background: linear-gradient(135deg, #ff6600 0%, #ff4500 100%);
+  color: white;
+  padding: 24px 30px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 8px rgba(255, 102, 0, 0.2);
+}
+
+.page-title {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 500;
+}
+
+.page-subtitle {
+  margin: 8px 0 0 0;
+  opacity: 0.9;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.alert {
+  padding: 12px 16px;
+  border-radius: 4px;
+  margin: 16px 0;
+  font-size: 14px;
+  border-left: 4px solid #52c41a;
+}
+
+.alert-success {
+  background-color: #f6ffed;
+  border-color: #52c41a;
+  color: #389e0d;
+}
+
+.form-section {
+  background: white;
+  border-radius: 8px;
+  padding: 24px;
+  margin-bottom: 16px;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e8e8e8;
+}
+
+.section-title {
+  font-size: 18px;
+  color: #333;
+  margin: 0 0 20px 0;
+  padding-bottom: 12px;
+  border-bottom: 2px solid #ff6600;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+}
+
+.section-title .icon {
+  margin-right: 8px;
+  font-size: 20px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 500;
+  color: #333;
+  font-size: 14px;
+}
+
+.form-label.required::after {
+  content: " *";
+  color: #ff4d4f;
+}
+
+.form-control {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid #d9d9d9;
+  border-radius: 4px;
+  font-size: 14px;
+  transition: all 0.3s;
+  box-sizing: border-box;
+  background-color: white;
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: #ff6600;
+  box-shadow: 0 0 0 2px rgba(255, 102, 0, 0.1);
+}
+
+.form-control:hover {
+  border-color: #ff6600;
+}
+
+.form-control.textarea {
+  resize: vertical;
+  min-height: 80px;
+  line-height: 1.5;
+}
+
+.checkbox-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 6px;
+}
+
+.checkbox-item {
+  display: flex;
+  align-items: center;
+  background: white;
+  padding: 6px 12px;
+  border-radius: 4px;
+  border: 1px solid #ff6600;
+  transition: all 0.2s;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.checkbox-item:hover {
+  background: #fff2e8;
+  border-color: #ff6600;
+}
+
+.checkbox-item input[type="checkbox"] {
+  margin-right: 6px;
+  accent-color: #ff6600;
+}
+
+.checkbox-item input[type="checkbox"]:checked + span {
+  color: #ff6600;
+  font-weight: 500;
+}
+
+.btn {
+  padding: 8px 20px;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
+  min-width: 80px;
+}
+
+.btn-primary {
+  background-color: #ff6600;
+  color: white;
+  border: 1px solid #ff6600;
+}
+
+.btn-primary:hover {
+  background-color: #e55a00;
+  border-color: #e55a00;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(255, 102, 0, 0.3);
+}
+
+.btn-success {
+  background-color: #52c41a;
+  color: white;
+  border: 1px solid #52c41a;
+}
+
+.btn-success:hover {
+  background-color: #47a617;
+  border-color: #47a617;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(82, 196, 26, 0.3);
+}
+
+.btn-secondary {
+  background-color: #d9d9d9;
+  color: #666;
+  border: 1px solid #d9d9d9;
+}
+
+.btn-secondary:hover {
+  background-color: #bfbfbf;
+  border-color: #bfbfbf;
+}
+
+.btn-danger {
+  background-color: #ff4d4f;
+  color: white;
+  border: 1px solid #ff4d4f;
+  padding: 4px 8px;
+  font-size: 12px;
+  min-width: auto;
+}
+
+.btn-danger:hover {
+  background-color: #ff1f23;
+  border-color: #ff1f23;
+}
+
+.btn-add {
+  background-color: transparent;
+  color: #ff6600;
+  border: 1px dashed #ff6600;
+}
+
+.btn-add:hover {
+  background-color: #fff2e8;
+  border-color: #ff6600;
+}
+
+.file-input-group {
+  background: #fafafa;
+  padding: 16px;
+  border-radius: 4px;
+  border: 1px dashed #d9d9d9;
+  text-align: center;
+  margin: 12px 0;
+  transition: all 0.2s;
+}
+
+.file-input-group:hover {
+  border-color: #ff6600;
+  background: #fff2e8;
+}
+
+.file-input-group input[type="file"] {
+  margin: 8px 0;
+}
+
+.image-gallery {
+  margin: 16px 0;
+}
+
+.gallery-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 4px;
+  overflow: hidden;
+  border: 1px solid #e8e8e8;
+}
+
+.gallery-table th {
+  background: #fafafa;
+  color: #333;
+  padding: 12px 8px;
+  font-weight: 500;
+  text-align: center;
+  border-bottom: 1px solid #e8e8e8;
+  font-size: 14px;
+}
+
+.gallery-table td {
+  padding: 12px 8px;
+  text-align: center;
+  border-bottom: 1px solid #f0f0f0;
+  vertical-align: middle;
+}
+
+.gallery-table tr:last-child td {
+  border-bottom: none;
+}
+
+.gallery-table tr:hover {
+  background-color: #fafafa;
+}
+
+.gallery-table img {
+  border-radius: 4px;
+  border: 1px solid #e8e8e8;
+  max-width: 100%;
+  height: auto;
+}
+
+.variant-section {
+  background: #fafafa;
+  border-radius: 8px;
+  padding: 20px;
+  margin-top: 16px;
+  border: 1px solid #e8e8e8;
+}
+
+.variant-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 4px;
+  overflow: hidden;
+  border: 1px solid #e8e8e8;
+  margin: 16px 0;
+}
+
+.variant-table th {
+  background: #fafafa;
+  color: #333;
+  padding: 12px 6px;
+  font-weight: 500;
+  font-size: 13px;
+  text-align: center;
+  border-bottom: 1px solid #e8e8e8;
+}
+
+.variant-table td {
+  padding: 8px 6px;
+  border-bottom: 1px solid #f0f0f0;
+  vertical-align: middle;
+  font-size: 13px;
+}
+
+.variant-table tr:last-child td {
+  border-bottom: none;
+}
+
+.variant-table tr:hover {
+  background-color: #fafafa;
+}
+
+.variant-table input,
+.variant-table select {
+  width: 100%;
+  padding: 4px 6px;
+  border: 1px solid #d9d9d9;
+  border-radius: 4px;
+  font-size: 12px;
+  box-sizing: border-box;
+}
+
+.variant-table input:focus,
+.variant-table select:focus {
+  outline: none;
+  border-color: #ff6600;
+}
+
+.price-range {
+  background: #f6ffed;
+  padding: 12px 16px;
+  border-radius: 4px;
+  margin: 12px 0;
+  text-align: center;
+  font-weight: 500;
+  color: #389e0d;
+  border: 1px solid #b7eb8f;
+  font-size: 14px;
+}
+
+.help-text {
+  font-size: 12px;
+  color: #8c8c8c;
+  margin-top: 4px;
+  line-height: 1.4;
+}
+
+.toggle-section {
+  background: #fff7e6;
+  padding: 12px 16px;
+  border-radius: 4px;
+  margin: 12px 0;
+  border: 1px solid #ffd591;
+}
+
+.toggle-section .checkbox-item {
+  background: transparent;
+  border: none;
+  padding: 0;
+  font-weight: 500;
+  color: #d46b08;
+}
+
+.row {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.col-md-6 {
+  flex: 1;
+  min-width: 300px;
+}
+
+.current-image-info {
+  background: #f0f0f0;
+  padding: 12px;
+  border-radius: 4px;
+  margin: 8px 0;
+  font-size: 13px;
+  color: #666;
+}
+
+.current-image-info strong {
+  color: #333;
+}
+
+.image-preview {
+  margin-top: 8px;
+}
+
+/* Radio button styling for cover image selection */
+input[type="radio"] {
+  accent-color: #ff6600;
+  transform: scale(1.2);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .product-edit-container {
+    padding: 12px;
+  }
+
+  .form-section {
+    padding: 16px;
+  }
+
+  .page-header {
+    padding: 16px 20px;
+  }
+
+  .checkbox-group {
+    flex-direction: column;
+  }
+
+  .row {
+    flex-direction: column;
+  }
+
+  .variant-table {
+    font-size: 11px;
+  }
+
+  .variant-table th,
+  .variant-table td {
+    padding: 6px 4px;
+  }
+}
+
+/* Loading state */
+.loading {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+/* Success animation */
+@keyframes successPulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.alert-success {
+  animation: successPulse 0.5s ease-in-out;
+}
+
+/* Form validation styles */
+.form-control.error {
+  border-color: #ff4d4f;
+  box-shadow: 0 0 0 2px rgba(255, 77, 79, 0.1);
+}
+
+.error-message {
+  color: #ff4d4f;
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+/* Hover effects for better UX */
+.gallery-table tr:hover td {
+  background-color: #fff2e8;
+}
+
+.variant-table tr:hover td {
+  background-color: #fff2e8;
+}

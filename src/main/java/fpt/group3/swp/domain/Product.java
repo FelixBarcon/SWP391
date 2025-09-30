@@ -1,62 +1,61 @@
-package fpt.group3.swp.domain;/* AnVo
-    
-    @author: Admin
-    Date: 18/09/2025
-    Time: 3:12 PM
-    
-    ProjectName: swp 
-*/
+package fpt.group3.swp.domain;
 
 import fpt.group3.swp.common.Status;
 import jakarta.persistence.*;
 import lombok.*;
-
 import java.io.Serializable;
-import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Set;
+import java.time.LocalDateTime;
+import java.util.*;
 
-
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
-@AllArgsConstructor
-@NoArgsConstructor
-@Getter
-@Setter
-@Entity
-@Table(name = "products")
+@Getter @Setter @NoArgsConstructor @AllArgsConstructor
+@Entity @Table(name = "products")
 public class Product implements Serializable {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "product_id")
-    @EqualsAndHashCode.Include
-    private long id;
+    private Long id;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "shop_id", nullable = false)
+    @ToString.Exclude
+    private Shop shop;
+
+    @Column(nullable = false)
     private String name;
 
+    @Column(length = 5000)
     private String description = "";
 
-    private double price = 0;
+    // Giá “base” khi không có biến thể hoặc biến thể không đặt giá riêng
+    private Double price;
 
-    private int stock = 0;
+    // Tự tính từ biến thể để hiển thị “x – y”
+    private Double priceMin;
+    private Double priceMax;
 
     @Column(name = "image_url")
-    private String imageUrl;
+    private String imageUrl; // cover
 
-    @Column(name = "rating_avg", nullable = false)
-    private double ratingAvg;
+    @ElementCollection
+    @CollectionTable(name = "product_images", joinColumns = @JoinColumn(name = "product_id"))
+    @Column(name = "url", length = 1000)
+    @OrderColumn(name = "position")
+    private List<String> imageUrls = new ArrayList<>();
 
     @Enumerated(EnumType.STRING)
     private Status status = Status.ACTIVE;
 
     @Column(name = "deleted", nullable = false)
-    private boolean isDeleted = false;
+    private boolean deleted = false;
+
+    private Boolean hasVariants = false;
 
     @Column(name = "created_at", nullable = false, updatable = false)
-    private LocalDate createdAt;
+    private LocalDateTime createdAt;
 
     @Column(name = "updated_at")
-    private LocalDate updatedAt;
+    private LocalDateTime updatedAt;
 
+    // Giữ Category nếu bạn vẫn dùng
     @ManyToMany
     @JoinTable(
             name = "products_categories",
@@ -66,15 +65,28 @@ public class Product implements Serializable {
     @ToString.Exclude
     private Set<Category> categories = new HashSet<>();
 
-    @ManyToMany
-    @JoinTable(
-            name = "products_shops",
-            joinColumns = @JoinColumn(name = "product_id"),
-            inverseJoinColumns = @JoinColumn(name = "shop_id")
-    )
+    // Biến thể đơn giản: chỉ 1 tên (“Màu Đỏ”, “Size M”, “128GB”...)
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OrderColumn(name = "position")
     @ToString.Exclude
-    private Set<Shop> shops = new HashSet<>();
+    private List<ProductVariant> variants = new ArrayList<>();
 
-    @OneToMany(mappedBy = "product")
-    private Set<OrderItem> orderItems;
+    @PrePersist
+    void prePersist() {
+        if (createdAt == null) createdAt = LocalDateTime.now();
+        if ((imageUrl == null || imageUrl.isBlank()) && !imageUrls.isEmpty()) {
+            imageUrl = imageUrls.get(0);
+        }
+        if (priceMin == null) priceMin = price;
+        if (priceMax == null) priceMax = price;
+        if (status == null) status = Status.ACTIVE;
+    }
+
+    @PreUpdate
+    void preUpdate() {
+        updatedAt = LocalDateTime.now();
+        if ((imageUrl == null || imageUrl.isBlank()) && !imageUrls.isEmpty()) {
+            imageUrl = imageUrls.get(0);
+        }
+    }
 }
