@@ -55,8 +55,9 @@
         </div>
 
         <!-- Main Layout -->
-        <form id="checkout-form" method="post" action="${pageContext.request.contextPath}/order/place">
-            <div class="checkout-layout">
+<%--        <form id="checkout-form" method="post" action="${pageContext.request.contextPath}/order/place">--%>
+        <form id="checkout-form" method="post" action="${pageContext.request.contextPath}${formAction}">
+        <div class="checkout-layout">
                 <!-- Left Column -->
                 <div class="checkout-left">
                     <!-- Address Section -->
@@ -74,9 +75,9 @@
                                     <label class="form-label">
                                         Họ và tên <span class="required">*</span>
                                     </label>
-                                    <input type="text" 
-                                           name="receiverName" 
-                                           class="form-input" 
+                                    <input type="text"
+                                           name="receiverName"
+                                           class="form-input"
                                            placeholder="Nhập họ và tên người nhận"
                                            required>
                                 </div>
@@ -84,9 +85,9 @@
                                     <label class="form-label">
                                         Số điện thoại <span class="required">*</span>
                                     </label>
-                                    <input type="tel" 
-                                           name="receiverPhone" 
-                                           class="form-input" 
+                                    <input type="tel"
+                                           name="receiverPhone"
+                                           class="form-input"
                                            placeholder="Nhập số điện thoại"
                                            pattern="[0-9]{10,11}"
                                            required>
@@ -99,9 +100,9 @@
                                     <label class="form-label">
                                         Địa chỉ chi tiết <span class="required">*</span>
                                     </label>
-                                    <input type="text" 
-                                           name="receiverAddress" 
-                                           class="form-input" 
+                                    <input type="text"
+                                           name="receiverAddress"
+                                           class="form-input"
                                            placeholder="Số nhà, tên đường..."
                                            required>
                                 </div>
@@ -237,9 +238,9 @@
                             <div class="payment-options">
                                 <!-- COD -->
                                 <label class="payment-option active">
-                                    <input type="radio" 
-                                           name="paymentMethod" 
-                                           value="COD" 
+                                    <input type="radio"
+                                           name="paymentMethod"
+                                           value="COD"
                                            class="payment-radio"
                                            checked>
                                     <div class="payment-info">
@@ -255,9 +256,9 @@
 
                                 <!-- VNPay -->
                                 <label class="payment-option">
-                                    <input type="radio" 
-                                           name="paymentMethod" 
-                                           value="VNPAY" 
+                                    <input type="radio"
+                                           name="paymentMethod"
+                                           value="VNPAY"
                                            class="payment-radio">
                                     <div class="payment-info">
                                         <div class="payment-name">Thanh toán VNPay</div>

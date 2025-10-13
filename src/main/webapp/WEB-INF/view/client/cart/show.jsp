@@ -43,7 +43,7 @@
                             <!-- Cart Header (Grid labels) -->
                             <div class="cart-header">
                                 <div class="cart-header-item">
-                                    <input type="checkbox" id="select-all-checkbox" class="shop-checkbox" checked>
+                                    <input type="checkbox" id="header-select-all" class="shop-checkbox" checked>
                                 </div>
                                 <div class="cart-header-item">Sản phẩm</div>
                                 <div class="cart-header-item">Đơn giá</div>

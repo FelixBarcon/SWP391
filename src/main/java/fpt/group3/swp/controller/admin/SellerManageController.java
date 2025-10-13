@@ -8,6 +8,11 @@ import fpt.group3.swp.service.SellerService;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -22,6 +27,7 @@ public class SellerManageController {
 
     private final SellerService sellerService;
     private final ShopRepository shopRepo;
+    private final UserDetailsService userDetailsService;
 
     /** Lấy userId từ session */
     private Long getUserIdFromSession(HttpSession session) {
@@ -38,6 +44,19 @@ public class SellerManageController {
         Shop existing = shopRepo.findByUser_Id(userId).orElse(null);
 
         if (existing != null && existing.getVerifyStatus() == VerifyStatus.APPROVED) {
+            // Nếu chưa có ROLE_SELLER thì refresh authorities
+            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+            boolean hasSellerRole = auth != null && auth.getAuthorities().stream()
+                    .anyMatch(a -> a.getAuthority().equals("ROLE_SELLER"));
+
+            if (!hasSellerRole) {
+                String username = auth.getName();
+                UserDetails ud = userDetailsService.loadUserByUsername(username);
+                UsernamePasswordAuthenticationToken newAuth =
+                        new UsernamePasswordAuthenticationToken(ud, auth.getCredentials(), ud.getAuthorities());
+                newAuth.setDetails(auth.getDetails());
+                SecurityContextHolder.getContext().setAuthentication(newAuth);
+            }
             return "redirect:/seller/dashboard";
         }
 

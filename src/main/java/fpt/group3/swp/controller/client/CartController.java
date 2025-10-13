@@ -6,6 +6,8 @@ import java.util.Map;
 
 import fpt.group3.swp.domain.ProductVariant;
 import fpt.group3.swp.reposirory.ProductVariantRepository;
+
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -13,22 +15,24 @@ import org.springframework.web.bind.annotation.*;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
-import  fpt.group3.swp.domain.User;
-import  fpt.group3.swp.domain.dto.ShopCartDto;
-import  fpt.group3.swp.service.CartService;
+import fpt.group3.swp.domain.User;
+import fpt.group3.swp.domain.dto.ShopCartDto;
+import fpt.group3.swp.service.CartService;
 
 @Controller
 public class CartController {
     private final CartService cartService;
     private final ProductVariantRepository variantRepo;
+
     public CartController(CartService cartService, ProductVariantRepository variantRepo) {
         this.cartService = cartService;
         this.variantRepo = variantRepo;
     }
+
     @GetMapping("/cart")
     public String getCartPage(Model model,
-                              @RequestParam(value="page", defaultValue="1") int page,
-                              HttpServletRequest request) {
+            @RequestParam(value = "page", defaultValue = "1") int page,
+            HttpServletRequest request) {
         User user = requireLogin(request.getSession(false));
 
         int size = 10; // mỗi trang 10 dòng giỏ hàng
@@ -66,8 +70,8 @@ public class CartController {
 
     @PostMapping("/cart/change-variant")
     public String changeVariant(@RequestParam Long cartDetailId,
-                                @RequestParam(value = "variantId", required = false) String variantIdRaw,
-                                HttpServletRequest request) {
+            @RequestParam(value = "variantId", required = false) String variantIdRaw,
+            HttpServletRequest request) {
         User user = requireLogin(request.getSession(false));
         Long variantId = (variantIdRaw == null || variantIdRaw.isBlank())
                 ? null
@@ -75,8 +79,6 @@ public class CartController {
         cartService.changeVariant(user, cartDetailId, variantId);
         return "redirect:/cart";
     }
-
-
 
     private User requireLogin(HttpSession session) {
         if (session == null || session.getAttribute("id") == null) {

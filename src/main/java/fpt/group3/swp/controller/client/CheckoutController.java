@@ -41,6 +41,8 @@ public class CheckoutController {
         List<ShopCartDto> groups = cartService.groupSelectionByShop(ids);
         model.addAttribute("groups", groups);
         model.addAttribute("paymentMethods", PaymentMethod.values());
+        model.addAttribute("formAction", "/order/place");
+        model.addAttribute("checkoutMode", "CART");
         return "client/order/checkout";
     }
 
