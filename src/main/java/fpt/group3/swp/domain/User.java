@@ -13,8 +13,8 @@ import lombok.*;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
-
 import java.time.LocalDateTime;
+import org.hibernate.annotations.Nationalized;
 
 @Entity
 @Table(name = "users")
@@ -31,35 +31,45 @@ public class User implements Serializable {
 
     @NotNull
     @Email(message = "Email không hợp lệ", regexp = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$")
+    @Nationalized
     private String email;
 
     @NotNull
     @Size(min = 2, message = "Password phải có tối thiểu 2 ký tự")
+    @Nationalized
     private String password;
 
+    @Nationalized
     @Column(length = 255)
     private String firstName;
 
+    @Nationalized
     @Column(length = 255)
     private String lastName;
 
     @NotNull
     @Size(min = 3, message = "Fullname phải có tối thiểu 3 ký tự")
+    @Nationalized
     @Column(length = 255)
     private String fullName;
 
+    @Nationalized
     @Column(length = 255)
     private String address;
 
+    @Nationalized
     private String phone;
 
+    @Nationalized
     private String avatar;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "role_id", nullable = false)  // thêm nullable=false để chắc chắn ràng buộc
+    @JoinColumn(name = "role_id", nullable = false)
     private Role role;
 
+    @Nationalized
     private String resetToken;
+
     private LocalDateTime resetTokenExpiry;
 
     @OneToOne(mappedBy = "user")

@@ -8,6 +8,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
+import org.hibernate.annotations.Nationalized;
 
 @Getter @Setter
 @NoArgsConstructor @AllArgsConstructor
@@ -31,9 +32,11 @@ public class Shop implements Serializable {
     @ToString.Exclude
     private User user;
 
+    @Nationalized
     @Column(name = "display_name", length = 150, nullable = false)
     private String displayName;
 
+    @Nationalized
     @Column(length = 1000)
     private String description;
 
@@ -44,21 +47,27 @@ public class Shop implements Serializable {
     private LocalDateTime verifiedAt;
     private Long verifyBy;
 
+    @Nationalized
     @Column(length = 255)
     private String pickupAddress;
 
+    @Nationalized
     @Column(length = 255)
     private String returnAddress;
 
+    @Nationalized
     @Column(length = 30)
     private String contactPhone;
 
+    @Nationalized
     @Column(length = 20)
     private String bankCode;
 
+    @Nationalized
     @Column(length = 50)
     private String bankAccountNo;
 
+    @Nationalized
     @Column(length = 150)
     private String bankAccountName;
 

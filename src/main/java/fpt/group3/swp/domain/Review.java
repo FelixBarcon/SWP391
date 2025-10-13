@@ -9,6 +9,7 @@ package fpt.group3.swp.domain;/* AnVo
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.Nationalized;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -31,14 +32,14 @@ public abstract class Review implements Serializable {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    // 🔥 Thêm quan hệ với Shop
     @ManyToOne
     @JoinColumn(name = "shop_id", nullable = false)
     private Shop shop;
 
     @Column(nullable = false)
-    private int rating; // Hibernate sẽ tự validate nếu bạn dùng @Min/@Max
+    private int rating;
 
+    @Nationalized
     private String comment;
 
     @Column(name = "is_visible")

@@ -8,4 +8,5 @@ import java.util.List;
 
 public interface ProductVariantRepository extends JpaRepository<ProductVariant, Long> {
     List<ProductVariant> findAllByProduct_Id(Long productId);
+    List<ProductVariant> findByProduct_Id(Long productId);
 }

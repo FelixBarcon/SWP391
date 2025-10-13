@@ -9,6 +9,7 @@ package fpt.group3.swp.domain;/* AnVo
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.Nationalized;
 
 import java.io.Serializable;
 import java.util.Set;
@@ -27,6 +28,7 @@ public class Category implements Serializable {
     @Column(name = "category_id")
     private long id;
 
+    @Nationalized
     private String name;
 
     @Column(name = "parent_id")

@@ -10,8 +10,8 @@ package fpt.group3.swp.domain;/* AnVo
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
 import lombok.*;
+import org.hibernate.annotations.Nationalized;
 
 import java.io.Serializable;
 
@@ -22,8 +22,11 @@ import java.io.Serializable;
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true) // vì kế thừa Review
 public class ProductReview extends Review implements Serializable {
+
     @ManyToOne
     @JoinColumn(name = "product_id", nullable = false)
     private Product product;
+
+    @Nationalized
     private String title;
 }

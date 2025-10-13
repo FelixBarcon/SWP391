@@ -45,10 +45,10 @@ public class SellerProductService {
     // ===== CREATE =====
     @Transactional
     public Long createProduct(CreateProductForm form,
-            MultipartFile[] images,
-            List<String> variantNames,
-            List<String> variantPrices,
-            MultipartFile[] variantImages) {
+                              MultipartFile[] images,
+                              List<String> variantNames,
+                              List<String> variantPrices,
+                              MultipartFile[] variantImages) {
 
         Shop shop = shopRepo.findById(form.getShopId())
                 .orElseThrow(() -> new IllegalArgumentException("Shop not found"));
@@ -61,8 +61,8 @@ public class SellerProductService {
         p.setStatus(Status.ACTIVE);
 
         // Categories (tuỳ chọn)
-        Set<Category> cats = form.getCategoryIds() == null ? new HashSet<>()
-                : new HashSet<>(categoryRepo.findAllById(form.getCategoryIds()));
+        Set<Category> cats = form.getCategoryIds() == null ? new HashSet<>() :
+                new HashSet<>(categoryRepo.findAllById(form.getCategoryIds()));
         p.setCategories(cats);
 
         // Ảnh sản phẩm
@@ -71,16 +71,13 @@ public class SellerProductService {
             List<String> saved = uploadService.handleSaveUploadFiles(images, folder)
                     .stream().map(fn -> folder + "/" + fn).toList();
             p.getImageUrls().addAll(saved);
-            if (p.getImageUrl() == null && !saved.isEmpty())
-                p.setImageUrl(saved.get(0));
+            if (p.getImageUrl() == null && !saved.isEmpty()) p.setImageUrl(saved.get(0));
         }
 
         // Giá
         if (!p.getHasVariants()) {
             double base = form.getPrice() == null ? 0d : form.getPrice();
-            p.setPrice(base);
-            p.setPriceMin(base);
-            p.setPriceMax(base);
+            p.setPrice(base); p.setPriceMin(base); p.setPriceMax(base);
         } else {
             p.setPrice(form.getPrice()); // giá base (fallback)
         }
@@ -93,8 +90,7 @@ public class SellerProductService {
             String folder = "products/" + shop.getId();
             for (int i = 0; i < variantNames.size(); i++) {
                 String name = variantNames.get(i);
-                if (!StringUtils.hasText(name))
-                    continue;
+                if (!StringUtils.hasText(name)) continue;
 
                 ProductVariant v = new ProductVariant();
                 v.setProduct(p);
@@ -103,20 +99,14 @@ public class SellerProductService {
                 // Giá
                 Double price = null;
                 if (variantPrices != null && i < variantPrices.size()) {
-                    try {
-                        price = Double.parseDouble(variantPrices.get(i));
-                    } catch (Exception ignored) {
-                    }
+                    try { price = Double.parseDouble(variantPrices.get(i)); } catch (Exception ignored) {}
                 }
                 v.setPrice(price);
 
                 // Ảnh biến thể
-                if (variantImages != null && i < variantImages.length && variantImages[i] != null
-                        && !variantImages[i].isEmpty()) {
-                    List<String> saved = uploadService.handleSaveUploadFiles(new MultipartFile[] { variantImages[i] },
-                            folder);
-                    if (!saved.isEmpty())
-                        v.setImageUrl(folder + "/" + saved.get(0));
+                if (variantImages != null && i < variantImages.length && variantImages[i] != null && !variantImages[i].isEmpty()) {
+                    List<String> saved = uploadService.handleSaveUploadFiles(new MultipartFile[]{variantImages[i]}, folder);
+                    if (!saved.isEmpty()) v.setImageUrl(folder + "/" + saved.get(0));
                 }
 
                 variantRepo.save(v);
@@ -153,18 +143,15 @@ public class SellerProductService {
     public void toggleStatus(Long id, Long shopId) {
         Product p = productRepo.findById(id).orElseThrow(() -> new IllegalArgumentException("Product not found"));
         assertOwner(p, shopId);
-        if (p.isDeleted())
-            p.setStatus(Status.INACTIVE);
-        else
-            p.setStatus(p.getStatus() == Status.ACTIVE ? Status.INACTIVE : Status.ACTIVE);
+        if (p.isDeleted()) p.setStatus(Status.INACTIVE);
+        else p.setStatus(p.getStatus() == Status.ACTIVE ? Status.INACTIVE : Status.ACTIVE);
         productRepo.save(p);
     }
 
     // ===== EDIT PAGE DATA =====
     @Transactional(readOnly = true)
     public EditPageData getEditPageData(Long productId, Long shopId) {
-        Product p = productRepo.findById(productId)
-                .orElseThrow(() -> new IllegalArgumentException("Product not found"));
+        Product p = productRepo.findById(productId).orElseThrow(() -> new IllegalArgumentException("Product not found"));
         assertOwner(p, shopId);
         List<ProductVariant> variants = variantRepo.findAllByProduct_Id(productId);
         List<Category> categories = categoryRepo.findAll();
@@ -179,10 +166,10 @@ public class SellerProductService {
     // ===== UPDATE BASIC =====
     @Transactional
     public void updateBasicOwned(Long id, Long shopId, String name, String description,
-            List<Long> categoryIds, boolean hasVariants,
-            Double price,
-            MultipartFile[] addImages, List<String> removeImageUrl,
-            String coverImage, MultipartFile coverUpload) {
+                                 List<Long> categoryIds, boolean hasVariants,
+                                 Double price,
+                                 MultipartFile[] addImages, List<String> removeImageUrl,
+                                 String coverImage, MultipartFile coverUpload) {
         Product p = productRepo.findById(id).orElseThrow(() -> new IllegalArgumentException("Product not found"));
         assertOwner(p, shopId);
 
@@ -191,8 +178,8 @@ public class SellerProductService {
         p.setHasVariants(hasVariants);
 
         // Categories
-        Set<Category> newCats = categoryIds == null ? new HashSet<>()
-                : new HashSet<>(categoryRepo.findAllById(categoryIds));
+        Set<Category> newCats = categoryIds == null ? new HashSet<>() :
+                new HashSet<>(categoryRepo.findAllById(categoryIds));
         p.setCategories(newCats);
 
         // Xóa ảnh
@@ -214,17 +201,15 @@ public class SellerProductService {
         // Cover
         if (coverUpload != null && !coverUpload.isEmpty()) {
             String folder = "products/" + p.getShop().getId();
-            List<String> saved = uploadService.handleSaveUploadFiles(new MultipartFile[] { coverUpload }, folder);
+            List<String> saved = uploadService.handleSaveUploadFiles(new MultipartFile[]{coverUpload}, folder);
             if (!saved.isEmpty()) {
                 String url = folder + "/" + saved.get(0);
                 p.setImageUrl(url);
-                if (!p.getImageUrls().contains(url))
-                    p.getImageUrls().add(0, url);
+                if (!p.getImageUrls().contains(url)) p.getImageUrls().add(0, url);
             }
         } else if (coverImage != null && !coverImage.isBlank()) {
             p.setImageUrl(coverImage);
-            if (!p.getImageUrls().contains(coverImage))
-                p.getImageUrls().add(0, coverImage);
+            if (!p.getImageUrls().contains(coverImage)) p.getImageUrls().add(0, coverImage);
         } else if ((p.getImageUrl() == null || p.getImageUrl().isBlank()) && !p.getImageUrls().isEmpty()) {
             p.setImageUrl(p.getImageUrls().get(0));
         }
@@ -232,9 +217,7 @@ public class SellerProductService {
         // Giá
         if (!hasVariants) {
             double base = price == null ? 0d : price;
-            p.setPrice(base);
-            p.setPriceMin(base);
-            p.setPriceMax(base);
+            p.setPrice(base); p.setPriceMin(base); p.setPriceMax(base);
         } else {
             p.setPrice(price);
             recalcPriceRange(p);
@@ -246,11 +229,10 @@ public class SellerProductService {
     // ===== UPSERT VARIANTS =====
     @Transactional
     public void upsertVariantsOwned(Long productId, Long shopId,
-            List<Long> variantIds, List<String> variantNames, List<String> variantPrices,
-            MultipartFile[] variantImages, List<String> variantImageFromGallery,
-            List<Long> deleteVariantIds) {
-        Product p = productRepo.findById(productId)
-                .orElseThrow(() -> new IllegalArgumentException("Product not found"));
+                                    List<Long> variantIds, List<String> variantNames, List<String> variantPrices,
+                                    MultipartFile[] variantImages, List<String> variantImageFromGallery,
+                                    List<Long> deleteVariantIds) {
+        Product p = productRepo.findById(productId).orElseThrow(() -> new IllegalArgumentException("Product not found"));
         assertOwner(p, shopId);
 
         String folder = "products/" + p.getShop().getId();
@@ -264,36 +246,27 @@ public class SellerProductService {
         int n = (variantNames == null ? 0 : variantNames.size());
         for (int i = 0; i < n; i++) {
             String name = variantNames.get(i);
-            if (!StringUtils.hasText(name))
-                continue;
+            if (!StringUtils.hasText(name)) continue;
 
             Long vid = (variantIds != null && i < variantIds.size()) ? variantIds.get(i) : null;
             ProductVariant v = (vid != null ? map.get(vid) : null);
-            if (v == null)
-                v = new ProductVariant();
+            if (v == null) v = new ProductVariant();
 
             v.setProduct(p);
             v.setName(name.trim());
 
             Double price = null;
             if (variantPrices != null && i < variantPrices.size()) {
-                try {
-                    price = Double.parseDouble(variantPrices.get(i));
-                } catch (Exception ignored) {
-                }
+                try { price = Double.parseDouble(variantPrices.get(i)); } catch (Exception ignored) {}
             }
             v.setPrice(price);
 
-            if (variantImages != null && i < variantImages.length && variantImages[i] != null
-                    && !variantImages[i].isEmpty()) {
-                List<String> saved = uploadService.handleSaveUploadFiles(new MultipartFile[] { variantImages[i] },
-                        folder);
-                if (!saved.isEmpty())
-                    v.setImageUrl(folder + "/" + saved.get(0));
+            if (variantImages != null && i < variantImages.length && variantImages[i] != null && !variantImages[i].isEmpty()) {
+                List<String> saved = uploadService.handleSaveUploadFiles(new MultipartFile[]{variantImages[i]}, folder);
+                if (!saved.isEmpty()) v.setImageUrl(folder + "/" + saved.get(0));
             } else if (variantImageFromGallery != null && i < variantImageFromGallery.size()) {
                 String pick = variantImageFromGallery.get(i);
-                if (StringUtils.hasText(pick))
-                    v.setImageUrl(pick);
+                if (StringUtils.hasText(pick)) v.setImageUrl(pick);
             }
 
             variantRepo.save(v);
@@ -335,15 +308,10 @@ public class SellerProductService {
         double min = Double.MAX_VALUE, max = 0d;
         for (ProductVariant v : remain) {
             double pr = v.getPrice() != null ? v.getPrice() : base;
-            min = Math.min(min, pr);
-            max = Math.max(max, pr);
+            min = Math.min(min, pr); max = Math.max(max, pr);
         }
-        if (min == Double.MAX_VALUE) {
-            min = base;
-            max = base;
-        }
-        p.setPriceMin(min);
-        p.setPriceMax(max);
+        if (min == Double.MAX_VALUE) { min = base; max = base; }
+        p.setPriceMin(min); p.setPriceMax(max);
     }
 
     // ===== DTOs =====

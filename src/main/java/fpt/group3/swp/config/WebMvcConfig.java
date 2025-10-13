@@ -18,10 +18,14 @@ import org.springframework.web.servlet.view.JstlView;
 public class WebMvcConfig implements WebMvcConfigurer {
     
     private final AdminInterceptor adminInterceptor;
+    private final CartCountInterceptor cartCountInterceptor;
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(adminInterceptor);
+        registry.addInterceptor(cartCountInterceptor)
+                .addPathPatterns("/**")  // Apply to all pages
+                .excludePathPatterns("/resources/**", "/css/**", "/js/**", "/images/**");  // Exclude static resources
     }
     @Bean
     public ViewResolver viewResolver() {
@@ -39,6 +43,8 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/resources/**")
+                .addResourceLocations("/WEB-INF/resources/");
         registry.addResourceHandler("/css/**").addResourceLocations("/resources/css/");
         registry.addResourceHandler("/js/**").addResourceLocations("/resources/js/");
         registry.addResourceHandler("/resources/**").addResourceLocations("/WEB-INF/resources/");

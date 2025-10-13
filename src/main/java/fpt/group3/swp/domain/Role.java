@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.annotations.Nationalized;
 
 import java.util.List;
 
@@ -18,11 +19,12 @@ public class Role {
     @Column(name = "role_id")
     private long id;
 
+    @Nationalized
     private String name;
 
+    @Nationalized
     private String description;
 
     @OneToMany(mappedBy = "role")
     private List<User> users;
-
 }

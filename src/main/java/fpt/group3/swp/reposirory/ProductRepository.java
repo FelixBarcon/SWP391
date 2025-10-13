@@ -9,6 +9,8 @@ package fpt.group3.swp.reposirory;/* AnVo
 
 import fpt.group3.swp.common.Status;
 import fpt.group3.swp.domain.Product;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -19,4 +21,5 @@ import java.util.List;
 public interface ProductRepository extends JpaRepository<Product, Long> {
     List<Product> findAllByShop_IdOrderByUpdatedAtDesc(Long shopId);
     List<Product> findAllByShop_IdAndDeletedFalseOrderByUpdatedAtDesc(Long shopId);
+    Page<Product> findByStatusAndDeleted(Status status, boolean deleted, Pageable pageable);
 }
