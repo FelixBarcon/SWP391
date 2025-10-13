@@ -1,0 +1,408 @@
+/**
+ * ===================================
+ * FACEBOOK MESSENGER FLOATING BUTTON
+ * - Beautiful design
+ * - Smooth animations
+ * - Responsive
+ * ===================================
+ */
+
+/* ===================================
+   MAIN BUTTON
+   =================================== */
+.fb-messenger-button {
+  position: fixed;
+  bottom: 90px;
+  right: 20px;
+  z-index: 9999;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+/* Button Container */
+.fb-messenger-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0;
+  background: #ffffff;
+  padding: 0;
+  border-radius: 50%;
+  width: 56px;
+  height: 56px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1), 0 4px 16px rgba(0, 0, 0, 0.08);
+  overflow: visible;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+/* Icon Circle */
+.fb-messenger-icon-wrapper {
+  width: 56px;
+  height: 56px;
+  background: transparent;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+/* White ring pulse effect on icon wrapper */
+.fb-messenger-icon-wrapper::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 56px;
+  height: 56px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  animation: pulse-ring 2s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+}
+
+@keyframes pulse-white-ring {
+  0% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.8;
+    border-width: 2px;
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.4);
+    opacity: 0;
+    border-width: 1px;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0;
+    border-width: 1px;
+  }
+}
+
+.fb-messenger-icon-wrapper svg {
+  width: 28px;
+  height: 28px;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+}
+
+.fb-messenger-icon-wrapper .fb-messenger-icon-img {
+  width: 34px;
+  height: 34px;
+  object-fit: contain;
+}
+
+/* Text Label - Hidden by default, show on hover */
+.fb-messenger-text {
+  color: black;
+  font-weight: 600;
+  font-size: 14px;
+  white-space: nowrap;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  opacity: 0;
+  width: 0;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.fb-messenger-text-line1 {
+  display: none;
+}
+
+.fb-messenger-text-line2 {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+/* ===================================
+   HOVER EFFECTS
+   =================================== */
+.fb-messenger-button:hover .fb-messenger-container {
+  background: #fff;
+  transform: translateY(-2px);
+  width: auto;
+  padding: 12px 18px 12px 12px;
+  gap: 10px;
+  border-radius: 50px;
+}
+
+.fb-messenger-button:hover .fb-messenger-text {
+  opacity: 1;
+  width: auto;
+  padding-right: 4px;
+}
+
+.fb-messenger-button:hover .fb-messenger-icon-wrapper {
+  transform: rotate(10deg) scale(1.05);
+}
+
+.fb-messenger-button:active .fb-messenger-container {
+  transform: translateY(0);
+}
+
+/* ===================================
+   PULSE ANIMATION
+   =================================== */
+.fb-messenger-container::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 56px;
+  height: 56px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  animation: pulse-ring-fb 2s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+}
+
+@keyframes pulse-ring-fb {
+  0% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.6;
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.3);
+    opacity: 0;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0;
+  }
+}
+
+/* ===================================
+   WAVE BACKGROUND EFFECT
+   =================================== */
+.fb-messenger-container::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    45deg,
+    rgba(255, 255, 255, 0.1) 0%,
+    transparent 50%,
+    rgba(255, 255, 255, 0.1) 100%
+  );
+  background-size: 200% 200%;
+  animation: wave-bg-fb 3s ease infinite;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+@keyframes wave-bg-fb {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* ===================================
+   NOTIFICATION DOT
+   =================================== */
+.fb-messenger-notification-dot {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  width: 10px;
+  height: 10px;
+  background: #ff4444;
+  border-radius: 50%;
+  border: 2px solid white;
+  box-shadow: 0 2px 4px rgba(255, 68, 68, 0.4);
+  animation: blink-dot-fb 1.5s ease-in-out infinite;
+}
+
+@keyframes blink-dot-fb {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.7;
+    transform: scale(0.9);
+  }
+}
+
+/* ===================================
+   TOOLTIP (shown on small screens)
+   =================================== */
+.fb-messenger-tooltip {
+  position: absolute;
+  bottom: 100%;
+  right: 0;
+  background: rgba(0, 0, 0, 0.85);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 13px;
+  white-space: nowrap;
+  margin-bottom: 10px;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.fb-messenger-tooltip::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  right: 20px;
+  border: 6px solid transparent;
+  border-top-color: rgba(0, 0, 0, 0.85);
+}
+
+.fb-messenger-button:hover .fb-messenger-tooltip {
+  opacity: 0;
+}
+
+/* ===================================
+   MOBILE RESPONSIVE
+   =================================== */
+@media (max-width: 768px) {
+  .fb-messenger-button {
+    bottom: 80px;
+    right: 15px;
+  }
+
+  /* Keep same compact size on mobile */
+  .fb-messenger-container {
+    width: 50px;
+    height: 50px;
+  }
+
+  .fb-messenger-icon-wrapper {
+    width: 50px;
+    height: 50px;
+  }
+
+  .fb-messenger-icon-wrapper .fb-messenger-icon-img {
+    width: 28px;
+    height: 28px;
+  }
+
+  /* Disable hover expand on mobile */
+  .fb-messenger-button:hover .fb-messenger-container {
+    width: 50px;
+    height: 50px;
+    padding: 0;
+    gap: 0;
+    border-radius: 50%;
+  }
+
+  .fb-messenger-button:hover .fb-messenger-text {
+    opacity: 0;
+    width: 0;
+  }
+
+  /* Show tooltip on mobile hover */
+  .fb-messenger-button:hover .fb-messenger-tooltip {
+    opacity: 1;
+  }
+
+  .fb-messenger-container::before {
+    width: 50px;
+    height: 50px;
+  }
+
+  .fb-messenger-notification-dot {
+    top: 2px;
+    right: 2px;
+    width: 8px;
+    height: 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .fb-messenger-button {
+    bottom: 72px;
+    right: 12px;
+  }
+
+  .fb-messenger-container {
+    width: 48px;
+    height: 48px;
+  }
+
+  .fb-messenger-icon-wrapper {
+    width: 48px;
+    height: 48px;
+  }
+
+  .fb-messenger-icon-wrapper .fb-messenger-icon-img {
+    width: 26px;
+    height: 26px;
+  }
+
+  .fb-messenger-button:hover .fb-messenger-container {
+    width: 48px;
+    height: 48px;
+  }
+
+  .fb-messenger-container::before {
+    width: 48px;
+    height: 48px;
+  }
+}
+
+/* ===================================
+   TABLET
+   =================================== */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .fb-messenger-button {
+    bottom: 85px;
+    right: 25px;
+  }
+}
+
+/* ===================================
+   ACCESSIBILITY
+   =================================== */
+.fb-messenger-button:focus {
+  outline: none;
+}
+
+.fb-messenger-button:focus .fb-messenger-container {
+  box-shadow: 0 4px 12px rgba(255, 107, 157, 0.35),
+    0 0 0 3px rgba(255, 107, 157, 0.3);
+}
+
+/* ===================================
+   PRINT STYLES
+   =================================== */
+@media print {
+  .fb-messenger-button {
+    display: none !important;
+  }
+}
+
+/* ===================================
+   REDUCED MOTION
+   =================================== */
+@media (prefers-reduced-motion: reduce) {
+  .fb-messenger-button,
+  .fb-messenger-container,
+  .fb-messenger-icon-wrapper,
+  .fb-messenger-text {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .fb-messenger-container::before,
+  .fb-messenger-container::after {
+    animation: none !important;
+  }
+}

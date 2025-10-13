@@ -126,15 +126,15 @@ document.addEventListener("DOMContentLoaded", function () {
           return;
         }
 
-        // Redirect to product detail page
-        const productId = this.dataset.productId;
-        if (productId) {
-          window.location.href = `/product/${productId}`;
-        } else {
-          console.log("Product clicked:", this);
-          // Temporary - show alert for demo
-          alert("Chức năng xem chi tiết sản phẩm đang được phát triển");
-        }
+        // // Redirect to product detail page
+        // const productId = this.dataset.productId;
+        // if (productId) {
+        //   window.location.href = `/product/${productId}`;
+        // } else {
+        //   console.log("Product clicked:", this);
+        //   // Temporary - show alert for demo
+        //   alert("Chức năng xem chi tiết sản phẩm đang được phát triển");
+        // }
       });
     });
 
@@ -422,3 +422,153 @@ window.HomepageUtils = {
   formatPrice,
   formatNumber,
 };
+
+// ========== PRODUCT CARD INTERACTIONS ==========
+// Xử lý nút yêu thích
+document.addEventListener("DOMContentLoaded", function () {
+  const favoriteButtons = document.querySelectorAll(
+    '.action-btn[title="Yêu thích"]'
+  );
+
+  favoriteButtons.forEach((button) => {
+    button.addEventListener("click", function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+
+      const icon = this.querySelector("i");
+      const isFavorited = icon.classList.contains("fas");
+
+      if (isFavorited) {
+        // Bỏ yêu thích
+        icon.classList.remove("fas");
+        icon.classList.add("far");
+        showNotification("Đã bỏ khỏi danh sách yêu thích", "info");
+      } else {
+        // Thêm yêu thích
+        icon.classList.remove("far");
+        icon.classList.add("fas");
+        this.style.animation = "heartBeat 0.5s ease";
+        setTimeout(() => {
+          this.style.animation = "";
+        }, 500);
+        showNotification("Đã thêm vào danh sách yêu thích", "success");
+      }
+    });
+  });
+});
+
+// Hàm hiển thị thông báo
+function showNotification(message, type = "info") {
+  const existing = document.querySelector(".homepage-notification");
+  if (existing) existing.remove();
+
+  const notification = document.createElement("div");
+  notification.className = `homepage-notification notification-${type}`;
+
+  const icons = {
+    success: "check-circle",
+    info: "info-circle",
+    warning: "exclamation-triangle",
+  };
+
+  notification.innerHTML = `
+    <i class="fas fa-${icons[type] || icons.info}"></i>
+    <span>${message}</span>
+  `;
+
+  document.body.appendChild(notification);
+
+  setTimeout(() => notification.classList.add("show"), 10);
+
+  setTimeout(() => {
+    notification.classList.remove("show");
+    setTimeout(() => notification.remove(), 300);
+  }, 2500);
+}
+
+// Thêm CSS cho thông báo và animation
+const notificationStyle = document.createElement("style");
+notificationStyle.textContent = `
+  .homepage-notification {
+    position: fixed;
+    top: 80px;
+    right: -300px;
+    background: white;
+    padding: 14px 18px;
+    border-radius: 8px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    z-index: 10000;
+    transition: right 0.3s ease;
+    min-width: 250px;
+    border-left: 4px solid;
+  }
+  
+  .homepage-notification.show {
+    right: 20px;
+  }
+  
+  .homepage-notification i {
+    font-size: 18px;
+  }
+  
+  .notification-success {
+    border-left-color: #00c853;
+  }
+  
+  .notification-success i {
+    color: #00c853;
+  }
+  
+  .notification-info {
+    border-left-color: #2196f3;
+  }
+  
+  .notification-info i {
+    color: #2196f3;
+  }
+  
+  .notification-warning {
+    border-left-color: #ff9800;
+  }
+  
+  .notification-warning i {
+    color: #ff9800;
+  }
+  
+  .homepage-notification span {
+    font-size: 14px;
+    font-weight: 500;
+    color: #333;
+  }
+  
+  @keyframes heartBeat {
+    0%, 100% {
+      transform: scale(1);
+    }
+    25% {
+      transform: scale(1.2);
+    }
+    50% {
+      transform: scale(1);
+    }
+    75% {
+      transform: scale(1.15);
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .homepage-notification {
+      right: -100%;
+      min-width: auto;
+      max-width: calc(100% - 40px);
+    }
+    
+    .homepage-notification.show {
+      right: 20px;
+    }
+  }
+`;
+document.head.appendChild(notificationStyle);
