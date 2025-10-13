@@ -28,11 +28,9 @@ public class SellerProductController {
     private final ShopRepository shopRepo;
 
     private long shopIdFromSession(HttpSession session) {
-        if (session == null)
-            throw new IllegalStateException("Phiên làm việc hết hạn. Vui lòng đăng nhập lại.");
+        if (session == null) throw new IllegalStateException("Phiên làm việc hết hạn. Vui lòng đăng nhập lại.");
         Long userId = (Long) session.getAttribute("id");
-        if (userId == null)
-            throw new IllegalStateException("Không tìm thấy user trong session.");
+        if (userId == null) throw new IllegalStateException("Không tìm thấy user trong session.");
         Shop shop = shopRepo.findByUser_Id(userId)
                 .orElseThrow(() -> new IllegalStateException("Bạn chưa có shop. Vui lòng đăng ký shop trước."));
         return shop.getId();
@@ -55,11 +53,11 @@ public class SellerProductController {
     // ===== CREATE (POST) =====
     @PostMapping
     public String create(@ModelAttribute CreateProductForm form,
-            @RequestParam(name = "images", required = false) MultipartFile[] images,
-            @RequestParam(name = "variantName", required = false) List<String> variantNames,
-            @RequestParam(name = "variantPrice", required = false) List<String> variantPrices,
-            @RequestParam(name = "variantImage", required = false) MultipartFile[] variantImages,
-            HttpServletRequest request) {
+                         @RequestParam(name = "images", required = false) MultipartFile[] images,
+                         @RequestParam(name = "variantName", required = false) List<String> variantNames,
+                         @RequestParam(name = "variantPrice", required = false) List<String> variantPrices,
+                         @RequestParam(name = "variantImage", required = false) MultipartFile[] variantImages,
+                         HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         long shopId = shopIdFromSession(session);
         form.setShopId(shopId);
@@ -71,8 +69,8 @@ public class SellerProductController {
     // ===== LIST =====
     @GetMapping
     public String list(@RequestParam(name = "showDeleted", defaultValue = "false") boolean showDeleted,
-            Model model,
-            HttpServletRequest request) {
+                       Model model,
+                       HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         long shopId = shopIdFromSession(session);
 
@@ -87,8 +85,8 @@ public class SellerProductController {
 
     @PostMapping("/{id}/toggle-delete")
     public String toggleDelete(@PathVariable Long id,
-            @RequestParam(name = "showDeleted", defaultValue = "false") boolean showDeleted,
-            HttpServletRequest request) {
+                               @RequestParam(name = "showDeleted", defaultValue = "false") boolean showDeleted,
+                               HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         long shopId = shopIdFromSession(session);
         productService.toggleDelete(id, shopId);
@@ -97,8 +95,8 @@ public class SellerProductController {
 
     @PostMapping("/{id}/toggle-status")
     public String toggleStatus(@PathVariable Long id,
-            @RequestParam(name = "showDeleted", defaultValue = "false") boolean showDeleted,
-            HttpServletRequest request) {
+                               @RequestParam(name = "showDeleted", defaultValue = "false") boolean showDeleted,
+                               HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         long shopId = shopIdFromSession(session);
         productService.toggleStatus(id, shopId);
@@ -121,35 +119,35 @@ public class SellerProductController {
     // ===== EDIT: BASIC (POST) =====
     @PostMapping("/{id}")
     public String updateBasic(@PathVariable Long id,
-            @RequestParam String name,
-            @RequestParam(required = false) String description,
-            @RequestParam(required = false) List<Long> categoryIds,
-            @RequestParam(required = false, defaultValue = "false") boolean hasVariants,
-            @RequestParam(required = false) Double price,
-            @RequestParam(name = "addImages", required = false) MultipartFile[] addImages,
-            @RequestParam(name = "removeImageUrl", required = false) List<String> removeImageUrl,
-            @RequestParam(name = "coverImage", required = false) String coverImage,
-            @RequestParam(name = "coverUpload", required = false) MultipartFile coverUpload,
-            HttpServletRequest request) {
+                              @RequestParam String name,
+                              @RequestParam(required = false) String description,
+                              @RequestParam(required = false) List<Long> categoryIds,
+                              @RequestParam(required = false, defaultValue = "false") boolean hasVariants,
+                              @RequestParam(required = false) Double price,
+                              @RequestParam(name = "addImages", required = false) MultipartFile[] addImages,
+                              @RequestParam(name = "removeImageUrl", required = false) List<String> removeImageUrl,
+                              @RequestParam(name = "coverImage", required = false) String coverImage,
+                              @RequestParam(name = "coverUpload", required = false) MultipartFile coverUpload,
+                              HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         long shopId = shopIdFromSession(session);
 
         productService.updateBasicOwned(id, shopId, name, description, categoryIds, hasVariants,
                 price, addImages, removeImageUrl, coverImage, coverUpload);
 
-        return "redirect:/seller/products/" + id + "/edit?updated=variants";
+          return "redirect:/seller/products/" + id + "/edit?updated=variants";
     }
 
     // ===== EDIT: VARIANTS (POST) =====
     @PostMapping("/{id}/variants")
     public String upsertVariants(@PathVariable Long id,
-            @RequestParam(name = "variantId", required = false) List<Long> variantIds,
-            @RequestParam(name = "variantName", required = false) List<String> variantNames,
-            @RequestParam(name = "variantPrice", required = false) List<String> variantPrices,
-            @RequestParam(name = "variantImage", required = false) MultipartFile[] variantImages,
-            @RequestParam(name = "variantImageFromGallery", required = false) List<String> variantImageFromGallery,
-            @RequestParam(name = "deleteVariant", required = false) List<Long> deleteVariantIds,
-            HttpServletRequest request) {
+                                 @RequestParam(name = "variantId", required = false) List<Long> variantIds,
+                                 @RequestParam(name = "variantName", required = false) List<String> variantNames,
+                                 @RequestParam(name = "variantPrice", required = false) List<String> variantPrices,
+                                 @RequestParam(name = "variantImage", required = false) MultipartFile[] variantImages,
+                                 @RequestParam(name = "variantImageFromGallery", required = false) List<String> variantImageFromGallery,
+                                 @RequestParam(name = "deleteVariant", required = false) List<Long> deleteVariantIds,
+                                 HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         long shopId = shopIdFromSession(session);
 
@@ -161,8 +159,8 @@ public class SellerProductController {
 
     @PostMapping("/{id}/variants/{variantId}/delete")
     public String deleteVariant(@PathVariable Long id,
-            @PathVariable Long variantId,
-            HttpServletRequest request) {
+                                @PathVariable Long variantId,
+                                HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         long shopId = shopIdFromSession(session);
 

@@ -1,12 +1,5 @@
-package fpt.group3.swp.common;/* AnVo
-    
-    @author: Admin
-    Date: 20/09/2025
-    Time: 6:43 PM
-    
-    ProjectName: swp 
-*/
+package fpt.group3.swp.common;
 
 public enum OrderItemStatus {
-    PENDING, FULFILLED, CANCELED, RETURNED
+    PENDING, CONFIRMED, CANCELED
 }

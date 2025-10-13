@@ -1,12 +1,8 @@
-package fpt.group3.swp.common;/* AnVo
-    
-    @author: Admin
-    Date: 18/09/2025
-    Time: 6:05 PM
-    
-    ProjectName: swp 
-*/
+package fpt.group3.swp.common;
 
 public enum OrderStatus {
-    PENDING, SHIPPED, DELIVERED, CANCELED, RETURNED
+    PENDING_CONFIRM,   // COD: chờ shop xác nhận
+    PENDING_PAYMENT,   // VNPAY: chờ thanh toán
+    PAID,              // đã thanh toán
+    CANCELED
 }
