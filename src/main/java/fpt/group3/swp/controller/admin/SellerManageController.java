@@ -146,7 +146,45 @@ public class SellerManageController {
     @GetMapping("/admin/seller/requests")
     public String listPending(Model model) {
         List<Shop> pending = shopRepo.findAllByVerifyStatus(VerifyStatus.PENDING);
+        
+        // Tính số lượng yêu cầu
+        long totalPending = pending.size();
+        
+        // Tính thời gian chờ trung bình (từ createdAt đến hiện tại)
+        double avgWaitingDays = 0.0;
+        if (!pending.isEmpty()) {
+            long totalDays = 0;
+            java.time.LocalDate now = java.time.LocalDate.now();
+            for (Shop s : pending) {
+                if (s.getCreatedAt() != null) {
+                    totalDays += java.time.temporal.ChronoUnit.DAYS.between(s.getCreatedAt(), now);
+                }
+            }
+            avgWaitingDays = (double) totalDays / pending.size();
+        }
+        
+        // Đếm số shop đã duyệt hôm nay
+        java.time.LocalDate today = java.time.LocalDate.now();
+        java.time.LocalDateTime startOfDay = today.atStartOfDay();
+        
+        long approvedToday = shopRepo.findAll().stream()
+            .filter(s -> s.getVerifyStatus() == VerifyStatus.APPROVED 
+                      && s.getVerifiedAt() != null 
+                      && !s.getVerifiedAt().isBefore(startOfDay))
+            .count();
+        
+        // Đếm số shop đã từ chối hôm nay
+        long rejectedToday = shopRepo.findAll().stream()
+            .filter(s -> s.getVerifyStatus() == VerifyStatus.REJECTED 
+                      && s.getVerifiedAt() != null 
+                      && !s.getVerifiedAt().isBefore(startOfDay))
+            .count();
+        
         model.addAttribute("pending", pending);
+        model.addAttribute("totalPending", totalPending);
+        model.addAttribute("avgWaitingDays", String.format("%.1f", avgWaitingDays));
+        model.addAttribute("approvedToday", approvedToday);
+        model.addAttribute("rejectedToday", rejectedToday);
         model.addAttribute("pageTitle", "Duyệt yêu cầu Seller");
         model.addAttribute("pageDescription", "Quản lý và xét duyệt các yêu cầu đăng ký bán hàng");
         model.addAttribute("contentPage", "/WEB-INF/view/admin/seller/seller-requests-content.jsp");
@@ -175,5 +213,80 @@ public class SellerManageController {
             ra.addFlashAttribute("error", e.getMessage());
         }
         return "redirect:/admin/seller/requests";
+    }
+
+    // ===== ADMIN: danh sách shop + khóa/mở khóa =====
+    @GetMapping("/admin/seller/list")
+    public String listAllShops(Model model,
+                               @RequestParam(value = "q", required = false) String q,
+                               @RequestParam(value = "verify", required = false) String verify,
+                               @RequestParam(value = "userStatus", required = false) String userStatus,
+                               @RequestParam(value = "page", required = false, defaultValue = "1") int page,
+                               @RequestParam(value = "size", required = false, defaultValue = "10") int size) {
+
+        int pageIndex = Math.max(page - 1, 0);
+        int pageSize = Math.min(Math.max(size, 5), 50);
+
+        fpt.group3.swp.common.VerifyStatus vStatus = null;
+        if (verify != null && !verify.isBlank()) {
+            try { vStatus = fpt.group3.swp.common.VerifyStatus.valueOf(verify.trim().toUpperCase()); } catch (Exception ignored) {}
+        }
+        fpt.group3.swp.common.Status uStatus = null;
+        if (userStatus != null && !userStatus.isBlank()) {
+            try { uStatus = fpt.group3.swp.common.Status.valueOf(userStatus.trim().toUpperCase()); } catch (Exception ignored) {}
+        }
+
+        org.springframework.data.domain.Pageable pageable = org.springframework.data.domain.PageRequest.of(pageIndex, pageSize,
+                org.springframework.data.domain.Sort.by(org.springframework.data.domain.Sort.Direction.DESC, "id"));
+
+        org.springframework.data.jpa.domain.Specification<Shop> spec = org.springframework.data.jpa.domain.Specification.where(
+                fpt.group3.swp.reposirory.spec.ShopSpecifications.search(q)
+        );
+        if (vStatus != null) spec = spec.and(fpt.group3.swp.reposirory.spec.ShopSpecifications.verifyStatus(vStatus));
+        if (uStatus != null) spec = spec.and(fpt.group3.swp.reposirory.spec.ShopSpecifications.userStatus(uStatus));
+
+        org.springframework.data.domain.Page<Shop> shopPage = shopRepo.findAll(spec, pageable);
+
+        model.addAttribute("shops", shopPage.getContent());
+        model.addAttribute("page", shopPage);
+        model.addAttribute("currentPage", shopPage.getNumber() + 1);
+        model.addAttribute("pageSize", shopPage.getSize());
+        model.addAttribute("totalPages", shopPage.getTotalPages());
+        model.addAttribute("totalElements", shopPage.getTotalElements());
+
+        model.addAttribute("q", q);
+        model.addAttribute("filterVerify", vStatus);
+        model.addAttribute("filterUserStatus", uStatus);
+        model.addAttribute("verifyStatuses", fpt.group3.swp.common.VerifyStatus.values());
+        model.addAttribute("userStatuses", fpt.group3.swp.common.Status.values());
+
+        model.addAttribute("pageTitle", "Danh sách Shop");
+        model.addAttribute("pageDescription", "Quản lý các shop và trạng thái");
+        model.addAttribute("contentPage", "/WEB-INF/view/admin/seller/seller-list-content.jsp");
+        return "admin/seller/seller-list";
+    }
+
+    @PostMapping("/admin/seller/{shopId}/lock")
+    public String lockShop(@PathVariable Long shopId,
+                           @RequestParam(value = "reason", required = false) String reason,
+                           RedirectAttributes ra) {
+        try {
+            sellerService.lockShop(shopId, reason);
+            ra.addFlashAttribute("success", "Đã khóa shop #" + shopId + ".");
+        } catch (Exception e) {
+            ra.addFlashAttribute("error", e.getMessage());
+        }
+        return "redirect:/admin/seller/list";
+    }
+
+    @PostMapping("/admin/seller/{shopId}/unlock")
+    public String unlockShop(@PathVariable Long shopId, RedirectAttributes ra) {
+        try {
+            sellerService.unlockShop(shopId);
+            ra.addFlashAttribute("success", "Đã mở khóa shop #" + shopId + ".");
+        } catch (Exception e) {
+            ra.addFlashAttribute("error", e.getMessage());
+        }
+        return "redirect:/admin/seller/list";
     }
 }

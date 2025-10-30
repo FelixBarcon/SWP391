@@ -10,7 +10,7 @@
                         <div class="d-flex align-items-center justify-content-between">
                             <div>
                                 <h6 class="card-title mb-1">Tổng yêu cầu</h6>
-                                <h3 class="mb-0 fw-bold">${pending.size()}</h3>
+                                <h3 class="mb-0 fw-bold">${totalPending}</h3>
                             </div>
                             <div class="rounded-3 p-3 bg-primary bg-opacity-10">
                                 <i class="fas fa-store text-primary fs-4"></i>
@@ -27,7 +27,16 @@
                         <div class="d-flex align-items-center justify-content-between">
                             <div>
                                 <h6 class="card-title mb-1">Thời gian chờ TB</h6>
-                                <h3 class="mb-0 fw-bold">2.5 ngày</h3>
+                                <h3 class="mb-0 fw-bold">
+                                    <c:choose>
+                                        <c:when test="${totalPending > 0}">
+                                            ${avgWaitingDays} ngày
+                                        </c:when>
+                                        <c:otherwise>
+                                            0 ngày
+                                        </c:otherwise>
+                                    </c:choose>
+                                </h3>
                             </div>
                             <div class="rounded-3 p-3 bg-warning bg-opacity-10">
                                 <i class="fas fa-clock text-warning fs-4"></i>
@@ -44,7 +53,7 @@
                         <div class="d-flex align-items-center justify-content-between">
                             <div>
                                 <h6 class="card-title mb-1">Đã duyệt hôm nay</h6>
-                                <h3 class="mb-0 fw-bold">5</h3>
+                                <h3 class="mb-0 fw-bold">${approvedToday}</h3>
                             </div>
                             <div class="rounded-3 p-3 bg-success bg-opacity-10">
                                 <i class="fas fa-check-circle text-success fs-4"></i>
@@ -61,7 +70,7 @@
                         <div class="d-flex align-items-center justify-content-between">
                             <div>
                                 <h6 class="card-title mb-1">Đã từ chối hôm nay</h6>
-                                <h3 class="mb-0 fw-bold">2</h3>
+                                <h3 class="mb-0 fw-bold">${rejectedToday}</h3>
                             </div>
                             <div class="rounded-3 p-3 bg-danger bg-opacity-10">
                                 <i class="fas fa-times-circle text-danger fs-4"></i>
@@ -186,7 +195,16 @@
                                     <td class="align-middle">
                                         <div>
                                             <div class="small text-muted mb-1">Đăng ký:</div>
-                                            <div class="fw-medium">24/09/2025 14:30</div>
+                                            <div class="fw-medium">
+                                                <c:choose>
+                                                    <c:when test="${not empty s.createdAt}">
+                                                        ${s.createdAt}
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        -
+                                                    </c:otherwise>
+                                                </c:choose>
+                                            </div>
                                         </div>
                                     </td>
                                     <td class="align-middle text-center">

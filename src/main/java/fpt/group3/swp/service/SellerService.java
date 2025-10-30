@@ -23,6 +23,9 @@ public class SellerService {
     private final ShopRepository shopRepo;
     private final UserRepository userRepo;
     private final RoleRepository roleRepo;
+    private final fpt.group3.swp.reposirory.ProductRepository productRepo;
+    private final UserService userService;
+    private final MailService mailService;
 
     /** Tạo/cập nhật bản nháp (DRAFT). Cho phép gọi nhiều lần khi user đi qua các bước */
     @Transactional
@@ -108,6 +111,76 @@ public class SellerService {
         shop.setVerifyStatus(VerifyStatus.REJECTED);
         shop.setVerifiedAt(LocalDateTime.now());
         shop.setVerifyBy(adminId);
+    }
+
+    /**
+     * ADMIN: Lock a shop -> deactivate seller account and set all products of this shop to INACTIVE.
+     */
+    @Transactional
+    public void lockShop(Long shopId, String reason) {
+        Shop shop = shopRepo.findById(shopId)
+                .orElseThrow(() -> new EntityNotFoundException("Shop not found: " + shopId));
+
+        if (shop.getUser() == null) {
+            throw new IllegalStateException("Shop has no owner account");
+        }
+
+        // Deactivate seller account (also invalidates sessions)
+        userService.deactivateUser(shop.getUser().getId(), reason);
+
+        // Send deactivation email like account deactivation
+        try {
+            String email = shop.getUser().getEmail();
+            if (email != null && !email.isBlank()) {
+                mailService.sendAccountDeactivationEmail(email, reason);
+            }
+        } catch (Exception ignored) {
+            // Avoid failing business flow due to mail errors
+        }
+
+        // Set products that are currently ACTIVE to INACTIVE and mark lockedByShop
+        var products = productRepo.findAllByShop_IdOrderByUpdatedAtDesc(shop.getId());
+        if (products != null) {
+            boolean changed = false;
+            for (var p : products) {
+                if (!p.isDeleted() && p.getStatus() == fpt.group3.swp.common.Status.ACTIVE) {
+                    p.setStatus(fpt.group3.swp.common.Status.INACTIVE);
+                    p.setLockedByShop(true);
+                    changed = true;
+                }
+            }
+            if (changed) productRepo.saveAll(products);
+        }
+    }
+
+    /**
+     * ADMIN: Unlock a shop -> reactivate seller account and set all products of this shop to ACTIVE.
+     */
+    @Transactional
+    public void unlockShop(Long shopId) {
+        Shop shop = shopRepo.findById(shopId)
+                .orElseThrow(() -> new EntityNotFoundException("Shop not found: " + shopId));
+
+        if (shop.getUser() == null) {
+            throw new IllegalStateException("Shop has no owner account");
+        }
+
+        // Reactivate seller account
+        userService.restoreUser(shop.getUser().getId());
+
+        // Restore only products that were deactivated due to shop lock
+        var products = productRepo.findAllByShop_IdOrderByUpdatedAtDesc(shop.getId());
+        if (products != null) {
+            boolean changed = false;
+            for (var p : products) {
+                if (p.isLockedByShop()) {
+                    p.setStatus(fpt.group3.swp.common.Status.ACTIVE);
+                    p.setLockedByShop(false);
+                    changed = true;
+                }
+            }
+            if (changed) productRepo.saveAll(products);
+        }
     }
 
     /** Cho phép user “sửa lại sau khi bị từ chối”: đưa về DRAFT */
