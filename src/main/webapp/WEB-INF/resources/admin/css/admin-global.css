@@ -1,7 +1,7 @@
 /* 
  * CSS CHUNG CHO ADMIN PANEL - MARKETPLACE
  * Kế thừa từ global.css của client với thiết kế admin
- * Màu chủ đạo: Cam Shopee (#ee4d2d)
+ * Màu chủ đạo: Xanh dương nhạt (#5B9BD5)
  */
 
 /* ===== IMPORT GOOGLE FONTS ===== */
@@ -16,16 +16,16 @@
 
 /* ===== BIẾN CSS CHO MÀU SẮC VÀ STYLES CHUNG ===== */
 :root {
-  /* ===== MÀU CHÍNH - SHOPEE ORANGE ===== */
-  --primary-color: #ee4d2d;
-  --primary-dark: #d73027;
-  --primary-light: #ff6b35;
-  --primary-lighter: #ff8a65;
+  /* ===== MÀU CHÍNH - LIGHT BLUE ===== */
+  --primary-color: #5b9bd5;
+  --primary-dark: #4a7ba7;
+  --primary-light: #7bb3e8;
+  --primary-lighter: #90c8f0;
   --primary-gradient: linear-gradient(
     135deg,
-    #ee4d2d 0%,
-    #ff6b35 50%,
-    #d73027 100%
+    #5b9bd5 0%,
+    #7bb3e8 50%,
+    #4a7ba7 100%
   );
 
   /* ===== MÀU PHỤ ADMIN ===== */
@@ -65,7 +65,7 @@
   --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.12);
   --shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.15);
   --shadow-xl: 0 12px 24px rgba(0, 0, 0, 0.2);
-  --shadow-primary: 0 4px 15px rgba(238, 77, 45, 0.3);
+  --shadow-primary: 0 4px 15px rgba(91, 155, 213, 0.3);
 
   /* ===== BORDER RADIUS ===== */
   --border-radius-sm: 4px;

@@ -10,6 +10,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.*;
 
+import fpt.group3.swp.common.Status;
+
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
@@ -83,4 +85,30 @@ public class User implements Serializable {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     @ToString.Exclude
     private Set<Order> orders = new HashSet<>();
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status", length = 20)
+    private Status status = Status.ACTIVE;
+
+    @Nationalized
+    @Column(name = "deactivation_reason", length = 500)
+    private String deactivationReason;
+
+    @Column(name = "deactivated_at")
+    private LocalDateTime deactivatedAt;
+
+    @PrePersist
+    void prePersist() {
+        if (status == null) status = Status.ACTIVE;
+    }
+
+    @Transient
+    public boolean isActive() {
+        return this.status == Status.ACTIVE;
+    }
+
+    @Transient
+    public boolean isInactive() {
+        return this.status == Status.INACTIVE;
+    }
 }

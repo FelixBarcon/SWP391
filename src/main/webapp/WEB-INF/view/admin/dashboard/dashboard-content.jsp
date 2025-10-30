@@ -3,15 +3,12 @@
 
         <!-- Dashboard Content -->
         <div class="admin-dashboard">
-            <!-- Title and Actions -->
+            <!-- Title and Export Button -->
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <h1 class="h3 mb-0 text-gray-800">Bảng điều khiển</h1>
                 <div class="d-flex gap-2">
-                    <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#backupModal">
-                        <i class="fas fa-database me-1"></i>Sao lưu dữ liệu
-                    </button>
-                    <button class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#settingsModal">
-                        <i class="fas fa-cogs me-1"></i>Cài đặt hệ thống
+                    <button class="btn btn-success btn-sm" onclick="openExportModal()">
+                        <i class="fas fa-file-excel me-1"></i>Xuất báo cáo Excel
                     </button>
                 </div>
             </div>
@@ -26,10 +23,10 @@
                                 <i class="fas fa-users"></i>
                             </div>
                             <div class="stats-info">
-                                <h3 class="stats-number">8,549</h3>
+                                <h3 class="stats-number">${totalUsers}</h3>
                                 <p class="stats-label">Tổng người dùng</p>
                                 <span class="stats-change positive">
-                                    <i class="fas fa-arrow-up"></i> +15.3%
+                                    <i class="fas fa-users"></i> Hệ thống
                                 </span>
                             </div>
                         </div>
@@ -44,46 +41,46 @@
                                 <i class="fas fa-user-check"></i>
                             </div>
                             <div class="stats-info">
-                                <h3 class="stats-number">6,832</h3>
+                                <h3 class="stats-number">${activeUsers}</h3>
                                 <p class="stats-label">Người dùng hoạt động</p>
                                 <span class="stats-change positive">
-                                    <i class="fas fa-arrow-up"></i> +8.2%
+                                    <i class="fas fa-arrow-up"></i> ${activeUserPercentage}%
                                 </span>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- System Performance -->
+                <!-- Total Orders -->
                 <div class="col-xl-3 col-md-6 mb-4">
                     <div class="stats-card">
                         <div class="stats-card-body">
                             <div class="stats-icon performance">
-                                <i class="fas fa-server"></i>
+                                <i class="fas fa-shopping-cart"></i>
                             </div>
                             <div class="stats-info">
-                                <h3 class="stats-number">98.5%</h3>
-                                <p class="stats-label">Hiệu suất hệ thống</p>
+                                <h3 class="stats-number">${totalOrders}</h3>
+                                <p class="stats-label">Tổng đơn hàng</p>
                                 <span class="stats-change positive">
-                                    <i class="fas fa-check-circle"></i> Ổn định
+                                    <i class="fas fa-check-circle"></i> Hệ thống
                                 </span>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Reports -->
+                <!-- Total Products -->
                 <div class="col-xl-3 col-md-6 mb-4">
                     <div class="stats-card">
                         <div class="stats-card-body">
                             <div class="stats-icon reports">
-                                <i class="fas fa-exclamation-triangle"></i>
+                                <i class="fas fa-box"></i>
                             </div>
                             <div class="stats-info">
-                                <h3 class="stats-number">24</h3>
-                                <p class="stats-label">Báo cáo chờ xử lý</p>
-                                <span class="stats-change warning">
-                                    <i class="fas fa-exclamation-circle"></i> Cần xử lý
+                                <h3 class="stats-number">${totalProducts}</h3>
+                                <p class="stats-label">Tổng sản phẩm</p>
+                                <span class="stats-change positive">
+                                    <i class="fas fa-check-circle"></i> Hệ thống
                                 </span>
                             </div>
                         </div>
@@ -91,19 +88,18 @@
                 </div>
             </div>
 
-            <!-- Main Content -->
-            <div class="row">
-                <!-- Left Column -->
-                <div class="col-xl-8">
-                    <!-- User Activity Chart -->
-                    <div class="dashboard-card mb-4">
+            <!-- User Activity Chart -->
+            <div class="row mb-4">
+                <div class="col-12">
+                    <div class="dashboard-card">
                         <div class="card-header d-flex justify-content-between align-items-center">
-                            <h5 class="card-title">
+                            <h5 class="card-title mb-0">
                                 <i class="fas fa-chart-line me-2"></i>
-                                Hoạt động người dùng
+                                Biểu đồ đơn hàng theo thời gian
                             </h5>
                             <div class="card-tools">
-                                <select class="form-select form-select-sm" id="activityPeriod">
+                                <select class="form-select form-select-sm" id="activityPeriod"
+                                    onchange="loadChartData()">
                                     <option value="today">Hôm nay</option>
                                     <option value="week">Tuần này</option>
                                     <option value="month" selected>Tháng này</option>
@@ -112,377 +108,468 @@
                             </div>
                         </div>
                         <div class="card-body">
-                            <div class="chart-container">
+                            <!-- Summary Statistics -->
+                            <div class="row mb-4" id="chartSummary" style="display: none;">
+                                <div class="col-md-3">
+                                    <div class="summary-stat">
+                                        <div class="stat-icon" style="background: rgba(75, 192, 192, 0.1);">
+                                            <i class="fas fa-shopping-cart" style="color: rgb(75, 192, 192);"></i>
+                                        </div>
+                                        <div class="stat-content">
+                                            <h4 id="summaryTotalOrders">0</h4>
+                                            <p>Tổng đơn hàng</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="summary-stat">
+                                        <div class="stat-icon" style="background: rgba(255, 205, 86, 0.1);">
+                                            <i class="fas fa-clock" style="color: rgb(255, 205, 86);"></i>
+                                        </div>
+                                        <div class="stat-content">
+                                            <h4 id="summaryPending">0</h4>
+                                            <p>Chờ xử lý</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="summary-stat">
+                                        <div class="stat-icon" style="background: rgba(54, 162, 235, 0.1);">
+                                            <i class="fas fa-check-circle" style="color: rgb(54, 162, 235);"></i>
+                                        </div>
+                                        <div class="stat-content">
+                                            <h4 id="summaryPaid">0</h4>
+                                            <p>Đã thanh toán</p>
+                                            <small class="text-success" id="successRate"></small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="summary-stat">
+                                        <div class="stat-icon" style="background: rgba(255, 99, 132, 0.1);">
+                                            <i class="fas fa-times-circle" style="color: rgb(255, 99, 132);"></i>
+                                        </div>
+                                        <div class="stat-content">
+                                            <h4 id="summaryCanceled">0</h4>
+                                            <p>Đã hủy</p>
+                                            <small class="text-danger" id="cancelRate"></small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Chart -->
+                            <div class="chart-container" style="position: relative; height: 400px;">
                                 <canvas id="userActivityChart"></canvas>
                             </div>
                         </div>
                     </div>
-
-                    <!-- System Logs -->
-                    <div class="dashboard-card">
-                        <div class="card-header d-flex justify-content-between align-items-center">
-                            <h5 class="card-title">
-                                <i class="fas fa-history me-2"></i>
-                                Nhật ký hệ thống
-                            </h5>
-                            <div class="card-tools">
-                                <button class="btn btn-sm btn-outline-secondary me-2" data-bs-toggle="modal"
-                                    data-bs-target="#filterLogsModal">
-                                    <i class="fas fa-filter me-1"></i>Lọc
-                                </button>
-                                <a href="<c:url value='/admin/logs'/>" class="btn btn-sm btn-primary">
-                                    <i class="fas fa-external-link-alt me-1"></i>Xem tất cả
-                                </a>
-                            </div>
-                        </div>
-                        <div class="card-body p-0">
-                            <div class="table-responsive">
-                                <table class="table table-hover mb-0">
-                                    <thead>
-                                        <tr>
-                                            <th>Thời gian</th>
-                                            <th>Người dùng</th>
-                                            <th>Hành động</th>
-                                            <th>IP</th>
-                                            <th>Trạng thái</th>
-                                            <th></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>
-                                                <small class="text-muted">2025-09-21 14:30:15</small>
-                                            </td>
-                                            <td>admin@system.com</td>
-                                            <td>Chặn người dùng</td>
-                                            <td>192.168.1.100</td>
-                                            <td><span class="badge bg-success">Thành công</span></td>
-                                            <td>
-                                                <button class="btn btn-sm btn-light" title="Xem chi tiết">
-                                                    <i class="fas fa-info-circle"></i>
-                                                </button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <small class="text-muted">2025-09-21 14:28:45</small>
-                                            </td>
-                                            <td>user123</td>
-                                            <td>Đăng nhập thất bại</td>
-                                            <td>192.168.1.201</td>
-                                            <td><span class="badge bg-danger">Thất bại</span></td>
-                                            <td>
-                                                <button class="btn btn-sm btn-light" title="Xem chi tiết">
-                                                    <i class="fas fa-info-circle"></i>
-                                                </button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <small class="text-muted">2025-09-21 14:25:30</small>
-                                            </td>
-                                            <td>system</td>
-                                            <td>Sao lưu dữ liệu</td>
-                                            <td>localhost</td>
-                                            <td><span class="badge bg-success">Thành công</span></td>
-                                            <td>
-                                                <button class="btn btn-sm btn-light" title="Xem chi tiết">
-                                                    <i class="fas fa-info-circle"></i>
-                                                </button>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Right Column -->
-                <div class="col-xl-4">
-                    <!-- System Metrics -->
-                    <div class="dashboard-card mb-4">
-                        <div class="card-header">
-                            <h5 class="card-title">
-                                <i class="fas fa-server me-2"></i>
-                                Hiệu suất hệ thống
-                            </h5>
-                        </div>
-                        <div class="card-body">
-                            <div class="system-metrics">
-                                <!-- CPU Usage -->
-                                <div class="metric-card">
-                                    <div class="metric-header d-flex justify-content-between align-items-center">
-                                        <span><i class="fas fa-microchip me-2"></i>CPU</span>
-                                        <span class="metric-value">45%</span>
-                                    </div>
-                                    <div class="progress mt-2">
-                                        <div class="progress-bar bg-info" role="progressbar" style="width: 45%"></div>
-                                    </div>
-                                </div>
-
-                                <!-- Memory Usage -->
-                                <div class="metric-card">
-                                    <div class="metric-header d-flex justify-content-between align-items-center">
-                                        <span><i class="fas fa-memory me-2"></i>Bộ nhớ</span>
-                                        <span class="metric-value">60%</span>
-                                    </div>
-                                    <div class="progress mt-2">
-                                        <div class="progress-bar bg-warning" role="progressbar" style="width: 60%">
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Disk Usage -->
-                                <div class="metric-card">
-                                    <div class="metric-header d-flex justify-content-between align-items-center">
-                                        <span><i class="fas fa-hdd me-2"></i>Ổ đĩa</span>
-                                        <span class="metric-value">75%</span>
-                                    </div>
-                                    <div class="progress mt-2">
-                                        <div class="progress-bar bg-danger" role="progressbar" style="width: 75%"></div>
-                                    </div>
-                                </div>
-
-                                <!-- Network Usage -->
-                                <div class="metric-card">
-                                    <div class="metric-header d-flex justify-content-between align-items-center">
-                                        <span><i class="fas fa-network-wired me-2"></i>Mạng</span>
-                                        <div class="network-stats small">
-                                            <span class="text-success me-2">
-                                                <i class="fas fa-arrow-down"></i> 2.5 MB/s
-                                            </span>
-                                            <span class="text-primary">
-                                                <i class="fas fa-arrow-up"></i> 1.8 MB/s
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <div class="progress mt-2">
-                                        <div class="progress-bar bg-success" role="progressbar" style="width: 35%">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Quick Actions -->
-                    <div class="dashboard-card mb-4">
-                        <div class="card-header">
-                            <h5 class="card-title">
-                                <i class="fas fa-bolt me-2"></i>
-                                Thao tác nhanh
-                            </h5>
-                        </div>
-                        <div class="card-body">
-                            <div class="quick-actions">
-                                <a href="<c:url value='/admin/users'/>" class="quick-action-btn">
-                                    <i class="fas fa-users-cog"></i>
-                                    <span>Quản lý người dùng</span>
-                                </a>
-                                <a href="<c:url value='/admin/security'/>" class="quick-action-btn">
-                                    <i class="fas fa-shield-alt"></i>
-                                    <span>Cài đặt bảo mật</span>
-                                </a>
-                                <a href="<c:url value='/admin/reports'/>" class="quick-action-btn">
-                                    <i class="fas fa-flag"></i>
-                                    <span>Xử lý báo cáo</span>
-                                </a>
-                                <a href="<c:url value='/admin/system'/>" class="quick-action-btn">
-                                    <i class="fas fa-cogs"></i>
-                                    <span>Cấu hình hệ thống</span>
-                                </a>
-                                <a href="<c:url value='/admin/backup'/>" class="quick-action-btn">
-                                    <i class="fas fa-database"></i>
-                                    <span>Sao lưu dữ liệu</span>
-                                </a>
-                                <a href="<c:url value='/admin/logs'/>" class="quick-action-btn">
-                                    <i class="fas fa-history"></i>
-                                    <span>Nhật ký hoạt động</span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Recent Reports -->
-                    <div class="dashboard-card">
-                        <div class="card-header d-flex justify-content-between align-items-center">
-                            <h5 class="card-title">
-                                <i class="fas fa-flag me-2"></i>
-                                Báo cáo mới
-                            </h5>
-                            <a href="<c:url value='/admin/reports'/>" class="btn btn-sm btn-primary">
-                                Xem tất cả
-                            </a>
-                        </div>
-                        <div class="card-body p-0">
-                            <div class="report-list">
-                                <div class="report-item">
-                                    <div class="report-icon bg-danger">
-                                        <i class="fas fa-exclamation-triangle"></i>
-                                    </div>
-                                    <div class="report-content">
-                                        <h6>Spam bình luận</h6>
-                                        <p>Người dùng user123 bị báo cáo spam</p>
-                                        <small class="text-muted">5 phút trước</small>
-                                    </div>
-                                    <button class="btn btn-sm btn-light">
-                                        <i class="fas fa-arrow-right"></i>
-                                    </button>
-                                </div>
-                                <div class="report-item">
-                                    <div class="report-icon bg-warning">
-                                        <i class="fas fa-user-shield"></i>
-                                    </div>
-                                    <div class="report-content">
-                                        <h6>Yêu cầu xác minh</h6>
-                                        <p>2 yêu cầu xác minh người dùng mới</p>
-                                        <small class="text-muted">15 phút trước</small>
-                                    </div>
-                                    <button class="btn btn-sm btn-light">
-                                        <i class="fas fa-arrow-right"></i>
-                                    </button>
-                                </div>
-                                <div class="report-item">
-                                    <div class="report-icon bg-info">
-                                        <i class="fas fa-bug"></i>
-                                    </div>
-                                    <div class="report-content">
-                                        <h6>Báo cáo lỗi</h6>
-                                        <p>Lỗi hiển thị trong trang cá nhân</p>
-                                        <small class="text-muted">1 giờ trước</small>
-                                    </div>
-                                    <button class="btn btn-sm btn-light">
-                                        <i class="fas fa-arrow-right"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
 
-        <!-- Modals -->
-        <!-- Backup Modal -->
-        <div class="modal fade" id="backupModal" tabindex="-1">
+        <!-- Export Modal -->
+        <div class="modal fade" id="exportModal" tabindex="-1" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">Sao lưu dữ liệu</h5>
+                        <h5 class="modal-title">
+                            <i class="fas fa-file-excel me-2"></i>Xuất báo cáo Excel
+                        </h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                     </div>
                     <div class="modal-body">
-                        <p>Bạn có chắc chắn muốn tạo bản sao lưu mới không?</p>
-                        <div class="form-check mb-3">
-                            <input class="form-check-input" type="checkbox" id="backupDb">
-                            <label class="form-check-label" for="backupDb">
-                                Sao lưu cơ sở dữ liệu
-                            </label>
-                        </div>
-                        <div class="form-check mb-3">
-                            <input class="form-check-input" type="checkbox" id="backupFiles">
-                            <label class="form-check-label" for="backupFiles">
-                                Sao lưu tệp tin hệ thống
-                            </label>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
-                        <button type="button" class="btn btn-primary">
-                            <i class="fas fa-download me-1"></i>Tạo bản sao lưu
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Settings Modal -->
-        <div class="modal fade" id="settingsModal" tabindex="-1">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Cài đặt hệ thống</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="mb-3">
-                            <label class="form-label">Chế độ bảo trì</label>
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" id="maintenanceMode">
-                                <label class="form-check-label" for="maintenanceMode">
-                                    Kích hoạt chế độ bảo trì
+                        <form id="exportForm">
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">
+                                    <i class="fas fa-file-alt me-1"></i>Loại báo cáo
                                 </label>
+                                <select class="form-select" id="reportType" name="reportType">
+                                    <option value="summary">Tổng quan (Thống kê tổng hợp)</option>
+                                    <option value="users">Người dùng (Toàn hệ thống - không theo thời gian)</option>
+                                    <option value="orders">Đơn hàng (Theo thời gian)</option>
+                                    <option value="products">Sản phẩm (Theo thời gian)</option>
+                                </select>
+                                <div class="form-text" id="reportTypeHelp">
+                                    <i class="fas fa-info-circle"></i>
+                                    <span id="reportTypeDescription">Chọn loại báo cáo phù hợp với nhu cầu của
+                                        bạn</span>
+                                </div>
                             </div>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Giới hạn đăng nhập thất bại</label>
-                            <input type="number" class="form-control" value="5">
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Thời gian khóa tài khoản (phút)</label>
-                            <input type="number" class="form-control" value="30">
-                        </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label class="form-label fw-bold">
+                                            <i class="fas fa-calendar-alt me-1"></i>Từ ngày
+                                        </label>
+                                        <input type="date" class="form-control" id="startDate" name="startDate">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label class="form-label fw-bold">
+                                            <i class="fas fa-calendar-check me-1"></i>Đến ngày
+                                        </label>
+                                        <input type="date" class="form-control" id="endDate" name="endDate">
+                                    </div>
+                                </div>
+                            </div>
+
+                        </form>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
-                        <button type="button" class="btn btn-primary">
-                            <i class="fas fa-save me-1"></i>Lưu thay đổi
+                        <button type="button" class="btn btn-success" onclick="exportExcel()">
+                            <i class="fas fa-download me-1"></i>Tải xuống
                         </button>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Filter Logs Modal -->
-        <div class="modal fade" id="filterLogsModal" tabindex="-1">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Lọc nhật ký</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="mb-3">
-                            <label class="form-label">Khoảng thời gian</label>
-                            <select class="form-select">
-                                <option value="today">Hôm nay</option>
-                                <option value="yesterday">Hôm qua</option>
-                                <option value="week">Tuần này</option>
-                                <option value="month">Tháng này</option>
-                                <option value="custom">Tùy chỉnh</option>
-                            </select>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Loại hoạt động</label>
-                            <select class="form-select" multiple>
-                                <option value="login">Đăng nhập</option>
-                                <option value="user">Quản lý người dùng</option>
-                                <option value="system">Hệ thống</option>
-                                <option value="security">Bảo mật</option>
-                            </select>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Trạng thái</label>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="success" checked>
-                                <label class="form-check-label">Thành công</label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="error" checked>
-                                <label class="form-check-label">Thất bại</label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
-                        <button type="button" class="btn btn-primary">
-                            <i class="fas fa-filter me-1"></i>Áp dụng
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <!-- Chart.js Library -->
+        <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 
-        <!-- Initialize Charts -->
-        <script src="<c:url value='/resources/admin/js/admin-dashboard-charts.js'/>"></script>
+        <!-- Dashboard Chart Script -->
+        <script>
+            let chartInstance = null;
+
+            // Load chart data when page loads
+            document.addEventListener('DOMContentLoaded', function () {
+                loadChartData();
+
+                // Set default dates (last 30 days)
+                const today = new Date();
+                const lastMonth = new Date(today);
+                lastMonth.setMonth(lastMonth.getMonth() - 1);
+
+                document.getElementById('endDate').valueAsDate = today;
+                document.getElementById('startDate').valueAsDate = lastMonth;
+
+                // Add report type change listener
+                document.getElementById('reportType').addEventListener('change', function () {
+                    updateReportTypeDescription(this.value);
+                });
+            });
+
+            function loadChartData() {
+                const period = document.getElementById('activityPeriod').value;
+
+                fetch('/api/admin/dashboard/user-activity-chart?period=' + period + '&v=' + Date.now())
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log('Chart data loaded:', data); // Debug log
+                        renderChart(data);
+                        updateSummary(data.summary);
+                    })
+                    .catch(error => {
+                        console.error('Error loading chart data:', error);
+                    });
+            }
+
+            function updateSummary(summary) {
+                if (!summary) return;
+
+                document.getElementById('chartSummary').style.display = 'flex';
+                document.getElementById('summaryTotalOrders').textContent = summary.totalOrders.toLocaleString();
+                document.getElementById('summaryPending').textContent = summary.totalPending.toLocaleString();
+                document.getElementById('summaryPaid').textContent = summary.totalPaid.toLocaleString();
+                document.getElementById('summaryCanceled').textContent = summary.totalCanceled.toLocaleString();
+
+                document.getElementById('successRate').textContent =
+                    summary.successRate.toFixed(1) + '% thành công';
+                document.getElementById('cancelRate').textContent =
+                    summary.cancelRate.toFixed(1) + '% hủy';
+            }
+
+            function renderChart(data) {
+                const ctx = document.getElementById('userActivityChart').getContext('2d');
+
+                // Destroy existing chart if exists
+                if (chartInstance) {
+                    chartInstance.destroy();
+                }
+
+                chartInstance = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: data.labels,
+                        datasets: [
+                            {
+                                label: 'Đơn chờ xử lý',
+                                data: data.pendingOrders,
+                                borderColor: 'rgb(255, 205, 86)',
+                                backgroundColor: 'rgba(255, 205, 86, 0.1)',
+                                borderWidth: 2,
+                                tension: 0.4,
+                                fill: true,
+                                pointRadius: 3,
+                                pointHoverRadius: 5
+                            },
+                            {
+                                label: 'Đơn đã thanh toán',
+                                data: data.paidOrders,
+                                borderColor: 'rgb(54, 162, 235)',
+                                backgroundColor: 'rgba(54, 162, 235, 0.1)',
+                                borderWidth: 2,
+                                tension: 0.4,
+                                fill: true,
+                                pointRadius: 3,
+                                pointHoverRadius: 5
+                            },
+                            {
+                                label: 'Đơn đã hủy',
+                                data: data.canceledOrders,
+                                borderColor: 'rgb(255, 99, 132)',
+                                backgroundColor: 'rgba(255, 99, 132, 0.1)',
+                                borderWidth: 2,
+                                tension: 0.4,
+                                fill: true,
+                                pointRadius: 3,
+                                pointHoverRadius: 5
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'top',
+                                labels: {
+                                    usePointStyle: true,
+                                    padding: 15,
+                                    font: {
+                                        size: 12
+                                    }
+                                }
+                            },
+                            title: {
+                                display: false
+                            },
+                            tooltip: {
+                                mode: 'index',
+                                intersect: false,
+                                backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                                padding: 12,
+                                titleFont: {
+                                    size: 14
+                                },
+                                bodyFont: {
+                                    size: 13
+                                },
+                                callbacks: {
+                                    label: function (context) {
+                                        let label = context.dataset.label || '';
+                                        if (label) {
+                                            label += ': ';
+                                        }
+                                        if (context.parsed.y !== null) {
+                                            label += context.parsed.y + ' đơn';
+                                        }
+                                        return label;
+                                    }
+                                }
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                ticks: {
+                                    stepSize: 1,
+                                    callback: function (value) {
+                                        return Number.isInteger(value) ? value : '';
+                                    }
+                                },
+                                title: {
+                                    display: true,
+                                    text: 'Số lượng đơn hàng',
+                                    font: {
+                                        size: 13,
+                                        weight: 'bold'
+                                    }
+                                },
+                                grid: {
+                                    drawBorder: false
+                                }
+                            },
+                            x: {
+                                grid: {
+                                    display: false
+                                }
+                            }
+                        },
+                        interaction: {
+                            mode: 'nearest',
+                            axis: 'x',
+                            intersect: false
+                        }
+                    }
+                });
+            }
+
+            function openExportModal() {
+                const modal = new bootstrap.Modal(document.getElementById('exportModal'));
+                modal.show();
+                updateReportTypeDescription('all'); // Set default description
+            }
+
+            function updateReportTypeDescription(reportType) {
+                const descElement = document.getElementById('reportTypeDescription');
+                const descriptions = {
+                    'summary': 'Xuất bảng thống kê tổng hợp về đơn hàng, sản phẩm và người dùng',
+                    'users': 'Xuất danh sách tất cả người dùng (không phụ thuộc vào thời gian chọn)',
+                    'orders': 'Xuất danh sách đơn hàng chi tiết trong khoảng thời gian đã chọn',
+                    'products': 'Xuất danh sách sản phẩm chi tiết trong khoảng thời gian đã chọn'
+                };
+                descElement.textContent = descriptions[reportType] || descriptions['summary'];
+            }
+
+            function exportExcel() {
+                const reportType = document.getElementById('reportType').value;
+                const startDate = document.getElementById('startDate').value;
+                const endDate = document.getElementById('endDate').value;
+
+                if (!startDate || !endDate) {
+                    alert('Vui lòng chọn khoảng thời gian');
+                    return;
+                }
+
+                // Build URL with parameters
+                let url = '/api/admin/dashboard/export-report?reportType=' + reportType;
+                if (startDate) url += '&startDate=' + startDate;
+                if (endDate) url += '&endDate=' + endDate;
+
+                // Download file
+                window.location.href = url;
+
+                // Close modal after a short delay
+                setTimeout(() => {
+                    bootstrap.Modal.getInstance(document.getElementById('exportModal')).hide();
+                }, 500);
+            }
+        </script>
+
+        <style>
+            .dashboard-card {
+                background: white;
+                border-radius: 8px;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+                margin-bottom: 20px;
+            }
+
+            .dashboard-card .card-header {
+                padding: 15px 20px;
+                border-bottom: 1px solid #e3e6f0;
+                background: transparent;
+            }
+
+            .dashboard-card .card-title {
+                margin: 0;
+                font-size: 1.1rem;
+                font-weight: 600;
+                color: #5a5c69;
+            }
+
+            .dashboard-card .card-body {
+                padding: 20px;
+            }
+
+            .chart-container {
+                position: relative;
+            }
+
+            .card-tools .form-select {
+                min-width: 150px;
+            }
+
+            #chartSummary {
+                padding: 15px 0;
+                border-bottom: 1px solid #e3e6f0;
+                margin-bottom: 20px;
+            }
+
+            .summary-stat {
+                display: flex;
+                align-items: center;
+                gap: 15px;
+                padding: 15px;
+                background: #f8f9fc;
+                border-radius: 8px;
+                height: 100%;
+            }
+
+            .summary-stat .stat-icon {
+                width: 50px;
+                height: 50px;
+                border-radius: 10px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 24px;
+            }
+
+            .summary-stat .stat-content {
+                flex: 1;
+            }
+
+            .summary-stat .stat-content h4 {
+                margin: 0;
+                font-size: 24px;
+                font-weight: 700;
+                color: #2c3e50;
+            }
+
+            .summary-stat .stat-content p {
+                margin: 0;
+                font-size: 13px;
+                color: #7f8c8d;
+            }
+
+            .summary-stat .stat-content small {
+                font-size: 11px;
+                font-weight: 600;
+            }
+
+            /* Export Modal Styles */
+            #reportTypeHelp {
+                margin-top: 8px;
+                padding: 8px 12px;
+                background: #f0f8ff;
+                border-left: 3px solid #0dcaf0;
+                border-radius: 4px;
+                font-size: 13px;
+                color: #055160;
+            }
+
+            #reportTypeHelp i {
+                color: #0dcaf0;
+            }
+
+            .form-label.fw-bold {
+                color: #2c3e50;
+                margin-bottom: 8px;
+            }
+
+            .form-label.fw-bold i {
+                color: #3498db;
+            }
+
+            .alert-info ul {
+                padding-left: 20px;
+            }
+
+            .alert-info ul li {
+                margin-bottom: 4px;
+            }
+
+            .form-select {
+                font-size: 14px;
+                padding: 10px 12px;
+            }
+
+            .form-select:focus {
+                border-color: #0dcaf0;
+                box-shadow: 0 0 0 0.2rem rgba(13, 202, 240, 0.15);
+            }
+        </style>

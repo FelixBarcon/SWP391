@@ -14,7 +14,7 @@ public class MailService {
         this.mailSender = mailSender;
     }
 
-    @Async
+    @Async("mailExecutor")
     public void sendResetPasswordEmail(String to, String resetLink) {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setTo(to);
@@ -25,5 +25,20 @@ public class MailService {
 
         mailSender.send(message);
         System.out.println("📧 Email đã được gửi tới: " + to);
+    }
+
+    @Async("mailExecutor")
+    public void sendAccountDeactivationEmail(String to, String reason) {
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setTo(to);
+        message.setSubject("Thông báo khóa tài khoản");
+        String body = "Kính gửi người dùng,\n\n" +
+                "Tài khoản của bạn đã bị tạm khóa bởi quản trị viên hệ thống.\n" +
+                (reason != null && !reason.isBlank() ? ("Lý do: " + reason + "\n\n") : "") +
+                "Nếu bạn cho rằng đây là sự nhầm lẫn, vui lòng phản hồi email này để được hỗ trợ.\n\n" +
+                "Trân trọng.";
+        message.setText(body);
+        mailSender.send(message);
+        System.out.println("📧 Đã gửi email khóa tài khoản tới: " + to);
     }
 }

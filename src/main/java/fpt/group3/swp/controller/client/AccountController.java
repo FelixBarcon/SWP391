@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import java.util.Map;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.security.Principal;
@@ -51,6 +52,18 @@ public class AccountController {
             model.addAttribute("msg", ex.getMessage());
             return "account/profile";
         }
+    }
+
+    // Lightweight JSON endpoint for fetching saved address in profile
+    @GetMapping("/profile/address")
+    @ResponseBody
+    public Map<String, Object> getProfileAddress(Principal principal) {
+        User u = accountService.viewProfile(principal);
+        String addr = u.getAddress();
+        return Map.of(
+                "hasAddress", addr != null && !addr.trim().isEmpty(),
+                "address", addr == null ? "" : addr.trim()
+        );
     }
 
     // ===== CHANGE PASSWORD =====

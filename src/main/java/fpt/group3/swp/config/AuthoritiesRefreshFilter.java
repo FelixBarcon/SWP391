@@ -43,6 +43,16 @@ public class AuthoritiesRefreshFilter extends OncePerRequestFilter {
                 username = auth.getName();
             }
 
+            // Nếu tài khoản bị khóa (disabled) -> đá ra và báo disabled
+            var latestDetails = userDetailsService.loadUserByUsername(username);
+            if (!latestDetails.isEnabled()) {
+                HttpSession session = request.getSession(false);
+                if (session != null) session.invalidate();
+                SecurityContextHolder.clearContext();
+                response.sendRedirect(request.getContextPath() + "/login?disabled");
+                return;
+            }
+
             // Lấy userId từ session (theo cách bạn đang làm)
             HttpSession session = request.getSession(false);
             Long userId = null;
@@ -60,7 +70,7 @@ public class AuthoritiesRefreshFilter extends OncePerRequestFilter {
                         .orElse(false);
 
                 if (approved && !alreadySellerRole) {
-                    var userDetails = userDetailsService.loadUserByUsername(username);
+                    var userDetails = latestDetails; // đã load ở trên
                     var newAuth = new UsernamePasswordAuthenticationToken(
                             userDetails,
                             auth.getCredentials(),

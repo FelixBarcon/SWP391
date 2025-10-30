@@ -12,11 +12,13 @@
         </c:set>
         <c:set var="additionalCSS" value="${additionalCSS}" scope="request" />
 
-        <!-- Add dashboard specific JavaScript -->
-        <c:set var="additionalJS">
+        <!-- Dashboard JavaScript is now embedded in dashboard-content.jsp -->
+        <!-- No need for external JS file -->
+        <%-- <c:set var="additionalJS">
             <c:url value='/resources/admin/js/admin-dashboard-charts.js' />
-        </c:set>
-        <c:set var="additionalJS" value="${additionalJS}" scope="request" />
+            </c:set>
+            <c:set var="additionalJS" value="${additionalJS}" scope="request" />
+            --%>
 
-        <!-- Include master layout -->
-        <jsp:include page="../layout/master.jsp" />
+            <!-- Include master layout -->
+            <jsp:include page="../layout/master.jsp" />
