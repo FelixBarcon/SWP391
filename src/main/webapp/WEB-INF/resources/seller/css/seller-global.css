@@ -1,16 +1,16 @@
 /* Global styles for seller dashboard */
 :root {
-  /* Color Scheme - Shopee Orange Theme */
-  --seller-primary: #ee4d2d; /* Shopee Orange */
-  --seller-secondary: #d73211; /* Darker Orange */
-  --seller-accent: #ff6b4d; /* Lighter Orange */
+  /* Color Scheme - Light Blue Theme */
+  --seller-primary: #5b9bd5; /* Light Blue */
+  --seller-secondary: #4a7ba7; /* Darker Blue */
+  --seller-accent: #7bb3e8; /* Lighter Blue */
   --seller-bg: #f6f6f6;
   --seller-sidebar-bg: #ffffff;
   --seller-text: #222222;
   --seller-text-light: #757575;
   --seller-border: #ececec;
-  --seller-hover: #fff2ef; /* Light Orange Background */
-  --seller-active: #ffd6cc; /* Pale Orange Active State */
+  --seller-hover: #e8f3fc; /* Light Blue Background */
+  --seller-active: #c5e0f5; /* Pale Blue Active State */
 
   /* Spacing */
   --seller-spacing-xs: 0.25rem;
@@ -125,7 +125,7 @@
 .seller-page-actions .seller-btn-primary:hover {
   background: var(--seller-secondary);
   transform: translateY(-1px);
-  box-shadow: 0 4px 6px rgba(238, 77, 45, 0.1);
+  box-shadow: 0 4px 6px rgba(91, 155, 213, 0.1);
 }
 
 .seller-page-actions .seller-btn-secondary {

@@ -1,0 +1,441 @@
+/**
+ * SELLER ORDERS PAGE - SHOPEE STYLE
+ * Modern, clean design with Shopee color scheme
+ */
+
+/* ============================================
+   ORDERS TABLE CARD
+   ============================================ */
+.orders-table-card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+}
+
+.orders-table-header {
+  padding: 20px 24px;
+  background: linear-gradient(135deg, #f8f9fa, #ffffff);
+  border-bottom: 2px solid #f0f0f0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.orders-table-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #333;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.orders-search-box {
+  position: relative;
+  max-width: 300px;
+}
+
+.orders-search-input {
+  width: 100%;
+  padding: 10px 40px 10px 16px;
+  border: 2px solid #e5e5e5;
+  border-radius: 8px;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+.orders-search-input:focus {
+  outline: none;
+  border-color: #5b9bd5;
+  box-shadow: 0 0 0 4px rgba(91, 155, 213, 0.1);
+}
+
+.orders-search-icon {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #999;
+  pointer-events: none;
+}
+
+/* ============================================
+   ORDERS TABLE
+   ============================================ */
+.orders-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.orders-table thead {
+  background: #fafafa;
+}
+
+.orders-table th {
+  padding: 16px 20px;
+  text-align: left;
+  font-size: 13px;
+  font-weight: 700;
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-bottom: 2px solid #e5e5e5;
+}
+
+.orders-table tbody tr {
+  transition: all 0.2s ease;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.orders-table tbody tr:hover {
+  background: #f0f7ff;
+}
+
+.orders-table td {
+  padding: 20px;
+  vertical-align: middle;
+  font-size: 14px;
+  color: #333;
+}
+
+/* Order Number */
+.order-number {
+  font-weight: 700;
+  color: #5b9bd5;
+  font-size: 15px;
+}
+
+.order-index {
+  display: inline-block;
+  width: 32px;
+  height: 32px;
+  line-height: 32px;
+  text-align: center;
+  background: linear-gradient(135deg, #5b9bd5, #7bb3e8);
+  color: white;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+/* Customer Info */
+.customer-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.customer-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #5b9bd5, #7bb3e8);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 16px;
+  flex-shrink: 0;
+}
+
+.customer-name {
+  font-weight: 600;
+  color: #333;
+  font-size: 14px;
+}
+
+/* Date */
+.order-date {
+  color: #666;
+  font-size: 13px;
+}
+
+.order-date i {
+  color: #999;
+  margin-right: 6px;
+}
+
+/* Status Badge */
+.order-status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.order-status-badge i {
+  font-size: 12px;
+}
+
+.order-status-badge.status-pending {
+  background: linear-gradient(135deg, #fff3cd, #fff5e1);
+  color: #f39c12;
+  border: 2px solid #ffeaa7;
+}
+
+.order-status-badge.status-processing {
+  background: linear-gradient(135deg, #d1ecf1, #e3f2fd);
+  color: #0984e3;
+  border: 2px solid #74b9ff;
+}
+
+.order-status-badge.status-shipped {
+  background: linear-gradient(135deg, #e8daff, #f0e6ff);
+  color: #6c5ce7;
+  border: 2px solid #a29bfe;
+}
+
+.order-status-badge.status-completed {
+  background: linear-gradient(135deg, #d4edda, #e8f8f0);
+  color: #00b894;
+  border: 2px solid #55efc4;
+}
+
+.order-status-badge.status-cancelled {
+  background: linear-gradient(135deg, #f8d7da, #ffe0e3);
+  color: #d63031;
+  border: 2px solid #ff7675;
+}
+
+/* Action Buttons */
+.order-actions {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+.btn-view-order {
+  padding: 8px 16px;
+  background: linear-gradient(135deg, #5b9bd5, #7bb3e8);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.btn-view-order:hover {
+  background: linear-gradient(135deg, #4a7ba7, #5b9bd5);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(91, 155, 213, 0.3);
+  color: white;
+}
+
+.btn-view-order i {
+  font-size: 14px;
+}
+
+/* ============================================
+   EMPTY STATE
+   ============================================ */
+.orders-empty-state {
+  text-align: center;
+  padding: 80px 20px;
+}
+
+.empty-state-icon {
+  width: 120px;
+  height: 120px;
+  margin: 0 auto 24px;
+  background: linear-gradient(135deg, #e3f2fd, #d1e9ff);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.empty-state-icon i {
+  font-size: 60px;
+  color: #5b9bd5;
+}
+
+.empty-state-title {
+  font-size: 22px;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 8px;
+}
+
+.empty-state-text {
+  font-size: 15px;
+  color: #999;
+  margin-bottom: 0;
+}
+
+/* ============================================
+   PAGINATION
+   ============================================ */
+.orders-pagination-wrapper {
+  padding: 24px;
+  background: #fafafa;
+  border-top: 1px solid #e5e5e5;
+}
+
+.orders-pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.pagination-item {
+  list-style: none;
+}
+
+.pagination-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 40px;
+  height: 40px;
+  padding: 0 12px;
+  border-radius: 8px;
+  background: white;
+  border: 2px solid #e5e5e5;
+  color: #666;
+  font-weight: 600;
+  font-size: 14px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.pagination-link:hover {
+  background: #f0f7ff;
+  border-color: #5b9bd5;
+  color: #5b9bd5;
+}
+
+.pagination-item.active .pagination-link {
+  background: linear-gradient(135deg, #5b9bd5, #7bb3e8);
+  border-color: #5b9bd5;
+  color: white;
+  box-shadow: 0 4px 12px rgba(91, 155, 213, 0.3);
+}
+
+.pagination-item.disabled .pagination-link {
+  background: #f5f5f5;
+  border-color: #e5e5e5;
+  color: #ccc;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 1200px) {
+  .orders-stats-row {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .orders-page-header {
+    padding: 20px;
+  }
+
+  .orders-page-title {
+    font-size: 22px;
+  }
+
+  .orders-stats-row {
+    grid-template-columns: 1fr;
+  }
+
+  .orders-table-header {
+    flex-direction: column;
+    gap: 16px;
+    align-items: stretch;
+  }
+
+  .orders-search-box {
+    max-width: 100%;
+  }
+
+  .filter-tabs-list {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .filter-tabs-list::-webkit-scrollbar {
+    display: none;
+  }
+
+  .orders-table {
+    display: block;
+    overflow-x: auto;
+  }
+
+  .order-actions {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 576px) {
+  .orders-table th,
+  .orders-table td {
+    padding: 12px;
+    font-size: 13px;
+  }
+
+  .customer-info {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .btn-view-order {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* ============================================
+   ANIMATIONS
+   ============================================ */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.orders-table tbody tr {
+  animation: fadeInUp 0.4s ease forwards;
+}
+
+.orders-table tbody tr:nth-child(1) {
+  animation-delay: 0.05s;
+}
+.orders-table tbody tr:nth-child(2) {
+  animation-delay: 0.1s;
+}
+.orders-table tbody tr:nth-child(3) {
+  animation-delay: 0.15s;
+}
+.orders-table tbody tr:nth-child(4) {
+  animation-delay: 0.2s;
+}
+.orders-table tbody tr:nth-child(5) {
+  animation-delay: 0.25s;
+}

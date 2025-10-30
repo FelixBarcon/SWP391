@@ -100,11 +100,16 @@
                                     <label class="form-label">
                                         Địa chỉ chi tiết <span class="required">*</span>
                                     </label>
-                                    <input type="text"
-                                           name="receiverAddress"
-                                           class="form-input"
-                                           placeholder="Số nhà, tên đường..."
-                                           required>
+                                    <div class="input-with-action">
+                                        <input type="text"
+                                               name="receiverAddress"
+                                               class="form-input"
+                                               placeholder="Số nhà, tên đường..."
+                                               required>
+                                        <button type="button" id="btn-fill-profile-address" class="input-action" title="Dùng địa chỉ từ hồ sơ">
+                                            <i class="fas fa-address-card"></i>
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
 

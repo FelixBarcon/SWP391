@@ -1,10 +1,10 @@
-/* Product List Styles - Shopee Inspired Design */
+/* Product List Styles - Light Blue Theme */
 
 :root {
-  --shopee-primary: #ee4d2d;
-  --shopee-primary-dark: #d73211;
-  --shopee-secondary: #ff6b35;
-  --shopee-accent: #ff9800;
+  --shopee-primary: #5b9bd5;
+  --shopee-primary-dark: #4a7ba7;
+  --shopee-secondary: #7bb3e8;
+  --shopee-accent: #90c8f0;
   --shopee-success: #00bfa5;
   --shopee-warning: #ffab00;
   --shopee-danger: #f44336;
@@ -218,7 +218,7 @@
 
 .toggle-btn:hover:not(.active) {
   color: var(--shopee-text-primary);
-  background: rgba(238, 77, 45, 0.05);
+  background: rgba(91, 155, 213, 0.05);
 }
 
 /* Premium Product Grid */

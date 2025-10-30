@@ -56,6 +56,14 @@
                             </ul>
                         </li>
 
+                        <li class="nav-item">
+                            <a href="<c:url value='/seller/orders'/>"
+                                class="nav-link ${pageContext.request.servletPath.contains('/orders') ? 'active' : ''}">
+                                <i class="fas fa-shopping-bag"></i>
+                                <span class="nav-link-text">Đơn hàng</span>
+                            </a>
+                        </li>
+
                     </ul>
                 </div>
             </nav>
@@ -65,24 +73,25 @@
                 <div class="user-profile">
                     <div class="user-avatar">
                         <c:choose>
-                            <c:when test="${not empty sessionScope.user}">
-                                ${sessionScope.user.firstName.substring(0,1).toUpperCase()}${sessionScope.user.lastName.substring(0,1).toUpperCase()}
+                            <c:when test="${not empty sessionScope.avatar}">
+                                <img src="<c:url value='/images/${sessionScope.avatar}' />" alt="Avatar"
+                                    style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">
                             </c:when>
                             <c:otherwise>
-                                S
+                                <c:choose>
+                                    <c:when test="${not empty sessionScope.fullName}">
+                                        ${sessionScope.fullName.substring(0,1).toUpperCase()}
+                                    </c:when>
+                                    <c:otherwise>
+                                        S
+                                    </c:otherwise>
+                                </c:choose>
                             </c:otherwise>
                         </c:choose>
                     </div>
                     <div class="user-info">
                         <div class="user-name">
-                            <c:choose>
-                                <c:when test="${not empty sessionScope.user}">
-                                    ${sessionScope.user.firstName} ${sessionScope.user.lastName}
-                                </c:when>
-                                <c:otherwise>
-                                    Seller
-                                </c:otherwise>
-                            </c:choose>
+                            ${not empty sessionScope.fullName ? sessionScope.fullName : 'Seller'}
                         </div>
                         <div class="user-role">Người bán</div>
                     </div>

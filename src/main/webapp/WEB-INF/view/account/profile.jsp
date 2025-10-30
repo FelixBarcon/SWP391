@@ -28,11 +28,19 @@
                     <!-- Header -->
                     <div class="profile-header">
                         <div class="header-content">
-                            <h1 class="profile-title">
-                                <i class="fas fa-user-circle"></i>
-                                Hồ sơ cá nhân
-                            </h1>
-                            <p class="profile-subtitle">Quản lý thông tin tài khoản và cài đặt bảo mật của bạn</p>
+                            <div class="header-left">
+                                <h1 class="profile-title">
+                                    <i class="fas fa-user-circle"></i>
+                                    Hồ sơ cá nhân
+                                </h1>
+                                <p class="profile-subtitle">Quản lý thông tin tài khoản và cài đặt bảo mật của bạn</p>
+                            </div>
+                            <div class="header-actions">
+                                <a href="${pageContext.request.contextPath}/" class="btn-home">
+                                    <i class="fas fa-home"></i>
+                                    <span>Trang chủ</span>
+                                </a>
+                            </div>
                         </div>
                     </div>
 

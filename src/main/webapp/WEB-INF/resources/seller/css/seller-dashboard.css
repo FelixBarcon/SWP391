@@ -1,3 +1,43 @@
+/* Dashboard Header */
+.dashboard-header {
+  background: linear-gradient(135deg, #5b9bd5, #4a90e2);
+  padding: 2rem;
+  border-radius: 16px;
+  box-shadow: 0 4px 15px rgba(16, 185, 129, 0.2);
+  color: white;
+}
+
+.dashboard-title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: white;
+  margin: 0;
+}
+
+.dashboard-title i {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.dashboard-subtitle {
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 400;
+}
+
+.dashboard-date {
+  background: rgba(255, 255, 255, 0.15);
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.dashboard-date i {
+  color: rgba(255, 255, 255, 0.9);
+}
+
 .seller-welcome-icon {
   width: 48px;
   height: 48px;
@@ -130,4 +170,87 @@
 
 .table > :not(caption) > * > * {
   padding: 1rem;
+}
+
+/* Chart Statistics Cards */
+.chart-stat-card {
+  background: #fff;
+  padding: 1rem;
+  border-radius: 12px;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.chart-stat-card:hover {
+  border-color: var(--seller-primary);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+}
+
+.chart-stat-card .stat-value {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--seller-primary);
+  margin-bottom: 0.25rem;
+}
+
+.chart-stat-card .stat-label {
+  font-size: 0.75rem;
+  color: #718096;
+  font-weight: 500;
+}
+
+/* Export Modal Styles */
+#exportReportModal .modal-content {
+  border-radius: 16px;
+  border: none;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+}
+
+#exportReportModal .modal-header {
+  border-bottom: 1px solid #e5e7eb;
+  padding: 1.25rem 1.5rem;
+}
+
+#exportReportModal .modal-body {
+  padding: 1.5rem;
+}
+
+#exportReportModal .modal-footer {
+  border-top: 1px solid #e5e7eb;
+  padding: 1rem 1.5rem;
+}
+
+#reportTypeDescription {
+  display: block;
+  padding: 0.75rem;
+  background-color: #f9fafb;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+}
+
+#reportTypeDescription ul {
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+
+#reportTypeDescription li {
+  margin-bottom: 0.25rem;
+}
+
+/* Button Group Styles */
+.btn-group .btn {
+  padding: 0.375rem 0.75rem;
+  font-size: 0.875rem;
+  border-color: var(--seller-primary);
+  color: var(--seller-primary);
+}
+
+.btn-group .btn.active {
+  background-color: var(--seller-primary);
+  color: white;
+}
+
+.btn-group .btn:hover:not(.active) {
+  background-color: var(--seller-hover);
 }
