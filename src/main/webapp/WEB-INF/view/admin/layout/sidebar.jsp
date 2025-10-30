@@ -62,19 +62,18 @@
                                 <span class="nav-link-text">Danh sách Shop</span>
                             </a>
                         </li>
+                    </ul>
+                </div>
+
+                <!-- Review Management Section -->
+                <div class="nav-section">
+                    <div class="nav-section-title">Quản lý đánh giá</div>
+                    <ul class="nav-menu">
                         <li class="nav-item">
-                            <a href="<c:url value='/admin/seller/reports'/>"
-                                class="nav-link ${requestScope['javax.servlet.forward.servlet_path'] == '/admin/seller/reports' ? 'active' : ''}">
-                                <i class="fas fa-flag"></i>
-                                <span class="nav-link-text">Báo cáo vi phạm</span>
-                                <span class="badge bg-warning rounded-pill ms-2">3</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="<c:url value='/admin/seller/ratings'/>"
-                                class="nav-link ${requestScope['javax.servlet.forward.servlet_path'] == '/admin/seller/ratings' ? 'active' : ''}">
-                                <i class="fas fa-star"></i>
-                                <span class="nav-link-text">Đánh giá Shop</span>
+                            <a href="<c:url value='/admin/reviews/products'/>"
+                                class="nav-link ${requestScope['javax.servlet.forward.servlet_path'] == '/admin/reviews/products' ? 'active' : ''}">
+                                <i class="fas fa-comments"></i>
+                                <span class="nav-link-text">Đánh giá sản phẩm</span>
                             </a>
                         </li>
                     </ul>
@@ -86,11 +85,19 @@
                 <div class="user-profile">
                     <div class="user-avatar">
                         <c:choose>
-                            <c:when test="${not empty sessionScope.user}">
-                                ${sessionScope.user.firstName.substring(0,1).toUpperCase()}${sessionScope.user.lastName.substring(0,1).toUpperCase()}
+                            <c:when test="${not empty sessionScope.avatar}">
+                                <img src="<c:url value='/images/${sessionScope.avatar}' />" alt="Avatar"
+                                    style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">
                             </c:when>
                             <c:otherwise>
-                                AD
+                                <c:choose>
+                                    <c:when test="${not empty sessionScope.fullName}">
+                                        ${sessionScope.fullName.substring(0,1).toUpperCase()}
+                                    </c:when>
+                                    <c:otherwise>
+                                        S
+                                    </c:otherwise>
+                                </c:choose>
                             </c:otherwise>
                         </c:choose>
                     </div>
@@ -115,6 +122,10 @@
 
                 <!-- User Actions -->
                 <div class="user-actions">
+                    <a href="<c:url value='/'/>" class="home-btn" title="Về trang chủ">
+                        <i class="fas fa-home"></i>
+                        <span>Trang chủ</span>
+                    </a>
                     <a href="<c:url value='/logout'/>" class="logout-btn" title="Đăng xuất">
                         <i class="fas fa-sign-out-alt"></i>
                         <span>Đăng xuất</span>

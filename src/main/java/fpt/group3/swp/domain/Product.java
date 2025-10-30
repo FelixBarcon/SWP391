@@ -57,6 +57,9 @@ public class Product implements Serializable {
 
     private Boolean hasVariants = false;
 
+    @Column(name = "locked_by_shop", nullable = false)
+    private boolean lockedByShop = false;
+
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
@@ -86,6 +89,8 @@ public class Product implements Serializable {
         if (priceMin == null) priceMin = price;
         if (priceMax == null) priceMax = price;
         if (status == null) status = Status.ACTIVE;
+        // ensure default
+        if (hasVariants == null) hasVariants = false;
     }
 
     @PreUpdate

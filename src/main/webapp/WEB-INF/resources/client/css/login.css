@@ -18,7 +18,7 @@
 
 /* Header của card */
 .login-header {
-  background: linear-gradient(135deg, #ee4d2d 0%, #ff6b35 100%);
+  background: linear-gradient(135deg, #5b9bd5 0%, #7bb3e8 100%);
   color: white;
   padding: 30px;
   text-align: center;
@@ -52,7 +52,7 @@
 }
 
 .form-label i {
-  color: #ee4d2d;
+  color: #5b9bd5;
   width: 16px;
 }
 
@@ -68,14 +68,14 @@
 }
 
 .form-control:focus {
-  border-color: #ee4d2d;
-  box-shadow: 0 0 0 0.2rem rgba(238, 77, 45, 0.1);
+  border-color: #5b9bd5;
+  box-shadow: 0 0 0 0.2rem rgba(91, 155, 213, 0.1);
   background: #fff;
   outline: none;
 }
 
 .form-control:hover {
-  border-color: #ff6b35;
+  border-color: #7bb3e8;
 }
 
 .form-control.is-invalid {
@@ -90,12 +90,12 @@
 
 /* Remember me & Forgot password */
 .form-check-input:checked {
-  background-color: #ee4d2d;
-  border-color: #ee4d2d;
+  background-color: #5b9bd5;
+  border-color: #5b9bd5;
 }
 
 .form-check-input:focus {
-  box-shadow: 0 0 0 0.2rem rgba(238, 77, 45, 0.25);
+  box-shadow: 0 0 0 0.2rem rgba(91, 155, 213, 0.25);
 }
 
 .form-check-label {
@@ -104,7 +104,7 @@
 }
 
 .forgot-link {
-  color: #ee4d2d;
+  color: #5b9bd5;
   text-decoration: none;
   font-size: 0.9rem;
   font-weight: 500;
@@ -112,13 +112,13 @@
 }
 
 .forgot-link:hover {
-  color: #d73027;
+  color: #4a7ba7;
   text-decoration: underline;
 }
 
 /* Nút đăng nhập */
 .btn-login {
-  background: linear-gradient(135deg, #ee4d2d 0%, #ff6b35 100%);
+  background: linear-gradient(135deg, #5b9bd5 0%, #7bb3e8 100%);
   border: none;
   color: white !important;
   padding: 14px 24px;
@@ -126,14 +126,14 @@
   font-weight: 600;
   border-radius: 12px;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(238, 77, 45, 0.3);
+  box-shadow: 0 4px 15px rgba(91, 155, 213, 0.3);
   width: 100%;
 }
 
 .btn-login:hover {
-  background: linear-gradient(135deg, #d73027 0%, #ee4d2d 100%);
+  background: linear-gradient(135deg, #4a7ba7 0%, #5b9bd5 100%);
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(238, 77, 45, 0.4);
+  box-shadow: 0 6px 20px rgba(91, 155, 213, 0.4);
   color: white;
 }
 
@@ -156,14 +156,14 @@
 }
 
 .register-link {
-  color: #ee4d2d;
+  color: #5b9bd5;
   text-decoration: none;
   font-weight: 600;
   transition: color 0.3s ease;
 }
 
 .register-link:hover {
-  color: #d73027;
+  color: #4a7ba7;
   text-decoration: underline;
 }
 

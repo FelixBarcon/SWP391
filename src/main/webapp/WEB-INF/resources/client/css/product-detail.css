@@ -1,7 +1,7 @@
 /* Product Detail Page - Shopee Style */
 :root {
-  --shopee-primary: #ee4d2d;
-  --shopee-secondary: #ff6b35;
+  --shopee-primary: #5b9bd5;
+  --shopee-secondary: #7bb3e8;
   --shopee-text: #333333;
   --shopee-text-light: #666666;
   --shopee-text-muted: #999999;
@@ -225,7 +225,7 @@ body {
 
 .thumbnail.active {
   border-color: var(--shopee-primary);
-  box-shadow: 0 2px 8px rgba(238, 77, 45, 0.3);
+  box-shadow: 0 2px 8px rgba(91, 155, 213, 0.3);
 }
 
 .thumbnail img {
@@ -290,10 +290,10 @@ body {
 
 /* Price Section */
 .price-section {
-  background: linear-gradient(135deg, #fff5f0 0%, #ffe8e0 100%);
+  background: linear-gradient(135deg, #f0f7ff 0%, #e3f2fd 100%);
   padding: 20px;
   border-radius: 8px;
-  border: 1px solid #ffd3c7;
+  border: 1px solid #b3d9ff;
 }
 
 .price-wrapper {
@@ -373,8 +373,8 @@ body {
 .variant-option input:checked + label {
   border-color: var(--shopee-primary);
   color: var(--shopee-primary);
-  background: rgba(238, 77, 45, 0.05);
-  box-shadow: 0 0 0 2px rgba(238, 77, 45, 0.1);
+  background: rgba(91, 155, 213, 0.05);
+  box-shadow: 0 0 0 2px rgba(91, 155, 213, 0.1);
 }
 
 .variant-option label:hover {
@@ -468,7 +468,7 @@ body {
   flex: 1;
   padding: 14px 24px;
   border: 1px solid var(--shopee-primary);
-  background: rgba(238, 77, 45, 0.1);
+  background: rgba(91, 155, 213, 0.1);
   color: var(--shopee-primary);
   border-radius: 6px;
   font-size: 16px;
@@ -482,9 +482,9 @@ body {
 }
 
 .btn-add-cart:hover {
-  background: rgba(238, 77, 45, 0.2);
+  background: rgba(91, 155, 213, 0.2);
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(238, 77, 45, 0.2);
+  box-shadow: 0 4px 12px rgba(91, 155, 213, 0.2);
 }
 
 .btn-buy-now {
@@ -510,7 +510,7 @@ body {
 
 .btn-buy-now:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(238, 77, 45, 0.3);
+  box-shadow: 0 4px 12px rgba(91, 155, 213, 0.3);
 }
 
 /* Description Section */
@@ -761,4 +761,13 @@ body {
     padding: 12px;
     font-size: 14px;
   }
+}
+
+/* Footer full width only on product page */
+.product-page .footer-section {
+  width: 100%;
+}
+.product-page .footer-section > .container {
+  max-width: 100% !important;
+  width: 100% !important;
 }

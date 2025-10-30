@@ -18,7 +18,7 @@
   padding: var(--seller-spacing-xl);
   margin-bottom: var(--seller-spacing-lg);
   color: white;
-  box-shadow: 0 4px 20px rgba(238, 77, 45, 0.3);
+  box-shadow: 0 4px 20px rgba(91, 155, 213, 0.3);
   position: relative;
 }
 
@@ -250,7 +250,7 @@
 .form-select:focus {
   outline: none;
   border-color: var(--seller-primary);
-  box-shadow: 0 0 0 3px rgba(238, 77, 45, 0.1);
+  box-shadow: 0 0 0 3px rgba(91, 155, 213, 0.1);
 }
 
 .form-input.error,
@@ -335,7 +335,7 @@
 
 .category-card:hover {
   border-color: var(--seller-primary);
-  box-shadow: 0 2px 8px rgba(238, 77, 45, 0.1);
+  box-shadow: 0 2px 8px rgba(91, 155, 213, 0.1);
 }
 
 .category-checkbox:checked + .category-card {
@@ -565,7 +565,7 @@
 
 .toggle-switch-modern input:checked + .toggle-slider-modern {
   background: var(--seller-primary);
-  box-shadow: 0 0 20px rgba(238, 77, 45, 0.3);
+  box-shadow: 0 0 20px rgba(91, 155, 213, 0.3);
 }
 
 .toggle-switch-modern input:checked + .toggle-slider-modern .toggle-button {
@@ -603,7 +603,7 @@
 
 .pricing-section.active {
   border-color: var(--seller-primary);
-  box-shadow: 0 0 0 3px rgba(238, 77, 45, 0.1);
+  box-shadow: 0 0 0 3px rgba(91, 155, 213, 0.1);
 }
 
 .pricing-header,
@@ -655,7 +655,7 @@
 
 .price-input-wrapper:focus-within {
   border-color: var(--seller-primary);
-  box-shadow: 0 0 0 3px rgba(238, 77, 45, 0.1);
+  box-shadow: 0 0 0 3px rgba(91, 155, 213, 0.1);
 }
 
 .currency-symbol {
@@ -664,7 +664,7 @@
   justify-content: center;
   width: 50px;
   height: 54px;
-  background: linear-gradient(135deg, var(--seller-primary) 0%, #ff6b35 100%);
+  background: linear-gradient(135deg, var(--seller-primary) 0%, #7bb3e8 100%);
   color: white;
   font-weight: 700;
   font-size: 1.1rem;
@@ -721,11 +721,11 @@
 }
 
 .price-suggestion:hover {
-  background: linear-gradient(135deg, var(--seller-primary) 0%, #ff6b35 100%);
+  background: linear-gradient(135deg, var(--seller-primary) 0%, #7bb3e8 100%);
   color: white;
   border-color: var(--seller-primary);
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(238, 77, 45, 0.3);
+  box-shadow: 0 4px 12px rgba(91, 155, 213, 0.3);
 }
 
 .price-validation-message {
@@ -783,12 +783,12 @@
   left: 0;
   width: 4px;
   height: 100%;
-  background: linear-gradient(to bottom, var(--seller-primary), #ff6b35);
+  background: linear-gradient(to bottom, var(--seller-primary), #7bb3e8);
 }
 
 .variant-group:hover {
   border-color: var(--seller-primary);
-  box-shadow: 0 4px 20px rgba(238, 77, 45, 0.1);
+  box-shadow: 0 4px 20px rgba(91, 155, 213, 0.1);
 }
 
 .variant-group-header {
@@ -811,7 +811,7 @@
   justify-content: center;
   width: 28px;
   height: 28px;
-  background: linear-gradient(135deg, var(--seller-primary) 0%, #ff6b35 100%);
+  background: linear-gradient(135deg, var(--seller-primary) 0%, #7bb3e8 100%);
   color: white;
   border-radius: 50%;
   font-size: 0.85rem;
@@ -876,7 +876,7 @@
 .variant-name-input:focus,
 .variant-values-input:focus {
   border-color: var(--seller-primary) !important;
-  box-shadow: 0 0 0 3px rgba(238, 77, 45, 0.1) !important;
+  box-shadow: 0 0 0 3px rgba(91, 155, 213, 0.1) !important;
 }
 
 .values-input-container {
@@ -1133,7 +1133,7 @@
 /* Enhanced Form States */
 .form-input.focused {
   border-color: var(--seller-primary);
-  box-shadow: 0 0 0 3px rgba(238, 77, 45, 0.1);
+  box-shadow: 0 0 0 3px rgba(91, 155, 213, 0.1);
 }
 
 .form-input.error {
@@ -1148,7 +1148,7 @@
 
 .price-input-wrapper.focused {
   border-color: var(--seller-primary);
-  box-shadow: 0 0 0 3px rgba(238, 77, 45, 0.1);
+  box-shadow: 0 0 0 3px rgba(91, 155, 213, 0.1);
 }
 
 .price-input-wrapper.error {
@@ -1193,8 +1193,8 @@
   background: linear-gradient(
     to bottom,
     var(--seller-primary),
-    #ff6b35,
-    #ff8f65
+    #7bb3e8,
+    #90c8f0
   );
   width: 6px;
 }
@@ -1365,7 +1365,7 @@
 .btn-primary:hover {
   background: var(--seller-secondary);
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(238, 77, 45, 0.3);
+  box-shadow: 0 4px 12px rgba(91, 155, 213, 0.3);
 }
 
 .btn-outline {
@@ -1662,7 +1662,7 @@
 .form-textarea:focus {
   outline: none;
   border-color: var(--seller-primary);
-  box-shadow: 0 0 0 3px rgba(238, 77, 45, 0.1);
+  box-shadow: 0 0 0 3px rgba(91, 155, 213, 0.1);
 }
 
 .input-group {
@@ -1858,9 +1858,9 @@
 .variant-section {
   margin-top: var(--seller-spacing-lg);
   padding: 24px;
-  background: linear-gradient(135deg, #fff5f0 0%, #ffe5d9 50%, #fff 100%);
+  background: linear-gradient(135deg, #f0f7ff 0%, #e3f2fd 50%, #fff 100%);
   border-radius: 16px;
-  border: 2px solid #fed7aa;
+  border: 2px solid #b3d9ff;
   position: relative;
   overflow: hidden;
 }
@@ -1872,21 +1872,21 @@
   left: 0;
   right: 0;
   height: 4px;
-  background: linear-gradient(90deg, #ff6b35 0%, #f7931e 50%, #ff8c42 100%);
+  background: linear-gradient(90deg, #5b9bd5 0%, #7bb3e8 50%, #90c8f0 100%);
 }
 
 .info-card {
   display: flex;
   align-items: flex-start;
   gap: 16px;
-  background: linear-gradient(135deg, #fff7ed 0%, #fed7aa 100%);
-  border: 2px solid #fb923c;
+  background: linear-gradient(135deg, #f0f7ff 0%, #b3d9ff 100%);
+  border: 2px solid #5b9bd5;
   border-radius: 12px;
   padding: 20px;
   margin-bottom: 24px;
   position: relative;
   overflow: hidden;
-  box-shadow: 0 4px 20px rgba(251, 146, 60, 0.15);
+  box-shadow: 0 4px 20px rgba(91, 155, 213, 0.15);
 }
 
 .info-card::before {
@@ -1896,23 +1896,23 @@
   left: 0;
   width: 4px;
   height: 100%;
-  background: linear-gradient(180deg, #ff6b35 0%, #f7931e 100%);
+  background: linear-gradient(180deg, #5b9bd5 0%, #7bb3e8 100%);
 }
 
 .info-card i {
-  color: #ea580c;
+  color: #4a7ba7;
   font-size: 24px;
   margin-top: 2px;
   background: white;
   padding: 12px;
   border-radius: 50%;
-  box-shadow: 0 4px 12px rgba(234, 88, 12, 0.2);
+  box-shadow: 0 4px 12px rgba(74, 123, 167, 0.2);
   position: relative;
   z-index: 1;
 }
 
 .info-card strong {
-  color: #c2410c;
+  color: #3a6590;
   margin-bottom: 8px;
   display: block;
   font-size: 18px;
@@ -1920,7 +1920,7 @@
 }
 
 .info-card p {
-  color: #ea580c;
+  color: #4a7ba7;
   margin: 0;
   font-size: 14px;
   line-height: 1.6;
@@ -1933,8 +1933,8 @@
   margin-bottom: 24px;
   background: white;
   border-radius: 16px;
-  box-shadow: 0 8px 32px rgba(251, 146, 60, 0.15);
-  border: 2px solid #fed7aa;
+  box-shadow: 0 8px 32px rgba(91, 155, 213, 0.15);
+  border: 2px solid #b3d9ff;
   position: relative;
 }
 
@@ -1945,7 +1945,7 @@
   left: 0;
   right: 0;
   height: 3px;
-  background: linear-gradient(90deg, #ff6b35 0%, #f7931e 50%, #ff8c42 100%);
+  background: linear-gradient(90deg, #5b9bd5 0%, #7bb3e8 50%, #90c8f0 100%);
 }
 
 .variant-table {
@@ -1957,7 +1957,7 @@
 }
 
 .variant-table thead {
-  background: linear-gradient(135deg, #ff6b35 0%, #f97316 50%, #ea580c 100%);
+  background: linear-gradient(135deg, #5b9bd5 0%, #7bb3e8 50%, #4a7ba7 100%);
   position: relative;
 }
 
@@ -1996,14 +1996,14 @@
 
 .variant-table tbody tr {
   transition: all 0.3s ease;
-  border-bottom: 1px solid #fed7aa;
+  border-bottom: 1px solid #b3d9ff;
   background: white;
 }
 
 .variant-table tbody tr:hover {
-  background: linear-gradient(135deg, #fff7ed 0%, #ffedd5 100%);
+  background: linear-gradient(135deg, #f0f7ff 0%, #e3f2fd 100%);
   transform: translateX(4px);
-  box-shadow: inset 4px 0 0 #fb923c;
+  box-shadow: inset 4px 0 0 #5b9bd5;
 }
 
 .variant-table tbody tr:last-child {
@@ -2020,7 +2020,7 @@
 .variant-input {
   width: 100%;
   padding: 12px 16px;
-  border: 2px solid #fed7aa;
+  border: 2px solid #b3d9ff;
   border-radius: 10px;
   font-size: 14px;
   transition: all 0.3s ease;
@@ -2032,14 +2032,14 @@
 
 .variant-input:focus {
   outline: none;
-  border-color: #fb923c;
-  box-shadow: 0 0 0 3px rgba(251, 146, 60, 0.1);
+  border-color: #5b9bd5;
+  box-shadow: 0 0 0 3px rgba(91, 155, 213, 0.1);
   transform: translateY(-1px);
-  background: #fff7ed;
+  background: #f0f7ff;
 }
 
 .variant-input::placeholder {
-  color: #d97706;
+  color: #7bb3e8;
   font-style: italic;
   opacity: 0.7;
 }
@@ -2048,16 +2048,16 @@
   display: flex;
   align-items: center;
   background: white;
-  border: 2px solid #fed7aa;
+  border: 2px solid #b3d9ff;
   border-radius: 10px;
   overflow: hidden;
   transition: all 0.3s ease;
 }
 
 .variant-price-group:focus-within {
-  border-color: #fb923c;
-  box-shadow: 0 0 0 3px rgba(251, 146, 60, 0.1);
-  background: #fff7ed;
+  border-color: #5b9bd5;
+  box-shadow: 0 0 0 3px rgba(91, 155, 213, 0.1);
+  background: #f0f7ff;
 }
 
 .variant-price-group .variant-input {
@@ -2084,7 +2084,7 @@
 
 .input-suffix-small {
   padding: 12px 16px;
-  background: linear-gradient(135deg, #fed7aa 0%, #fb923c 100%);
+  background: linear-gradient(135deg, #b3d9ff 0%, #5b9bd5 100%);
   color: white;
   font-weight: 700;
   font-size: 12px;
@@ -2095,11 +2095,11 @@
 
 .variant-file-input {
   padding: 10px;
-  border: 2px dashed #fb923c;
+  border: 2px dashed #5b9bd5;
   border-radius: 8px;
   font-size: 12px;
-  color: #ea580c;
-  background: #fff7ed;
+  color: #4a7ba7;
+  background: #f0f7ff;
   transition: all 0.3s ease;
   cursor: pointer;
   text-align: center;
@@ -2107,9 +2107,9 @@
 }
 
 .variant-file-input:hover {
-  border-color: #ea580c;
-  background: #fed7aa;
-  color: #c2410c;
+  border-color: #4a7ba7;
+  background: #b3d9ff;
+  color: #3a6590;
   transform: translateY(-1px);
 }
 
@@ -2146,7 +2146,7 @@
 }
 
 .btn-add-variant {
-  background: linear-gradient(135deg, #ff6b35 0%, #f97316 50%, #ea580c 100%);
+  background: linear-gradient(135deg, #5b9bd5 0%, #7bb3e8 50%, #4a7ba7 100%);
   color: white;
   border: none;
   padding: 16px 32px;
@@ -2158,7 +2158,7 @@
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  box-shadow: 0 6px 20px rgba(255, 107, 53, 0.4);
+  box-shadow: 0 6px 20px rgba(91, 155, 213, 0.4);
   letter-spacing: 0.5px;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
   position: relative;
@@ -2182,9 +2182,9 @@
 }
 
 .btn-add-variant:hover {
-  background: linear-gradient(135deg, #ea580c 0%, #dc2626 50%, #c2410c 100%);
+  background: linear-gradient(135deg, #4a7ba7 0%, #3a6590 50%, #2a5580 100%);
   transform: translateY(-3px);
-  box-shadow: 0 10px 25px rgba(255, 107, 53, 0.5);
+  box-shadow: 0 10px 25px rgba(91, 155, 213, 0.5);
 }
 
 .btn-add-variant:hover::before {

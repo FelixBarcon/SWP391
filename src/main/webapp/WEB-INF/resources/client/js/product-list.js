@@ -35,33 +35,32 @@ function initQuickAddToCart() {
       submitBtn.disabled = true;
       submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
 
-      // Submit via AJAX
-      fetch(this.action, {
-        method: "POST",
-        body: new FormData(this),
-      })
+      // Submit via AJAX with authentication check
+      window
+        .safeAddToCart(this.action, new FormData(this))
         .then((response) => {
-          if (response.ok) {
-            showNotification("✓ Đã thêm vào giỏ hàng!", "success");
-            updateCartCount();
+          // Success! Either response.ok or we got redirected to cart/product page
+          showNotification("✓ Đã thêm vào giỏ hàng!", "success");
+          updateCartCount();
 
-            // Animate button
-            submitBtn.innerHTML = '<i class="fas fa-check"></i>';
-            setTimeout(() => {
-              submitBtn.innerHTML = originalText;
-              submitBtn.disabled = false;
-            }, 1500);
-          } else {
+          // Animate button
+          submitBtn.innerHTML = '<i class="fas fa-check"></i>';
+          setTimeout(() => {
+            submitBtn.innerHTML = originalText;
+            submitBtn.disabled = false;
+          }, 1500);
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+
+          // If authentication required, auth-utils.js already handles redirect
+          // For other errors, show notification and reset button
+          if (error.message !== "AUTHENTICATION_REQUIRED") {
             showNotification("Có lỗi xảy ra. Vui lòng thử lại!", "error");
             submitBtn.innerHTML = originalText;
             submitBtn.disabled = false;
           }
-        })
-        .catch((error) => {
-          console.error("Error:", error);
-          showNotification("Có lỗi xảy ra. Vui lòng thử lại!", "error");
-          submitBtn.innerHTML = originalText;
-          submitBtn.disabled = false;
+          // If AUTHENTICATION_REQUIRED, do nothing - auth-utils handles redirect
         });
     });
   });

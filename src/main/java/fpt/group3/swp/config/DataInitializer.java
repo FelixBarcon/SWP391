@@ -104,7 +104,7 @@ public class DataInitializer implements CommandLineRunner {
                 shop.setBankCode("BANK00" + i);
                 shop.setBankAccountNo("123456789" + i);
                 shop.setBankAccountName("Seller " + i + " Shop");
-                shop.setRatingAvg(4.0 + (i * 0.5));
+                shop.setRatingAvg(Math.min(4.0 + (i * 0.3), 5.0));
                 shop.setCreatedAt(LocalDate.now());
                 shopRepository.save(shop);
             }

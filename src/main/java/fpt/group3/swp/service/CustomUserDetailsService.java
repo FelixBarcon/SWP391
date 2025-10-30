@@ -1,13 +1,14 @@
 package fpt.group3.swp.service;
 
-import java.util.Collections;
-
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.security.authentication.DisabledException;
+
+import java.util.Collections;
 
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
@@ -30,16 +31,22 @@ public class CustomUserDetailsService implements UserDetailsService {
         if (user.getRole() != null) {
             roleName = user.getRole().getName();
         } else {
-            // Fix user with missing role
+            // Fix user with missing role (save safely)
             user.setRole(this.userService.getRoleByName("USER"));
-            this.userService.handleSaveUser(user);
+            this.userService.updateUser(user);
             System.out.println("Fixed user " + username + " with missing role");
         }
 
-        return new User(
-                user.getEmail(),
-                user.getPassword(),
-                Collections.singletonList(new SimpleGrantedAuthority("ROLE_" + roleName)));
+        boolean disabled = (user.getStatus() != null && user.getStatus().name().equals("INACTIVE"));
+
+        return User.withUsername(user.getEmail())
+                .password(user.getPassword())
+                .authorities("ROLE_" + roleName)
+                .accountExpired(false)
+                .accountLocked(false)
+                .credentialsExpired(false)
+                .disabled(disabled)
+                .build();
 
     }
 

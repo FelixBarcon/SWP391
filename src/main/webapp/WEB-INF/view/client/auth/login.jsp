@@ -62,6 +62,14 @@
                                             </div>
                                         </c:if>
 
+                                        <!-- Tài khoản bị khóa -->
+                                        <c:if test="${param.disabled != null}">
+                                            <div class="alert alert-warning" role="alert">
+                                                <i class="fas fa-user-lock me-2"></i>
+                                                Tài khoản của bạn đã bị khóa. Vui lòng liên hệ hỗ trợ.
+                                            </div>
+                                        </c:if>
+
                                         <!-- Hiển thị thông báo logout -->
                                         <c:if test="${param.logout != null}">
                                             <div class="alert alert-success" role="alert">

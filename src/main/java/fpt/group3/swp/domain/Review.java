@@ -23,6 +23,10 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public abstract class Review implements Serializable {
 
+    @ManyToOne
+    @JoinColumn(name = "order_item_id", nullable = false)
+    private OrderItem orderItem;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "review_id")

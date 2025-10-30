@@ -258,39 +258,42 @@ function initAddToCart() {
       // Show loading
       showLoading();
 
-      // Submit form via AJAX
+      // Submit form via AJAX with authentication check
       const formData = new FormData(productForm);
 
-      fetch(productForm.action, {
-        method: "POST",
-        body: formData,
-      })
+      window
+        .safeAddToCart(productForm.action, formData)
         .then((response) => {
           // Remove loading
           const loadingOverlay = document.querySelector(".loading-overlay");
           if (loadingOverlay) loadingOverlay.remove();
 
-          if (response.ok) {
-            // Show success notification
-            showNotification("✓ Đã thêm sản phẩm vào giỏ hàng!", "success");
+          // Success! Either response.ok or we got redirected to cart/product page
+          showNotification("✓ Đã thêm sản phẩm vào giỏ hàng!", "success");
 
-            // Add animation to button
-            this.style.transform = "scale(0.95)";
-            setTimeout(() => {
-              this.style.transform = "scale(1)";
-            }, 100);
+          // Add animation to button
+          addToCartBtn.style.transform = "scale(0.95)";
+          setTimeout(() => {
+            addToCartBtn.style.transform = "scale(1)";
+          }, 100);
 
-            // Optional: Update cart count in header if exists
-            updateCartCount();
-          } else {
-            showNotification("Có lỗi xảy ra. Vui lòng thử lại!", "warning");
-          }
+          // Optional: Update cart count in header if exists
+          updateCartCount();
         })
         .catch((error) => {
           const loadingOverlay = document.querySelector(".loading-overlay");
           if (loadingOverlay) loadingOverlay.remove();
-          showNotification("Có lỗi xảy ra. Vui lòng thử lại!", "warning");
-          console.error("Error:", error);
+
+          // If authentication required, auth-utils.js already handles redirect
+          // For other errors, show notification
+          if (error.message !== "AUTHENTICATION_REQUIRED") {
+            showNotification(
+              "Vui lòng đăng nhập trước khi thêm sản phẩm vào giỏ hàng!",
+              "warning"
+            );
+            console.error("Error:", error);
+          }
+          // If AUTHENTICATION_REQUIRED, do nothing - auth-utils handles it
         });
     });
   }
