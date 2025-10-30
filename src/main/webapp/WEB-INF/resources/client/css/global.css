@@ -1,6 +1,6 @@
 /* 
  * CSS CHUNG CHO TOÀN BỘ WEBSITE - MARKETPLACE
- * Màu chủ đạo: Cam Shopee (#ee4d2d)
+ * Màu chủ đạo: Xanh dương nhạt (#5B9BD5)
  * Thiết lập các biến CSS và styles chung
  */
 
@@ -13,22 +13,22 @@
 
 /* ===== BIẾN CSS CHO MÀU SẮC VÀ STYLES CHUNG ===== */
 :root {
-  /* ===== MÀU CHÍNH - SHOPEE ORANGE ===== */
-  --primary-color: #ee4d2d;
-  --primary-dark: #d73027;
-  --primary-light: #ff6b35;
-  --primary-lighter: #ff8a65;
+  /* ===== MÀU CHÍNH - LIGHT BLUE ===== */
+  --primary-color: #5b9bd5;
+  --primary-dark: #4a7ba7;
+  --primary-light: #7bb3e8;
+  --primary-lighter: #90c8f0;
   --primary-gradient: linear-gradient(
     135deg,
-    #ee4d2d 0%,
-    #ff6b35 50%,
-    #d73027 100%
+    #5b9bd5 0%,
+    #7bb3e8 50%,
+    #4a7ba7 100%
   );
   --primary-gradient-reverse: linear-gradient(
     135deg,
-    #d73027 0%,
-    #ee4d2d 50%,
-    #ff6b35 100%
+    #4a7ba7 0%,
+    #5b9bd5 50%,
+    #7bb3e8 100%
   );
 
   /* ===== MÀU PHỤ ===== */
@@ -65,8 +65,8 @@
   --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.12);
   --shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.15);
   --shadow-xl: 0 12px 24px rgba(0, 0, 0, 0.2);
-  --shadow-primary: 0 4px 15px rgba(238, 77, 45, 0.3);
-  --shadow-primary-lg: 0 6px 20px rgba(238, 77, 45, 0.4);
+  --shadow-primary: 0 4px 15px rgba(91, 155, 213, 0.3);
+  --shadow-primary-lg: 0 6px 20px rgba(91, 155, 213, 0.4);
 
   /* ===== BORDER RADIUS ===== */
   --border-radius-sm: 4px;
@@ -157,7 +157,7 @@ body {
 .input-field:focus {
   border-color: var(--border-focus);
   background: var(--bg-white);
-  box-shadow: 0 0 0 0.2rem rgba(238, 77, 45, 0.15);
+  box-shadow: 0 0 0 0.2rem rgba(91, 155, 213, 0.15);
   transform: translateY(-1px);
 }
 

@@ -65,7 +65,7 @@
                         <!-- ===== THANH TÌM KIẾM ===== -->
                         <div class="search-wrapper">
                             <div class="search-container">
-                                <form class="d-flex" action="<c:url value='/search' />" method="get">
+                                <form class="d-flex" action="<c:url value='/products' />" method="get">
                                     <input class="search-input" type="search" name="q"
                                         placeholder="Tìm kiếm sản phẩm, thương hiệu..." autocomplete="off">
                                     <button class="search-btn" type="submit">
@@ -90,22 +90,6 @@
                                 <c:when test="${not empty sessionScope.fullName}">
                                     <!-- ===== MENU CHO USER ĐÃ ĐĂNG NHẬP ===== -->
 
-                                    <!-- Thông báo -->
-                                    <li class="nav-item position-relative me-2">
-                                        <a class="nav-link" href="<c:url value='/notifications' />" title="Thông báo">
-                                            <i class="fas fa-bell"></i>
-                                            <span class="notification-badge">3</span>
-                                        </a>
-                                    </li>
-
-                                    <!-- Yêu thích -->
-                                    <li class="nav-item position-relative me-2">
-                                        <a class="nav-link" href="<c:url value='/wishlist' />" title="Yêu thích">
-                                            <i class="fas fa-heart"></i>
-                                            <span class="notification-badge" style="background: #34495e;">5</span>
-                                        </a>
-                                    </li>
-
                                     <!-- Giỏ hàng -->
                                     <li class="nav-item position-relative me-3">
                                         <a class="nav-link" href="<c:url value='/cart' />" title="Giỏ hàng">
@@ -121,7 +105,8 @@
                                             <div class="user-avatar">
                                                 <c:choose>
                                                     <c:when test="${not empty sessionScope.avatar}">
-                                                        <img src="${sessionScope.avatar}" alt="Avatar"
+                                                        <img src="<c:url value='/images/${sessionScope.avatar}' />"
+                                                            alt="Avatar"
                                                             style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">
                                                     </c:when>
                                                     <c:otherwise>
@@ -145,28 +130,14 @@
                                                     <i class="fas fa-user"></i>Hồ sơ cá nhân</a></li>
                                             <li><a class="dropdown-item" href="<c:url value='/orders' />">
                                                     <i class="fas fa-box"></i>Đơn hàng của tôi</a></li>
-                                            <li><a class="dropdown-item" href="<c:url value='/addresses' />">
-                                                    <i class="fas fa-map-marker-alt"></i>Địa chỉ</a></li>
 
-                                            <!-- Menu dành cho người bán -->
-                                            <c:if test="${sessionScope.role == 'SELLER'}">
-                                                <li>
-                                                    <hr class="dropdown-divider">
-                                                </li>
-                                                <li><a class="dropdown-item" href="<c:url value='/seller/dashboard' />">
-                                                        <i class="fas fa-tachometer-alt"></i>Bảng điều khiển</a>
-                                                </li>
-                                                <li><a class="dropdown-item" href="<c:url value='/seller/products' />">
-                                                        <i class="fas fa-cube"></i>Sản phẩm của tôi</a></li>
+                                            <!-- Hiển thị nút Admin nếu user có role ADMIN -->
+                                            <c:if test="${sessionScope.role == 'ADMIN'}">
+                                                <li><a class="dropdown-item text-primary fw-semibold"
+                                                        href="<c:url value='/admin' />">
+                                                        <i class="fas fa-shield-alt"></i>Quản trị hệ thống</a></li>
                                             </c:if>
 
-                                            <li>
-                                                <hr class="dropdown-divider">
-                                            </li>
-                                            <li><a class="dropdown-item" href="<c:url value='/settings' />">
-                                                    <i class="fas fa-cog"></i>Cài đặt</a></li>
-                                            <li><a class="dropdown-item" href="<c:url value='/help' />">
-                                                    <i class="fas fa-question-circle"></i>Trợ giúp</a></li>
                                             <li>
                                                 <hr class="dropdown-divider">
                                             </li>
@@ -207,6 +178,9 @@
         <!-- ===== BOOTSTRAP & JQUERY JAVASCRIPT ===== -->
         <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+        <!-- Auth Utilities -->
+        <script src="<c:url value='/resources/client/js/auth-utils.js'/>"></script>
 
         <!-- ===== HEADER JAVASCRIPT ===== -->
         <script>

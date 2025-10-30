@@ -35,6 +35,7 @@
     initAddressSelects();
     initPaymentMethods();
     initFormValidation();
+    initProfileAddressButton();
 
     // Nếu địa chỉ đã có sẵn (user quay lại), tính phí ngay
     const toDist = document.getElementById("to-district-id")?.value;
@@ -159,6 +160,44 @@
   function setValueIfExists(id, val) {
     const el = document.getElementById(id);
     if (el) el.value = val;
+  }
+
+  // ======================================
+  // Fill address from profile
+  // ======================================
+
+  function initProfileAddressButton() {
+    const btn = document.getElementById("btn-fill-profile-address");
+    if (!btn) return;
+
+    btn.addEventListener("click", async () => {
+      try {
+        btn.disabled = true;
+        showLoading("Đang lấy địa chỉ từ hồ sơ...");
+        const url = `${config.contextPath}/account/profile/address`;
+        const res = await fetch(url, { headers: { "Accept": "application/json" } });
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const data = await res.json();
+
+        if (data && data.hasAddress && data.address) {
+          const input = document.querySelector('input[name="receiverAddress"]');
+          if (input) {
+            input.value = data.address;
+            input.classList.add("just-filled");
+            setTimeout(() => input.classList.remove("just-filled"), 600);
+          }
+          showNotification("Đã điền địa chỉ từ hồ sơ", "success");
+        } else {
+          showNotification("Bạn chưa lưu địa chỉ trong hồ sơ. Vui lòng cập nhật tại Trang hồ sơ.", "error");
+        }
+      } catch (e) {
+        console.error("Fetch profile address error:", e);
+        showNotification("Không thể lấy địa chỉ hồ sơ. Vui lòng thử lại.", "error");
+      } finally {
+        hideLoading();
+        btn.disabled = false;
+      }
+    });
   }
 
   // ======================================

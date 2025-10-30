@@ -1,12 +1,12 @@
 /* ========================================
-   CART PAGE - SHOPEE STYLE
+   CART PAGE - LIGHT BLUE STYLE
    ======================================== */
 
 :root {
-  --shopee-primary: #ee4d2d;
-  --shopee-primary-hover: #d73211;
-  --shopee-orange-light: #fff6f5;
-  --shopee-orange-bg: #ffede8;
+  --shopee-primary: #5b9bd5;
+  --shopee-primary-hover: #4a7ba7;
+  --shopee-orange-light: #f0f7fc;
+  --shopee-orange-bg: #e3f2fd;
   --text-primary: #333;
   --text-secondary: #757575;
   --text-disabled: #999;
@@ -524,13 +524,13 @@ body {
   border-radius: 6px;
   cursor: pointer;
   transition: all 0.3s;
-  box-shadow: 0 2px 4px rgba(238, 77, 45, 0.3);
+  box-shadow: 0 2px 4px rgba(91, 155, 213, 0.3);
 }
 
 .checkout-btn:hover {
   background: var(--shopee-primary-hover);
   transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(238, 77, 45, 0.4);
+  box-shadow: 0 4px 8px rgba(91, 155, 213, 0.4);
 }
 
 .checkout-btn:disabled {
@@ -587,7 +587,7 @@ body {
 .back-to-shop-btn:hover {
   background: var(--shopee-primary-hover);
   transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(238, 77, 45, 0.4);
+  box-shadow: 0 4px 8px rgba(91, 155, 213, 0.4);
 }
 
 /* ========================================

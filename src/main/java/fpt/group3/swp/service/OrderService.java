@@ -17,6 +17,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 import java.util.stream.Collectors;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 @Service
 @RequiredArgsConstructor
@@ -34,16 +36,31 @@ public class OrderService {
             List<Long> selectedCartDetailIds,
             PaymentMethod payment,
             String rName, String rPhone,
-            String rAddr, String rProv, String rDist, String rWard
-    ) {
+            String rAddr, String rProv, String rDist, String rWard) {
         List<CartDetail> lines = cartDetailRepo.findAllById(selectedCartDetailIds);
-        if (lines.isEmpty()) throw new IllegalArgumentException("Không có sản phẩm hợp lệ.");
+        if (lines.isEmpty())
+            throw new IllegalArgumentException("Không có sản phẩm hợp lệ.");
+
+        // Validate that all products are sellable (ACTIVE, not deleted) and shop is not locked
+        for (CartDetail cd : lines) {
+            Product p = cd.getProduct();
+            if (p == null) {
+                throw new IllegalStateException("Invalid cart item.");
+            }
+            if (p.getStatus() != fpt.group3.swp.common.Status.ACTIVE || p.isDeleted()) {
+                throw new IllegalStateException("Product '" + p.getName() + "' is not available for sale.");
+            }
+            if (p.getShop() != null && p.getShop().getUser() != null
+                    && p.getShop().getUser().getStatus() == fpt.group3.swp.common.Status.INACTIVE) {
+                throw new IllegalStateException("Shop is locked and cannot sell.");
+            }
+        }
 
         Order order = new Order();
         order.setUser(user);
         order.setPaymentMethod(payment);
         order.setOrderStatus(payment == PaymentMethod.COD
-                ? OrderStatus.PENDING_CONFIRM
+                ? OrderStatus.PAID
                 : OrderStatus.PENDING_PAYMENT);
 
         order.setReceiverName(rName);
@@ -116,11 +133,18 @@ public class OrderService {
             int qty,
             PaymentMethod payment,
             String rName, String rPhone,
-            String rAddr, String rProv, String rDist, String rWard
-    ) {
-        if (qty <= 0) qty = 1;
+            String rAddr, String rProv, String rDist, String rWard) {
+        if (qty <= 0)
+            qty = 1;
 
         Product product = productRepo.findById(productId).orElseThrow();
+        if (product.getStatus() != fpt.group3.swp.common.Status.ACTIVE || product.isDeleted()) {
+            throw new IllegalStateException("Product is not available for sale.");
+        }
+        if (product.getShop() != null && product.getShop().getUser() != null
+                && product.getShop().getUser().getStatus() == fpt.group3.swp.common.Status.INACTIVE) {
+            throw new IllegalStateException("Shop is locked and cannot sell.");
+        }
         ProductVariant variant = null;
         if (variantId != null) {
             variant = variantRepo.findById(variantId).orElseThrow();
@@ -139,7 +163,7 @@ public class OrderService {
         order.setUser(user);
         order.setPaymentMethod(payment);
         order.setOrderStatus(payment == PaymentMethod.COD
-                ? OrderStatus.PENDING_CONFIRM
+                ? OrderStatus.PAID
                 : OrderStatus.PENDING_PAYMENT);
 
         order.setReceiverName(rName);
@@ -177,6 +201,23 @@ public class OrderService {
         return orderRepo.findById(id).orElseThrow();
     }
 
+    public java.util.List<Order> findAllByUser(Long userId) {
+        return orderRepo.findAllByUser_IdOrderByCreatedAtDesc(userId);
+    }
+
+    public java.util.List<Order> findAllByShop(Long shopId) {
+        return orderRepo.findAllByShopId(shopId);
+    }
+
+    // Paged
+    public Page<Order> findAllByUser(Long userId, Pageable pageable) {
+        return orderRepo.findAllByUser_Id(userId, pageable);
+    }
+
+    public Page<Order> findAllByShop(Long shopId, Pageable pageable) {
+        return orderRepo.findAllByShopId(shopId, pageable);
+    }
+
     @Transactional
     public void markPaid(Long orderId) {
         Order o = orderRepo.findById(orderId).orElseThrow();
@@ -198,8 +239,10 @@ public class OrderService {
                 int need = oi.getQuantity();
 
                 for (CartDetail cd : userCartLines) {
-                    if (need <= 0) break;
-                    if (cd.getProduct() == null || cd.getProduct().getId() != productId) continue;
+                    if (need <= 0)
+                        break;
+                    if (cd.getProduct() == null || cd.getProduct().getId() != productId)
+                        continue;
 
                     int take = Math.min(cd.getQuantity(), need);
                     int remain = cd.getQuantity() - take;

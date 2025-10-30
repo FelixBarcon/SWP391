@@ -99,12 +99,13 @@
    */
   function initCheckboxHandlers() {
     const selectAllCheckbox = document.getElementById("select-all-checkbox");
+    const headerSelectAll = document.getElementById("header-select-all");
     const shopCheckboxes = document.querySelectorAll(".shop-checkbox");
     const itemCheckboxes = document.querySelectorAll(
       ".item-checkbox:not(:disabled)"
     );
 
-    // Select all handler
+    // Select all handler for footer checkbox
     if (selectAllCheckbox) {
       selectAllCheckbox.addEventListener("change", (e) => {
         const isChecked = e.target.checked;
@@ -117,14 +118,46 @@
           checkbox.checked = isChecked;
         });
 
+        // Sync header checkbox
+        if (headerSelectAll) {
+          headerSelectAll.checked = isChecked;
+        }
+
         recalculateTotals();
       });
     }
 
-    // Shop checkbox handlers
+    // Select all handler for header checkbox
+    if (headerSelectAll) {
+      headerSelectAll.addEventListener("change", (e) => {
+        const isChecked = e.target.checked;
+
+        itemCheckboxes.forEach((checkbox) => {
+          checkbox.checked = isChecked;
+        });
+
+        shopCheckboxes.forEach((checkbox) => {
+          checkbox.checked = isChecked;
+        });
+
+        // Sync footer checkbox
+        if (selectAllCheckbox) {
+          selectAllCheckbox.checked = isChecked;
+        }
+
+        recalculateTotals();
+      });
+    }
+
+    // Shop checkbox handlers (exclude the header select-all)
     shopCheckboxes.forEach((shopCheckbox) => {
+      // Skip if this is the header select-all checkbox
+      if (shopCheckbox.id === 'header-select-all') return;
+      
       shopCheckbox.addEventListener("change", (e) => {
         const shopGroup = e.target.closest(".shop-group");
+        if (!shopGroup) return;
+        
         const itemsInShop = shopGroup.querySelectorAll(
           ".item-checkbox:not(:disabled)"
         );
@@ -166,6 +199,7 @@
    */
   function updateSelectAllState() {
     const selectAllCheckbox = document.getElementById("select-all-checkbox");
+    const headerSelectAll = document.getElementById("header-select-all");
     const itemCheckboxes = document.querySelectorAll(
       ".item-checkbox:not(:disabled)"
     );
@@ -173,10 +207,14 @@
       ".item-checkbox:not(:disabled):checked"
     );
 
+    const allSelected = itemCheckboxes.length === checkedItems.length && itemCheckboxes.length > 0;
+
     if (selectAllCheckbox) {
-      selectAllCheckbox.checked =
-        itemCheckboxes.length === checkedItems.length &&
-        itemCheckboxes.length > 0;
+      selectAllCheckbox.checked = allSelected;
+    }
+    
+    if (headerSelectAll) {
+      headerSelectAll.checked = allSelected;
     }
   }
 

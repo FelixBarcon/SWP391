@@ -35,9 +35,35 @@ document.addEventListener("DOMContentLoaded", function () {
     trendingKeywords.forEach((keyword) => {
       keyword.addEventListener("click", function (e) {
         e.preventDefault();
-        const searchTerm = this.textContent.trim();
-        searchInput.value = searchTerm;
-        performSearch(searchTerm);
+        // Lấy từ khóa từ data-keyword attribute
+        const searchTerm =
+          this.getAttribute("data-keyword") || this.textContent.trim();
+
+        // Tìm ô tìm kiếm trong form
+        const searchInputInForm = document.querySelector(
+          '.search-form input[name="q"]'
+        );
+
+        if (searchInputInForm) {
+          // Điền từ khóa vào ô tìm kiếm
+          searchInputInForm.value = searchTerm;
+
+          // Focus vào ô tìm kiếm
+          searchInputInForm.focus();
+
+          // Thêm hiệu ứng highlight
+          searchInputInForm.style.boxShadow =
+            "0 0 0 3px rgba(91, 155, 213, 0.3)";
+          setTimeout(() => {
+            searchInputInForm.style.boxShadow = "";
+          }, 1000);
+
+          // Scroll đến ô tìm kiếm
+          searchInputInForm.scrollIntoView({
+            behavior: "smooth",
+            block: "center",
+          });
+        }
       });
     });
 

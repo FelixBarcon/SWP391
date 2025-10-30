@@ -60,16 +60,16 @@
                                             <i class="fas fa-shopping-cart me-2"></i>
                                             Mua sắm ngay
                                         </a>
-                                        <a href="#categories" class="btn btn-outline-primary btn-lg">
+                                        <a href="#shopTop" class="btn btn-outline-primary btn-lg">
                                             <i class="fas fa-list me-2"></i>
-                                            Danh mục sản phẩm
+                                            Shop nổi bật
                                         </a>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-lg-6">
-                                <div class="hero-image">
-                                    <img src="<c:url value='/resources/client/images/hero-shopping.svg'/>"
+                                <div class="hero-image border-radius-lg shadow-lg p-3 bg-white">
+                                    <img src="<c:url value='/resources/client/images/hero-shopping.jpg'/>"
                                         alt="Shopping Online" class="img-fluid">
                                 </div>
                             </div>
@@ -82,29 +82,120 @@
                     <div class="container">
                         <div class="search-container">
                             <div class="search-form">
-                                <div class="input-group input-group-lg">
-                                    <input type="text" class="form-control"
-                                        placeholder="Tìm kiếm sản phẩm, thương hiệu, danh mục...">
-                                    <button class="btn btn-primary" type="button">
-                                        <i class="fas fa-search"></i>
-                                        Tìm kiếm
-                                    </button>
-                                </div>
+                                <form method="get" action="${pageContext.request.contextPath}/products">
+                                    <div class="input-group input-group-lg">
+                                        <input type="text" class="form-control" name="q"
+                                            placeholder="Tìm kiếm sản phẩm, thương hiệu, danh mục...">
+                                        <button class="btn btn-primary" type="submit">
+                                            <i class="fas fa-search"></i>
+                                            Tìm kiếm
+                                        </button>
+                                    </div>
+                                </form>
                             </div>
                             <div class="trending-keywords">
-                                <span class="trending-label">Từ khóa hot:</span>
-                                <a href="#" class="trending-keyword">Điện thoại</a>
-                                <a href="#" class="trending-keyword">Laptop</a>
-                                <a href="#" class="trending-keyword">Thời trang</a>
-                                <a href="#" class="trending-keyword">Mỹ phẩm</a>
-                                <a href="#" class="trending-keyword">Gia dụng</a>
+                                <span class="trending-label">
+                                    <i class="fas fa-fire text-danger"></i> Từ khóa hot:
+                                </span>
+                                <a href="javascript:void(0)" class="trending-keyword" data-keyword="Điện thoại">
+                                    <i class="fas fa-mobile-alt"></i> Điện thoại
+                                </a>
+                                <a href="javascript:void(0)" class="trending-keyword" data-keyword="Laptop">
+                                    <i class="fas fa-laptop"></i> Laptop
+                                </a>
+                                <a href="javascript:void(0)" class="trending-keyword" data-keyword="Thời trang">
+                                    <i class="fas fa-tshirt"></i> Thời trang
+                                </a>
+                                <a href="javascript:void(0)" class="trending-keyword" data-keyword="Mỹ phẩm">
+                                    <i class="fas fa-gem"></i> Mỹ phẩm
+                                </a>
+                                <a href="javascript:void(0)" class="trending-keyword" data-keyword="Gia dụng">
+                                    <i class="fas fa-home"></i> Gia dụng
+                                </a>
                             </div>
                         </div>
                     </div>
                 </section>
 
+                <!-- Top Shops Section -->
+                <section id="shopTop" class="top-shops-section">
+                    <div class="container">
+                        <div class="section-header text-center">
+                            <div class="shop-badge">
+                                <i class="fas fa-store"></i> Shop Mall
+                            </div>
+                            <h2 class="section-title">Shop Nổi Bật</h2>
+                            <p class="section-subtitle">Các gian hàng uy tín với đánh giá cao từ khách hàng</p>
+                        </div>
+
+                        <div class="row g-4">
+                            <c:forEach var="shop" items="${topShops}">
+                                <div class="col-lg-4 col-md-6">
+                                    <div class="shop-card-modern">
+                                        <div class="shop-header">
+                                            <div class="shop-info">
+                                                <h5 class="shop-name">${shop.displayName}</h5>
+                                                <div class="shop-rating">
+                                                    <div class="stars">
+                                                        <c:forEach begin="1" end="5" var="i">
+                                                            <c:choose>
+                                                                <c:when test="${i <= shop.ratingAvg}">
+                                                                    <i class="fas fa-star"></i>
+                                                                </c:when>
+                                                                <c:otherwise>
+                                                                    <i class="far fa-star"></i>
+                                                                </c:otherwise>
+                                                            </c:choose>
+                                                        </c:forEach>
+                                                    </div>
+                                                    <span class="rating-text">
+                                                        <fmt:formatNumber value="${shop.ratingAvg}"
+                                                            maxFractionDigits="1" />
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="shop-verified">
+                                                <i class="fas fa-check-circle"></i>
+                                            </div>
+                                        </div>
+
+                                        <div class="shop-description">
+                                            <c:choose>
+                                                <c:when test="${not empty shop.description}">
+                                                    ${shop.description}
+                                                </c:when>
+                                                <c:otherwise>
+                                                    Shop uy tín, chất lượng sản phẩm đảm bảo
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </div>
+
+                                        <div class="shop-stats">
+                                            <div class="shop-stat-item">
+                                                <i class="fas fa-box"></i>
+                                                <span>${shop.products.size()} sản phẩm</span>
+                                            </div>
+                                            <div class="shop-stat-item">
+                                                <i class="fas fa-star"></i>
+                                                <span>${shop.reviews.size()} đánh giá</span>
+                                            </div>
+                                        </div>
+
+                                        <div class="shop-footer">
+                                            <a class="btn-visit-shop">
+                                                <i class="fas fa-shopping-bag"></i>
+                                                Xem cửa hàng
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </c:forEach>
+                        </div>
+                    </div>
+                </section>
+
                 <!-- Categories Section -->
-                <section id="categories" class="categories-section">
+                <!-- <section id="categories" class="categories-section">
                     <div class="container">
                         <div class="section-header text-center">
                             <h2 class="section-title">Danh mục nổi bật</h2>
@@ -167,7 +258,7 @@
                             </div>
                         </div>
                     </div>
-                </section>
+                </section> -->
 
                 <!-- Featured Products Section -->
                 <section id="products" class="featured-products-section">
@@ -230,15 +321,30 @@
 
                                             <!-- Rating -->
                                             <div class="product-rating">
+                                                <c:set var="rating" value="${productRatings[p.id]}" />
+                                                <c:set var="reviewCount" value="${productReviewCounts[p.id]}" />
                                                 <div class="stars">
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star-half-alt"></i>
+                                                    <c:forEach begin="1" end="5" var="i">
+                                                        <c:choose>
+                                                            <c:when test="${i <= rating}">
+                                                                <i class="fas fa-star"></i>
+                                                            </c:when>
+                                                            <c:when test="${i - rating < 1 && i - rating > 0}">
+                                                                <i class="fas fa-star-half-alt"></i>
+                                                            </c:when>
+                                                            <c:otherwise>
+                                                                <i class="far fa-star"></i>
+                                                            </c:otherwise>
+                                                        </c:choose>
+                                                    </c:forEach>
                                                 </div>
-                                                <span class="rating-text">4.8</span>
-                                                <span class="sold-count">| Đã bán 1.2k</span>
+                                                <span class="rating-text">
+                                                    <fmt:formatNumber value="${rating}" maxFractionDigits="1"
+                                                        minFractionDigits="1" />
+                                                </span>
+                                                <c:if test="${reviewCount > 0}">
+                                                    <span class="sold-count">| ${reviewCount} đánh giá</span>
+                                                </c:if>
                                             </div>
 
                                             <!-- Price -->
