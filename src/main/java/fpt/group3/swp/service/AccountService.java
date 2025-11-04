@@ -46,7 +46,7 @@ public class AccountService {
     public void updateProfile(Principal principal, UpdateProfileReq req, MultipartFile avatarFile) {
         User u = getCurrentUser(principal);
 
-        // Email duy nhất
+        // Email duy nhất (giữ nguyên hành vi cũ)
         if (StringUtils.hasText(req.getEmail()) && !req.getEmail().equalsIgnoreCase(u.getEmail())) {
             if (userRepo.existsByEmailIgnoreCaseAndIdNot(req.getEmail().trim(), u.getId())) {
                 throw new BusinessException("email_exists", "Email đã tồn tại.");
@@ -54,11 +54,14 @@ public class AccountService {
             u.setEmail(req.getEmail().trim());
         }
 
+        // Cập nhật họ tên gộp vào fullName
         if (StringUtils.hasText(req.getFullName())) u.setFullName(req.getFullName().trim());
-        u.setFirstName(req.getFirstName() == null ? null : req.getFirstName().trim());
-        u.setLastName(req.getLastName() == null ? null : req.getLastName().trim());
-        u.setPhone(req.getPhone() == null ? null : req.getPhone().trim());
-        u.setAddress(req.getAddress() == null ? null : req.getAddress().trim());
+
+        // Giữ nguyên cập nhật các trường còn lại
+        if (req.getFirstName() != null) u.setFirstName(req.getFirstName().trim());
+        if (req.getLastName() != null) u.setLastName(req.getLastName().trim());
+        if (req.getPhone() != null) u.setPhone(req.getPhone().trim());
+        if (req.getAddress() != null) u.setAddress(req.getAddress().trim());
 
         // Avatar
         if (req.isRemoveAvatar()) {

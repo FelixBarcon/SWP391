@@ -173,22 +173,66 @@
     btn.addEventListener("click", async () => {
       try {
         btn.disabled = true;
-        showLoading("Đang lấy địa chỉ từ hồ sơ...");
+        showLoading("Đang lấy thông tin người nhận từ hồ sơ...");
         const url = `${config.contextPath}/account/profile/address`;
         const res = await fetch(url, { headers: { "Accept": "application/json" } });
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         const data = await res.json();
 
+        // Track which fields are filled/missing
+        const filled = [];
+        const missing = [];
+
+        // Address
         if (data && data.hasAddress && data.address) {
-          const input = document.querySelector('input[name="receiverAddress"]');
-          if (input) {
-            input.value = data.address;
-            input.classList.add("just-filled");
-            setTimeout(() => input.classList.remove("just-filled"), 600);
+          const addrInput = document.querySelector('input[name="receiverAddress"]');
+          if (addrInput) {
+            addrInput.value = data.address;
+            addrInput.classList.add("just-filled");
+            setTimeout(() => addrInput.classList.remove("just-filled"), 600);
           }
-          showNotification("Đã điền địa chỉ từ hồ sơ", "success");
+          filled.push("địa chỉ");
         } else {
-          showNotification("Bạn chưa lưu địa chỉ trong hồ sơ. Vui lòng cập nhật tại Trang hồ sơ.", "error");
+          missing.push("địa chỉ");
+        }
+
+        // Full name
+        if (data && data.hasFullName && data.fullName) {
+          const nameInput = document.querySelector('input[name="receiverName"]');
+          if (nameInput) {
+            nameInput.value = data.fullName;
+            nameInput.classList.add("just-filled");
+            setTimeout(() => nameInput.classList.remove("just-filled"), 600);
+          }
+          filled.push("họ tên");
+        } else {
+          missing.push("họ tên");
+        }
+
+        // Phone
+        if (data && data.hasPhone && data.phone) {
+          const phoneInput = document.querySelector('input[name="receiverPhone"]');
+          if (phoneInput) {
+            phoneInput.value = data.phone;
+            phoneInput.classList.add("just-filled");
+            setTimeout(() => phoneInput.classList.remove("just-filled"), 600);
+          }
+          filled.push("số điện thoại");
+        } else {
+          missing.push("số điện thoại");
+        }
+
+        if (missing.length === 0) {
+          const msg = "Đã điền đầy đủ thông tin người nhận từ hồ sơ";
+          showNotification(msg, "success");
+        } else {
+          if (missing.length === 1) {
+            const missMsg = `Chưa có ${missing[0]} trong hồ sơ. Vui lòng cập nhật.`;
+            showNotification(missMsg, "error");
+          } else {
+            const missMsg = `Thiếu ${missing.join(", ")} trong hồ sơ. Vui lòng cập nhật.`;
+            showNotification(missMsg, "error");
+          }
         }
       } catch (e) {
         console.error("Fetch profile address error:", e);

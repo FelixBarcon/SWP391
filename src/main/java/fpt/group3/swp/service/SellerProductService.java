@@ -135,7 +135,10 @@ public class SellerProductService {
     public void toggleDelete(Long id, Long shopId) {
         Product p = productRepo.findById(id).orElseThrow(() -> new IllegalArgumentException("Product not found"));
         assertOwner(p, shopId);
-        p.setDeleted(!p.isDeleted());
+        boolean newDeletedState = !p.isDeleted();
+        p.setDeleted(newDeletedState);
+        // Update status based on delete state: deleted products are inactive, restored products are active
+        p.setStatus(newDeletedState ? Status.INACTIVE : Status.ACTIVE);
         productRepo.save(p);
     }
 

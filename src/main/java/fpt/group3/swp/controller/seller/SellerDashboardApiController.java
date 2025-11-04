@@ -360,7 +360,7 @@ public class SellerDashboardApiController {
         
         // Header
         Row headerRow = sheet.createRow(3);
-        String[] headers = {"STT", "ID", "Tên sản phẩm", "Giá", "Trạng thái"};
+        String[] headers = {"STT", "ID", "Tên sản phẩm", "Giá", "Trạng thái", "Trạng thái xóa"};
         for (int i = 0; i < headers.length; i++) {
             Cell cell = headerRow.createCell(i);
             cell.setCellValue(headers[i]);
@@ -373,16 +373,17 @@ public class SellerDashboardApiController {
         sheet.setColumnWidth(2, 10000);
         sheet.setColumnWidth(3, 4000);
         sheet.setColumnWidth(4, 4000);
+        sheet.setColumnWidth(5, 4000);
         
-        // Data
+        // Data - Lấy tất cả sản phẩm (bao gồm cả đã xóa)
         List<Product> products = productRepository.findAllByShop_IdOrderByUpdatedAtDesc(shopId);
         
         int rowNum = 4;
         int stt = 1;
         int activeCount = 0;
+        int deletedCount = 0;
         
         for (Product product : products) {
-            if (product.isDeleted()) continue;
             
             Row row = sheet.createRow(rowNum++);
             
@@ -399,13 +400,20 @@ public class SellerDashboardApiController {
             String statusText = "";
             if (product.getStatus() != null) {
                 statusText = product.getStatus().toString().equals("ACTIVE") ? "Hoạt động" : "Không hoạt động";
-                if (product.getStatus().toString().equals("ACTIVE")) {
+                if (product.getStatus().toString().equals("ACTIVE") && !product.isDeleted()) {
                     activeCount++;
                 }
             }
             row.createCell(4).setCellValue(statusText);
             
-            for (int i = 0; i < 5; i++) {
+            // Thêm cột trạng thái xóa
+            String deleteStatus = product.isDeleted() ? "Đã xóa" : "Còn hoạt động";
+            row.createCell(5).setCellValue(deleteStatus);
+            if (product.isDeleted()) {
+                deletedCount++;
+            }
+            
+            for (int i = 0; i < 6; i++) {
                 row.getCell(i).setCellStyle(dataStyle);
             }
         }
@@ -424,6 +432,11 @@ public class SellerDashboardApiController {
         Cell summaryCell2 = summaryRow2.createCell(0);
         summaryCell2.setCellValue("Sản phẩm đang hoạt động: " + activeCount);
         summaryCell2.setCellStyle(boldStyle);
+        
+        Row summaryRow3 = sheet.createRow(rowNum + 3);
+        Cell summaryCell3 = summaryRow3.createCell(0);
+        summaryCell3.setCellValue("Sản phẩm đã xóa: " + deletedCount);
+        summaryCell3.setCellStyle(boldStyle);
     }
     
     private void createSummarySheet(Workbook workbook, CellStyle headerStyle, CellStyle dataStyle,
@@ -460,8 +473,15 @@ public class SellerDashboardApiController {
                 .mapToDouble(Order::getTotalAmount)
                 .sum();
         
+        // Lấy tất cả sản phẩm và thống kê
         List<Product> allProducts = productRepository.findAllByShop_IdOrderByUpdatedAtDesc(shopId);
-        long activeProducts = allProducts.stream().filter(p -> !p.isDeleted()).count();
+        long activeProducts = allProducts.stream()
+                .filter(p -> !p.isDeleted() && p.getStatus() != null 
+                        && p.getStatus().toString().equals("ACTIVE"))
+                .count();
+        long deletedProducts = allProducts.stream()
+                .filter(Product::isDeleted)
+                .count();
         
         int rowNum = 3;
         
@@ -483,7 +503,9 @@ public class SellerDashboardApiController {
         
         sheet.createRow(rowNum++); // Empty row
         
-        addSummaryRow(sheet, rowNum++, "Tổng số sản phẩm", String.valueOf(activeProducts), dataStyle);
+        addSummaryRow(sheet, rowNum++, "Tổng số sản phẩm", String.valueOf(allProducts.size()), dataStyle);
+        addSummaryRow(sheet, rowNum++, "  - Sản phẩm hoạt động", String.valueOf(activeProducts), dataStyle);
+        addSummaryRow(sheet, rowNum++, "  - Sản phẩm đã xóa", String.valueOf(deletedProducts), dataStyle);
         
         // Set column width
         sheet.setColumnWidth(0, 8000);

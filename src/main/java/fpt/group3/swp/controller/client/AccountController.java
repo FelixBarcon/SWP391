@@ -54,15 +54,25 @@ public class AccountController {
         }
     }
 
-    // Lightweight JSON endpoint for fetching saved address in profile
+    // Lightweight JSON endpoint for fetching saved info in profile
     @GetMapping("/profile/address")
     @ResponseBody
     public Map<String, Object> getProfileAddress(Principal principal) {
         User u = accountService.viewProfile(principal);
         String addr = u.getAddress();
+        String name = u.getFullName();
+        String phone = u.getPhone();
+
         return Map.of(
+                // Address
                 "hasAddress", addr != null && !addr.trim().isEmpty(),
-                "address", addr == null ? "" : addr.trim()
+                "address", addr == null ? "" : addr.trim(),
+                // Full name
+                "hasFullName", name != null && !name.trim().isEmpty(),
+                "fullName", name == null ? "" : name.trim(),
+                // Phone
+                "hasPhone", phone != null && !phone.trim().isEmpty(),
+                "phone", phone == null ? "" : phone.trim()
         );
     }
 

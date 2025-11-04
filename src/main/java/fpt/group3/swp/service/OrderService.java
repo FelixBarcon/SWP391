@@ -41,7 +41,8 @@ public class OrderService {
         if (lines.isEmpty())
             throw new IllegalArgumentException("Không có sản phẩm hợp lệ.");
 
-        // Validate that all products are sellable (ACTIVE, not deleted) and shop is not locked
+        // Validate that all products are sellable (ACTIVE, not deleted) and shop is not
+        // locked
         for (CartDetail cd : lines) {
             Product p = cd.getProduct();
             if (p == null) {
@@ -104,7 +105,7 @@ public class OrderService {
                 oi.setQuantity(cd.getQuantity());
                 oi.setUnitPrice(unit);
                 oi.setTotalPrice(total);
-                oi.setStatus(OrderItemStatus.PENDING);
+                oi.setStatus(OrderItemStatus.CONFIRMED);
 
                 orderItems.add(oi);
                 itemsTotal += total;
@@ -184,7 +185,7 @@ public class OrderService {
         oi.setQuantity(qty);
         oi.setUnitPrice(unit);
         oi.setTotalPrice(lineTotal);
-        oi.setStatus(OrderItemStatus.PENDING);
+        oi.setStatus(OrderItemStatus.CONFIRMED);
 
         Set<OrderItem> orderItems = new HashSet<>();
         orderItems.add(oi);

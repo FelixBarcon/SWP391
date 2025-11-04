@@ -89,6 +89,7 @@
                                         </c:choose>
                                     </div>
 
+                                    <!-- Avatar upload -->
                                     <div class="avatar-upload">
                                         <div class="file-input-wrapper">
                                             <input type="file" name="avatarFile" accept="image/*" class="file-input"
@@ -138,7 +139,7 @@
                                                 </label>
                                                 <input type="hidden" name="email" value="${u.email}" class="form-input"
                                                     required placeholder="example@email.com" />
-                                                <input disabled type="email" name="email" value="${u.email}"
+                                                <input disabled type="email" name="email_display" value="${u.email}"
                                                     class="form-input" required placeholder="example@email.com" />
                                             </div>
 
@@ -152,34 +153,14 @@
                                             </div>
                                         </div>
 
-                                        <div class="form-grid">
-                                            <div class="form-group">
-                                                <label class="form-label">
-                                                    <i class="fas fa-user"></i>
-                                                    Họ
-                                                </label>
-                                                <input type="text" name="lastName" value="${u.lastName}"
-                                                    class="form-input" placeholder="Nguyễn" />
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label class="form-label">
-                                                    <i class="fas fa-user"></i>
-                                                    Tên
-                                                </label>
-                                                <input type="text" name="firstName" value="${u.firstName}"
-                                                    class="form-input" placeholder="Văn A" />
-                                            </div>
-                                        </div>
-
-                                        <!-- <div class="form-group">
+                                        <div class="form-group">
                                             <label class="form-label">
                                                 <i class="fas fa-id-badge"></i>
                                                 Họ và tên đầy đủ <span class="required">*</span>
                                             </label>
-                                        </div> -->
-                                        <input type="hidden" name="fullName" value="${u.fullName}" class="form-input"
-                                            required placeholder="Nguyễn Văn A" />
+                                            <input type="text" name="fullName" value="${u.fullName}" class="form-input"
+                                                required placeholder="Nguyễn Văn A" />
+                                        </div>
 
                                         <div class="form-group">
                                             <label class="form-label">

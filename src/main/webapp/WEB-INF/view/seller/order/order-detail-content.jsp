@@ -31,7 +31,7 @@
                         <span class="info-label">Tên khách hàng:</span>
                         <span class="info-value">
                             <c:out value='${order.user != null ? order.user.fullName : "Khách hàng"}' />
-                        </span>q
+                        </span>
                     </div>
                     <div class="info-item">
                         <span class="info-label">Số điện thoại:</span>
