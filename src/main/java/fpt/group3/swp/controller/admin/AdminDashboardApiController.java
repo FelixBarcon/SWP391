@@ -524,7 +524,7 @@ public class AdminDashboardApiController {
         
         // Header
         Row headerRow = sheet.createRow(3);
-        String[] headers = {"STT", "ID", "Tên sản phẩm", "Giá", "Trạng thái", "Shop", "Ngày tạo"};
+        String[] headers = {"STT", "ID", "Tên sản phẩm", "Giá", "Trạng thái", "Shop", "Trạng thái xóa", "Ngày tạo"};
         for (int i = 0; i < headers.length; i++) {
             Cell cell = headerRow.createCell(i);
             cell.setCellValue(headers[i]);
@@ -538,9 +538,10 @@ public class AdminDashboardApiController {
         sheet.setColumnWidth(3, 4000);  // Giá
         sheet.setColumnWidth(4, 4000);  // Trạng thái
         sheet.setColumnWidth(5, 5000);  // Shop
-        sheet.setColumnWidth(6, 5000);  // Ngày tạo
+        sheet.setColumnWidth(6, 4000);  // Trạng thái xóa
+        sheet.setColumnWidth(7, 5000);  // Ngày tạo
         
-        // Data - filter by LocalDateTime range
+        // Data - filter by LocalDateTime range (bao gồm cả sản phẩm đã xóa)
         List<Product> products = productRepository.findAll().stream()
                 .filter(p -> p.getCreatedAt() != null && 
                         !p.getCreatedAt().isBefore(startDate) &&
@@ -550,6 +551,7 @@ public class AdminDashboardApiController {
         int rowNum = 4;
         int stt = 1;
         int activeCount = 0;
+        int deletedCount = 0;
         
         for (Product product : products) {
             Row row = sheet.createRow(rowNum++);
@@ -578,7 +580,7 @@ public class AdminDashboardApiController {
             String statusText = "";
             if (product.getStatus() != null) {
                 statusText = product.getStatus().toString().equals("ACTIVE") ? "Hoạt động" : "Không hoạt động";
-                if (product.getStatus().toString().equals("ACTIVE")) {
+                if (product.getStatus().toString().equals("ACTIVE") && !product.isDeleted()) {
                     activeCount++;
                 }
             }
@@ -590,10 +592,19 @@ public class AdminDashboardApiController {
                     product.getShop().getDisplayName() : "");
             cell5.setCellStyle(dataStyle);
             
+            // Thêm cột trạng thái xóa
             Cell cell6 = row.createCell(6);
-            cell6.setCellValue(product.getCreatedAt() != null ? 
-                    product.getCreatedAt().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")) : "");
+            String deleteStatus = product.isDeleted() ? "Đã xóa" : "Còn hoạt động";
+            cell6.setCellValue(deleteStatus);
             cell6.setCellStyle(dataStyle);
+            if (product.isDeleted()) {
+                deletedCount++;
+            }
+            
+            Cell cell7 = row.createCell(7);
+            cell7.setCellValue(product.getCreatedAt() != null ? 
+                    product.getCreatedAt().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")) : "");
+            cell7.setCellStyle(dataStyle);
         }
         
         // Summary rows
@@ -610,6 +621,11 @@ public class AdminDashboardApiController {
         Cell summaryCell2 = summaryRow2.createCell(0);
         summaryCell2.setCellValue("Sản phẩm đang hoạt động: " + activeCount);
         summaryCell2.setCellStyle(boldStyle);
+        
+        Row summaryRow3 = sheet.createRow(rowNum + 3);
+        Cell summaryCell3 = summaryRow3.createCell(0);
+        summaryCell3.setCellValue("Sản phẩm đã xóa: " + deletedCount);
+        summaryCell3.setCellStyle(boldStyle);
     }
     
     private void createSummarySheet(Workbook workbook, CellStyle headerStyle, CellStyle dataStyle,
@@ -654,11 +670,21 @@ public class AdminDashboardApiController {
                 .mapToDouble(Order::getTotalAmount)
                 .sum();
         
+        // Lấy tất cả sản phẩm trong kỳ (bao gồm cả đã xóa)
         List<Product> periodProducts = productRepository.findAll().stream()
                 .filter(p -> p.getCreatedAt() != null && 
                         !p.getCreatedAt().isBefore(startDate) &&
                         p.getCreatedAt().isBefore(endDate))
                 .collect(Collectors.toList());
+        
+        // Thống kê chi tiết
+        long periodProductsActive = periodProducts.stream()
+                .filter(p -> !p.isDeleted() && p.getStatus() != null 
+                        && p.getStatus().toString().equals("ACTIVE"))
+                .count();
+        long periodProductsDeleted = periodProducts.stream()
+                .filter(Product::isDeleted)
+                .count();
         
         int rowNum = 3;
         
@@ -691,11 +717,18 @@ public class AdminDashboardApiController {
         
         sheet.createRow(rowNum++); // Empty row
         
-        addSummaryRow(sheet, rowNum++, "Tổng số sản phẩm (toàn hệ thống)", String.valueOf(productRepository.count()), dataStyle);
+        // Thống kê sản phẩm chi tiết
+        List<Product> allProducts = productRepository.findAll();
+        long totalProducts = allProducts.size();
+        long totalActiveProducts = allProducts.stream().filter(p -> !p.isDeleted()).count();
+        long totalDeletedProducts = allProducts.stream().filter(Product::isDeleted).count();
+        
+        addSummaryRow(sheet, rowNum++, "Tổng số sản phẩm (toàn hệ thống)", String.valueOf(totalProducts), dataStyle);
+        addSummaryRow(sheet, rowNum++, "  - Sản phẩm còn hoạt động", String.valueOf(totalActiveProducts), dataStyle);
+        addSummaryRow(sheet, rowNum++, "  - Sản phẩm đã xóa", String.valueOf(totalDeletedProducts), dataStyle);
         addSummaryRow(sheet, rowNum++, "Sản phẩm mới trong kỳ", String.valueOf(periodProducts.size()), dataStyle);
-        addSummaryRow(sheet, rowNum++, "Sản phẩm hoạt động trong kỳ", 
-                String.valueOf(periodProducts.stream().filter(p -> p.getStatus() != null 
-                        && p.getStatus().toString().equals("ACTIVE")).count()), dataStyle);
+        addSummaryRow(sheet, rowNum++, "  - Hoạt động trong kỳ", String.valueOf(periodProductsActive), dataStyle);
+        addSummaryRow(sheet, rowNum++, "  - Đã xóa trong kỳ", String.valueOf(periodProductsDeleted), dataStyle);
         
         // Set column width
         sheet.setColumnWidth(0, 8000);
