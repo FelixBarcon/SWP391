@@ -246,3 +246,10 @@ body {
     grid-template-columns: 1fr;
   }
 }
+
+/* Print styles: hide site footer when printing invoice page */
+@media print {
+  footer.footer-section {
+    display: none !important;
+  }
+}
